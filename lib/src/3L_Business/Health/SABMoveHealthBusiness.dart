@@ -1,12 +1,12 @@
-import '../../Context/SACGlobal.dart';
-import 'SABDigitBaseBusiness.dart';
+import '../../1L_Context/SACGlobal.dart';
+import 'SABHealthOriginBusiness.dart';
 import '../Easy/SABEasyModel.dart';
 
 ///动爻的强弱计算
-class SABDigitMoveBusiness {
+class SABMoveHealthBusiness {
   SABEasyModel inputModel;
 
-  SABDigitBaseBusiness digitBaseBusiness;
+  SABHealthOriginBusiness digitBaseBusiness;
 
   double calculateHealthAtLevel3Row(int nRow, EasyTypeEnum easyType) {
     double basicHealth = 0;

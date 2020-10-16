@@ -1,16 +1,17 @@
 ﻿import 'SABEightDiagramsModel.dart';
 import 'SABEasyModel.dart';
-import '../../Context/SACContext.dart';
+import '../../1L_Context/SACContext.dart';
 
+// import 'package:flutter_perpttual_calendar/PerpttualCalendarWidget.dart'
 class SABEasyBusiness {
-  SABEasyModel _easyModel;
+  SABEasyModel easyModel;
 
   //八宫数据，可以改为类方法
   SABEightDiagramsModel _eightDiagrams;
 
   //方法注释：生成实例
   SABEasyModel generateEasy() {
-    _easyModel.generateEasyArray();
+    easyModel.generateEasyArray();
   }
 
   //方法注释：本卦所属八宫的第一卦
@@ -36,7 +37,7 @@ class SABEasyBusiness {
   //方法注释：本卦的信息
   Map fromEasyDictionary() {
     Map result =
-        _eightDiagrams.getEasyDictionaryForKey(_easyModel.fromEasyKey());
+        _eightDiagrams.getEasyDictionaryForKey(easyModel.fromEasyKey());
 
     return result;
   }
@@ -45,7 +46,7 @@ class SABEasyBusiness {
   String eightGuaAtFromRow(int nRow) {
     String result = "";
 
-    String fromEasyKey = _easyModel.fromEasyKey();
+    String fromEasyKey = easyModel.fromEasyKey();
     if (fromEasyKey.length >= 6) {
       String guaKey = "";
       if (nRow < 3)
@@ -60,23 +61,25 @@ class SABEasyBusiness {
     return result;
   }
 //万年历 -----------------------------------------------------------------------
-  - (EightWordCalendar*) wordCalendar
-{
-    if (!_wordCalendar)
-    {
-        //
-        NSTimeInterval easyTime = [self easyTime];
-        if (easyTime > 0)
-        {
-            NSDate* date = [NSDate dateWithTimeIntervalSince1970:easyTime];
-            _wordCalendar = [[EightWordCalendar alloc] initWithDate:date];
-        }
-        //else cont.此时尚未加载数据
-    }
-    //else cont.
-    
-    return _wordCalendar;
-}
+// PerpttualCalendarWidget getWordCalendar
+// {
+//   int date = 0;
+//   PerpttualCalendarWidget _wordCalendar = PerpttualCalendarWidget(date);
+//     // if (!_wordCalendar)
+//     // {
+//     //     //
+//     //     NSTimeInterval easyTime = [self easyTime];
+//     //     if (easyTime > 0)
+//     //     {
+//     //         NSDate* date = [NSDate dateWithTimeIntervalSince1970:easyTime];
+//     //         _wordCalendar = [[EightWordCalendar alloc] initWithDate:date];
+//     //     }
+//     //     //else cont.此时尚未加载数据
+//     // }
+//     // //else cont.
+
+//     return _wordCalendar;
+// }
 
 //加载函数-----------------------------------------------------------------------
 
@@ -86,5 +89,12 @@ class SABEasyBusiness {
     //else cont.
 
     return _eightDiagrams;
+  }
+
+  //世的索引号
+  int getLifeIndex() {
+    Map fromDict = fromEasyDictionary();
+    int yingIndex = fromDict["世"];
+    return 6 - yingIndex;
   }
 }

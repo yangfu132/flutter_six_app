@@ -1,12 +1,14 @@
 import '../Easy/SABEasyModel.dart';
-import '../../Context/SACGlobal.dart';
-import 'SABDigitMoveBusiness.dart';
-import 'SABDigitStaticBusiness.dart';
+import '../../1L_Context/SACGlobal.dart';
+import 'SABMoveHealthBusiness.dart';
+import 'SABStaticHealthBusiness.dart';
+import '../Easy/SABEasyBusiness.dart';
 
-class SABDigitEasyBusiness {
+class SABEasyHealthBusiness {
+  SABEasyBusiness easyBusiness;
   SABEasyModel inputModel;
-  SABDigitMoveBusiness moveBusiness;
-  SABDigitStaticBusiness staticBusiness;
+  SABMoveHealthBusiness moveBusiness;
+  SABStaticHealthBusiness staticBusiness;
 
   Map<int, double> _healthMap;
 
@@ -71,7 +73,7 @@ class SABDigitEasyBusiness {
 //世的强弱
   double lifeHealth() {
     double fResult = 0;
-    int lifeIndex = inputModel.getLifeIndex();
+    int lifeIndex = easyBusiness.getLifeIndex();
     fResult = _healthMap[lifeIndex];
     return fResult;
   }

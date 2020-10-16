@@ -1,17 +1,17 @@
 ///输出Easy的结果文案
 
 import '../Easy/SABEasyModel.dart';
-import '../Digit/SABDigitEasyBusiness.dart';
-import '../../3L_Service/SASStringService.dart';
+import '../Health/SABEasyHealthBusiness.dart';
+import '../../4L_Service/SASStringService.dart';
 
 class SABResultBusiness {
   SABEasyModel inputModel;
-  SABDigitEasyBusiness digitBusiness;
+  SABEasyHealthBusiness digitBusiness;
   SABResultBusiness() {
     digitBusiness.inputModel = inputModel;
   }
   String resultUsefulGode() {
-    return "${inputModel.strUsefulGod}，类像参见用神爻。";
+    return "${inputModel.getUsefulGod()}，类像参见用神爻。";
   }
 
 //基于世爻与用神的判定结果

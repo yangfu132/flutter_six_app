@@ -1,4 +1,4 @@
-import '../../Context/SACGlobal.dart';
+import '../../1L_Context/SACGlobal.dart';
 import '../Easy/SABEasyModel.dart';
 
 /*
@@ -77,7 +77,7 @@ import '../Easy/SABEasyModel.dart';
  最后还是看生命值的大小，所以说基本面的东西才是最重要的
  
  */
-class SABDigitBaseBusiness {
+class SABHealthOriginBusiness {
   double symbolBasicHealthAtRow(int nRow, EasyTypeEnum easyType) {
     return 0;
   }

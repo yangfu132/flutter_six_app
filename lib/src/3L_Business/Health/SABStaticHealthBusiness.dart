@@ -1,10 +1,10 @@
-import '../../Context/SACGlobal.dart';
+import '../../1L_Context/SACGlobal.dart';
 import '../Easy/SABEasyModel.dart';
 
-import 'SABDigitBaseBusiness.dart';
+import 'SABHealthBaseBusiness.dart';
 
-///
-class SABDigitStaticBusiness {
+///静爻的强弱
+class SABStaticHealthBusiness {
   calculateHealthAtLevel4Row(num item, EasyTypeEnum easyType) {}
   bool isLevel4HasBegin() {
     return true;

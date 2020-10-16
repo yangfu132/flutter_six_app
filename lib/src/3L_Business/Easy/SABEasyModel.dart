@@ -1,5 +1,5 @@
 import 'dart:math';
-import '../../Context/SACGlobal.dart';
+import '../../1L_Context/SACGlobal.dart';
 
 ///
 class SABEasyModel {
@@ -7,7 +7,7 @@ class SABEasyModel {
   SABEasyModel(this._strEasyGoal, this._strUsefulGod) {
     _nEasyTime = DateTime.now().microsecondsSinceEpoch;
     _listEasyData = generateEasyArray();
-    _usefulGodRow = ROW_INVALID;
+    _usefulGodRow = nGlobalRowInvalid;
   }
 
   //属性：实例发生时间
@@ -24,6 +24,11 @@ class SABEasyModel {
 
   //属性：用神的索引号
   int _usefulGodRow;
+
+  //函数：用神
+  String getUsefulGod() {
+    return _strUsefulGod;
+  }
 
   //函数：天干
   String skyTrunkString() {
@@ -70,7 +75,7 @@ class SABEasyModel {
     String strFromKey = "";
     int nValue, nFromValue;
     for (int nIndex = 0; nIndex < 6; nIndex++) {
-      nValue = listEasyData[nIndex];
+      nValue = _listEasyData[nIndex];
       if (nValue == 8)
         nFromValue = 0;
       else if (nValue == 9)
@@ -81,12 +86,5 @@ class SABEasyModel {
     } //endf
 
     return strFromKey;
-  }
-
-  //世的索引号
-  int getLifeIndex() {
-    Map fromDict = fromEasyDictionary();
-    int yingIndex = fromDict["世"];
-    return 6 - yingIndex;
   }
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import '../Context/SACContext.dart';
+import '../../1L_Context/SACContext.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 // import 'package:flutter/src/foundation/constants.dart';
 import 'AnimationDiceWidget.dart';
-import 'SAUEasyResultRoute.dart';
+import '../Result/SAUEasyResultRoute.dart';
 
 class SAUHomeBody extends StatefulWidget {
   SAUHomeBody({Key key, this.title}) : super(key: key);
