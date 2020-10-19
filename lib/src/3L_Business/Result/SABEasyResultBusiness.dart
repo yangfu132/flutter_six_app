@@ -3,21 +3,27 @@
 import '../Easy/SABEasyModel.dart';
 import '../Health/SABEasyHealthBusiness.dart';
 import '../../4L_Service/SASStringService.dart';
+import 'SABEasyResultModel.dart';
 
-class SABResultBusiness {
-  SABEasyModel inputModel;
-  SABEasyHealthBusiness digitBusiness;
-  SABResultBusiness() {
-    digitBusiness.inputModel = inputModel;
+class SABEasyResultBusiness {
+  SABEasyModel inputEasyModel;
+  SABEasyHealthBusiness healthBusiness;
+  SABEasyResultBusiness() {
+    healthBusiness.inputModel = inputEasyModel;
   }
+
+  SABEasyResultModel getResultModel() {
+    return SABEasyResultModel();
+  }
+
   String resultUsefulGode() {
-    return "${inputModel.getUsefulGod()}，类像参见用神爻。";
+    return "${inputEasyModel.getUsefulGod()}，类像参见用神爻。";
   }
 
 //基于世爻与用神的判定结果
   String resultSymbol() {
     String strResult = '卦体为主，世用为辅，如果是平常卦就以世用为主。';
-    bool bValidEasy = digitBusiness.calculateHealth();
+    bool bValidEasy = healthBusiness.calculateHealth();
     if (bValidEasy) {
       strResult =
           SASStringService.appendToString(strResult, subresultSymbolStandard());

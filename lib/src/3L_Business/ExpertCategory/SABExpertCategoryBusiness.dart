@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Result/SABEasyResultModel.dart';
 import 'SABUsefulGodModel.dart';
-import 'SABCategoryModel.dart';
+import 'SABExpertCategoryModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 ///note:章，既是预测模型
@@ -21,7 +21,7 @@ class SABExpertCategoryBusiness {
   Map categoryDictionary() {
     return {
       '基础': SABUsefulGodModel.baseCategoryArray(),
-      '分类': SABCategoryModel.categoryArray(),
+      '分类': SABExpertCategoryModel.categoryArray(),
     };
   }
 

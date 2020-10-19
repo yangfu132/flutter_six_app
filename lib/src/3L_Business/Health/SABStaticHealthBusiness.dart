@@ -1,7 +1,7 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../Easy/SABEasyModel.dart';
 
-import 'SABHealthBaseBusiness.dart';
+import 'SABHealthOriginBusiness.dart';
 
 ///静爻的强弱
 class SABStaticHealthBusiness {

@@ -14,7 +14,7 @@ class SABEasyBusiness {
     easyModel.generateEasyArray();
   }
 
-  //方法注释：本卦所属八宫的第一卦
+  //方法注释：获取本卦所在八宫的第一卦
   Map placeFirstEasy() {
     String firstKey = eightDiagrams()
         .firstEasyKeyInDiagram(eightDiagrams().easyPlaceByName(fromEasyName()));
@@ -22,7 +22,7 @@ class SABEasyBusiness {
     return fristEasy;
   }
 
-  //方法注释：本卦的卦名
+  //方法注释：获取本卦的卦名
   String fromEasyName() {
     String strResult = "";
     Map fromDict = fromEasyDictionary();
@@ -34,7 +34,7 @@ class SABEasyBusiness {
     return strResult;
   }
 
-  //方法注释：本卦的信息
+  //方法注释：获取本卦的信息
   Map fromEasyDictionary() {
     Map result =
         _eightDiagrams.getEasyDictionaryForKey(easyModel.fromEasyKey());
