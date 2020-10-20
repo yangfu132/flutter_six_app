@@ -9,12 +9,11 @@ class SABEasyResultBusiness {
   SABEasyModel inputEasyModel;
   SABEasyHealthBusiness healthBusiness;
   SABEasyResultBusiness() {
-    healthBusiness.inputModel = inputEasyModel;
+    //healthBusiness.inputModel = inputEasyModel;
   }
 
-  SABEasyResultModel getResultModel() {
-    return SABEasyResultModel();
-  }
+  void configResultModel(
+      SABEasyModel inputEasyModel, SABEasyResultModel outputResultModel) {}
 
   String resultUsefulGode() {
     return "${inputEasyModel.getUsefulGod()}，类像参见用神爻。";

@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../3L_Business/Easy/SABEasyModel.dart';
+import '../../3L_Business/Easy/SABEasyBusiness.dart';
 import '../../3L_Business/Result/SABEasyResultBusiness.dart';
 import '../../3L_Business/Result/SABEasyResultModel.dart';
 
 class SAUEasyResultRoute extends StatefulWidget {
+  SAUEasyResultRoute(this.easyModel) {
+    this.resultBusiness.configResultModel(this.easyModel, this.resultModel);
+  }
+  final SABEasyModel easyModel;
+  final SABEasyBusiness easyBusiness = SABEasyBusiness();
+  final SABEasyResultBusiness resultBusiness = SABEasyResultBusiness();
+  final SABEasyResultModel resultModel = SABEasyResultModel();
   @override
   _SAUEasyResultState createState() {
     return _SAUEasyResultState();
@@ -10,7 +19,10 @@ class SAUEasyResultRoute extends StatefulWidget {
 }
 
 class _SAUEasyResultState extends State<SAUEasyResultRoute> {
-  final SABEasyResultBusiness _resultBusiness = SABEasyResultBusiness();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +31,10 @@ class _SAUEasyResultState extends State<SAUEasyResultRoute> {
         title: Text('data'),
       ),
       body: ListView.builder(
-          itemCount: 100,
+          itemCount: widget.resultModel.resultList.length,
           itemExtent: 50.0, //强制高度为50.0
           itemBuilder: (BuildContext context, int index) {
-            SABEasyResultModel resultModel = _resultBusiness.getResultModel();
-            Map value = resultModel.resultList[index];
+            Map value = widget.resultModel.resultList[index];
             return ListTile(title: Text(value['key']));
           }),
     );

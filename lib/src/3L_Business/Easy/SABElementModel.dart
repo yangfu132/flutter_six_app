@@ -2,7 +2,7 @@
  类说明：五行
  */
 
-class SABElementBusiness {
+class SABElementModel {
   //方法注释：两个五行之间的关系
   static String elementRelative(String basicElement, String otherElement) {
     Map tempData = {

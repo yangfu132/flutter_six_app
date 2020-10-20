@@ -42,7 +42,7 @@ class SABEasyModel {
 
   ///利用随机数创造数据
   List generateEasyArray() {
-    List listResult;
+    List listResult = List();
     for (int nIndex = 0; nIndex < 6; nIndex++) {
       int randomNum = Random().nextInt(3);
       if (2 == randomNum)

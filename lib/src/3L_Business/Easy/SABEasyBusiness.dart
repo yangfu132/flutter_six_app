@@ -9,11 +9,6 @@ class SABEasyBusiness {
   //八宫数据，可以改为类方法
   SABEightDiagramsModel _eightDiagrams;
 
-  //方法注释：生成实例
-  SABEasyModel generateEasy() {
-    easyModel.generateEasyArray();
-  }
-
   //方法注释：获取本卦所在八宫的第一卦
   Map placeFirstEasy() {
     String firstKey = eightDiagrams()
