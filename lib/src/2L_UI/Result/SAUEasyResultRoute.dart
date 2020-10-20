@@ -31,11 +31,16 @@ class _SAUEasyResultState extends State<SAUEasyResultRoute> {
         title: Text('data'),
       ),
       body: ListView.builder(
-          itemCount: widget.resultModel.resultList.length,
+          itemCount: widget.resultModel.resultList.length * 2,
           itemExtent: 50.0, //强制高度为50.0
           itemBuilder: (BuildContext context, int index) {
-            Map value = widget.resultModel.resultList[index];
-            return ListTile(title: Text(value['key']));
+            int dataIndex = index ~/ 2;
+            int kv = index % 2;
+            Map value = widget.resultModel.resultList[dataIndex];
+            if (kv > 0)
+              return ListTile(title: Text(value['value']));
+            else
+              return ListTile(title: Text(value['key']));
           }),
     );
   }
