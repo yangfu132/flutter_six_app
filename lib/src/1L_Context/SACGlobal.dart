@@ -12,7 +12,7 @@ enum EasyTypeEnum {
 }
 
 //note：代表无效的爻索引数，当未被复制的时候使用；
-final int nGlobalRowInvalid = -1;
+final int globalRowInvalid = -1;
 
 //note：代表月柱对应到卦中的爻索引数；
 final int ROW_MONTH = 7;

@@ -1,18 +1,20 @@
-import '../Easy/SABEasyModel.dart';
 import '../../1L_Context/SACGlobal.dart';
+import '../../1L_Context/SACContext.dart';
+import '../Easy/SABEasyModel.dart';
+import '../Easy/SABEasyBusiness.dart';
+import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABMoveHealthBusiness.dart';
 import 'SABStaticHealthBusiness.dart';
-import '../Easy/SABEasyBusiness.dart';
+import 'SABHealthOriginBusiness.dart';
 
 class SABEasyHealthBusiness {
-  SABEasyBusiness easyBusiness;
-  SABEasyModel inputModel;
-  SABMoveHealthBusiness moveBusiness;
-  SABStaticHealthBusiness staticBusiness;
-
-  Map<int, double> _healthMap;
-
-  List _finishedList;
+  SABEasyHealthBusiness(this._inputEasyModel);
+  SABEasyBusiness _easyBusiness;
+  final SABEasyModel _inputEasyModel;
+  SABMoveHealthBusiness _moveBusiness;
+  SABStaticHealthBusiness _staticBusiness;
+  SABHealthOriginBusiness _originBusiness;
+  SABEasyLogicBusiness _logicBusiness;
 
   bool calculateHealth() {
     // 找到不受生克的动爻，如果找不到这个卦就没办法解开，最好重新占卜，这叫做乱动；
@@ -23,58 +25,76 @@ class SABEasyHealthBusiness {
     //  月破、日破都不能形成这样的条件，因为：
     //  月破；月破的爻在月支上的health为0，依然可以起到生克作用，但是力量非常弱。
     //  日破，对health没有影响，对right的影响与日冲是一样的。
-    bool bHasBegin = calculateHealthAtLevel4();
-    List arrayLevel5 = moveBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_EMPTY);
-    for (int nRow in arrayLevel5)
-      calculateHealthAtLevel3Row(nRow, EasyTypeEnum.from);
+
+    bool bHasBegin = calculateHealthOfStatic();
+    List listRightEmpty =
+        _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_EMPTY);
+
+    for (int nRow in listRightEmpty)
+      _moveBusiness.calculateHealthOfMove(nRow, EasyTypeEnum.from);
     return bHasBegin;
   }
 
-  bool calculateHealthAtLevel4() {
-    bool bHasBeginMove = moveBusiness.calculateHealthAtLevel3();
-    List arrayStatic = moveBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_EMPTY);
+  ///Level:指的是OutRightEnum，Level4代指 RIGHT_STATIC
+  ///bool calculateHealthAtLevel4() {
+  bool calculateHealthOfStatic() {
+    bool bHasBeginMove = _moveBusiness.calculateHealthAtLevel3();
+    List arrayStatic =
+        _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_EMPTY);
     for (int nRow in arrayStatic) {
-      if (-1 == _finishedList.indexOf(nRow)) {
+      if (_originBusiness.isUnFinish(nRow)) {
         double basicHealth =
-            staticBusiness.baseHealthAtLevel4Row(nRow, EasyTypeEnum.from);
-        setHealth(basicHealth, nRow);
+            _staticBusiness.baseHealthAtLevel4Row(nRow, EasyTypeEnum.from);
+        _originBusiness.setHealth(basicHealth, nRow);
       }
     }
-    bool bHasBeginStatic = staticBusiness.isLevel4HasBegin();
+    bool bHasBeginStatic = _staticBusiness.isLevel4HasBegin();
     for (int nRow in arrayStatic) {
-      if (-1 == _finishedList.indexOf(nRow)) {
+      if (_originBusiness.isUnFinish(nRow)) {
         if (bHasBeginStatic) {
-          staticBusiness.calculateHealthAtLevel4Row(nRow, EasyTypeEnum.from);
+          _staticBusiness.calculateHealthAtLevel4Row(nRow, EasyTypeEnum.from);
         } else {
-          addToFinishArray(nRow);
+          _originBusiness.addToFinishArray(nRow);
         }
       }
     }
     return bHasBeginMove && bHasBeginStatic;
   }
 
-  void calculateHealthAtLevel3Row(int nRow, EasyTypeEnum easyType) {
-    double health =
-        moveBusiness.calculateHealthAtLevel3Row(nRow, EasyTypeEnum.from);
-    setHealth(health, nRow);
-    addToFinishArray(nRow);
-  }
+  double usefulHealth() {
+    double fResult = 0;
+    int usefulIndex = _logicBusiness.usefulGodRow();
 
-  void setHealth(double numHealth, int nRow) {
-    _healthMap[nRow] = numHealth;
-  }
+    if (0 <= usefulIndex && usefulIndex < 6) {
+      fResult = _originBusiness.getHealth(usefulIndex);
+    } else {
+      int hideIndex = usefulIndex - ROW_FLY_BEGIN;
+      fResult = _staticBusiness.hideSymbolHealthAtRow(hideIndex);
+    } //endi
 
-  void addToFinishArray(int nRow) {
-    if (-1 == _finishedList.indexOf(nRow)) {
-      _finishedList.add(nRow);
-    }
+    return fResult;
   }
 
 //世的强弱
   double lifeHealth() {
     double fResult = 0;
-    int lifeIndex = easyBusiness.getLifeIndex();
-    fResult = _healthMap[lifeIndex];
+    int lifeIndex = _easyBusiness.getLifeIndex();
+    fResult = _originBusiness.getHealth(lifeIndex);
     return fResult;
+  }
+
+  String healthDescriptionAtRow(int nRow, EasyTypeEnum easyType) {
+    String strResult = "";
+
+    double fHealth = _staticBusiness.symbolHealthAtRow(nRow, easyType);
+    fHealth -= _originBusiness.healthCriticalValue();
+    if (fHealth > 0)
+      strResult = "强";
+    else
+      strResult = "弱";
+
+    strResult = fHealth.toStringAsFixed(4) + strResult;
+
+    return strResult;
   }
 }

@@ -1,17 +1,16 @@
 import 'dart:math';
 import '../../1L_Context/SACGlobal.dart';
 
-///
+///此Model仅代表占卜时所创造的数据；
 class SABEasyModel {
   //构造函数
   SABEasyModel(this._strEasyGoal, this._strUsefulGod) {
-    _nEasyTime = DateTime.now().microsecondsSinceEpoch;
+    _nEasyTime = DateTime.now();
     _listEasyData = generateEasyArray();
-    _usefulGodRow = nGlobalRowInvalid;
   }
 
   //属性：实例发生时间
-  int _nEasyTime;
+  DateTime _nEasyTime;
 
 //属性：实例的随机数数组
   List _listEasyData;
@@ -22,22 +21,18 @@ class SABEasyModel {
   //属性：实例的用神
   String _strUsefulGod;
 
-  //属性：用神的索引号
-  int _usefulGodRow;
+  DateTime getEasyTime() {
+    return _nEasyTime;
+  }
+
+  //函数：占卜目的
+  String getEasyGoal() {
+    return _strEasyGoal;
+  }
 
   //函数：用神
   String getUsefulGod() {
     return _strUsefulGod;
-  }
-
-  //函数：天干
-  String skyTrunkString() {
-    return "甲乙丙丁戊己庚辛壬癸";
-  }
-
-  //函数：地址
-  String earthBranchString() {
-    return "子丑寅卯辰巳午未申酉戌亥";
   }
 
   ///利用随机数创造数据
@@ -86,5 +81,56 @@ class SABEasyModel {
     } //endf
 
     return strFromKey;
+  }
+
+  String toEasyKey() {
+    String strToKey = "";
+    int nValue, nFromValue;
+    for (int nIndex = 0; nIndex < 6; nIndex++) {
+      nValue = _listEasyData[nIndex];
+      if (nValue == 8)
+        nFromValue = 1;
+      else if (nValue == 9)
+        nFromValue = 0;
+      else
+        nFromValue = nValue;
+      strToKey = "$strToKey$nFromValue";
+    } //endf
+
+    return strToKey;
+  }
+
+  int symbolAtIndex(int intSymbolIndex) {
+    return _listEasyData[intSymbolIndex];
+  }
+
+  ///此函数获取内卦变动的爻列表
+  List inGuaMovementArray() {
+    List inMovementArray = [];
+
+    for (int intIndex = 3; intIndex < 6; intIndex++) {
+      int intValue = _listEasyData[intIndex];
+      if (8 == intValue || 9 == intValue) {
+        inMovementArray.add(intValue);
+      }
+      //else cont.
+    } //endf
+
+    return inMovementArray;
+  }
+
+  ///此函数获取外卦变动的爻列表
+  List outGuaMovementArray() {
+    List outMovementArray = [];
+    for (int intIndex = 0; intIndex < 3; intIndex++) {
+      int intValue = _listEasyData[intIndex];
+
+      if (8 == intValue || 9 == intValue) {
+        outMovementArray.add(intValue);
+      }
+      //else cont.
+    } //endf
+
+    return outMovementArray;
   }
 }
