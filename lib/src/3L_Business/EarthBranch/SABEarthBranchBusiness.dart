@@ -3,7 +3,6 @@ import '../Easy/SABElementModel.dart';
 
 class SABEarthBranchBusiness {
   final SABEarthBranchModel _branchModel = SABEarthBranchModel();
-  SABEarthBranchBusiness();
 
   String sixPairDescription(String basicEarth, String otherEarth) {
     String result = "";

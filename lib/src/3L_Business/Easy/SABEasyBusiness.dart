@@ -1,6 +1,5 @@
 ﻿import '../../1L_Context/SACContext.dart';
 import '../../1L_Context/SACGlobal.dart';
-import '../EarthBranch/SABEarthBranchBusiness.dart';
 import 'SABEightDiagramsModel.dart';
 import 'SABEasyModel.dart';
 import 'SABElementModel.dart';
@@ -14,8 +13,6 @@ class SABEasyBusiness {
   SABEightDiagramsModel _eightDiagrams;
 
   PWBCalendarBusiness _businessCalendar;
-
-  SABEarthBranchBusiness _branchBusiness;
 
   final SABEasyModel _inputEasyModel;
 

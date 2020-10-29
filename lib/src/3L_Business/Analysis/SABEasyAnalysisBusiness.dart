@@ -7,9 +7,9 @@ import '../EarthBranch/SABEarthBranchBusiness.dart';
 class SABEasyAnalysisBusiness {
   final SABEasyBusiness _inputEasyBusiness;
   SABEasyLogicBusiness _logicBusiness;
-  SABEarthBranchBusiness _branchBusiness;
+  final SABEarthBranchBusiness _inputBranchBusiness;
 
-  SABEasyAnalysisBusiness(this._inputEasyBusiness);
+  SABEasyAnalysisBusiness(this._inputEasyBusiness, this._inputBranchBusiness);
 
   ///`basic`//////////////////////////////////////////////////////
 
@@ -132,34 +132,34 @@ class SABEasyAnalysisBusiness {
 
       String strEffect = bEffect ? "" : "无效：";
 
-      if (_branchBusiness.isEarthBorn(earth, basicEarth)) {
+      if (_inputBranchBusiness.isEarthBorn(earth, basicEarth)) {
         if ("" == strResult) {
           strResult = strEffect +
               positionAtMerge(numItem) +
               earth +
-              _branchBusiness.earthElement(earth) +
+              _inputBranchBusiness.earthElement(earth) +
               "生";
         } else {
           strResult = "\r\n" +
               strEffect +
               positionAtMerge(numItem) +
               earth +
-              _branchBusiness.earthElement(earth) +
+              _inputBranchBusiness.earthElement(earth) +
               "生";
         } //endi
-      } else if (_branchBusiness.isEarthRestricts(earth, basicEarth)) {
+      } else if (_inputBranchBusiness.isEarthRestricts(earth, basicEarth)) {
         if ("" == strResult) {
           strResult = strEffect +
               positionAtMerge(numItem) +
               earth +
-              _branchBusiness.earthElement(earth) +
+              _inputBranchBusiness.earthElement(earth) +
               "克";
         } else {
           strResult = "\r\n" +
               strEffect +
               positionAtMerge(numItem) +
               earth +
-              _branchBusiness.earthElement(earth) +
+              _inputBranchBusiness.earthElement(earth) +
               "克";
         } //endi
       }
@@ -199,7 +199,8 @@ class SABEasyAnalysisBusiness {
         result = SACContext.appendToString(result, strForwardOrBack);
       //else cont.
 
-      String strTwelveGod = _branchBusiness.earthTwelveGod(fromEarth, toEarth);
+      String strTwelveGod =
+          _inputBranchBusiness.earthTwelveGod(fromEarth, toEarth);
       if ("长生" == strTwelveGod ||
           "帝旺" == strTwelveGod ||
           "墓" == strTwelveGod ||
@@ -246,7 +247,8 @@ class SABEasyAnalysisBusiness {
         strResult = SACContext.appendToString(strResult, strPair);
       //else cont.
 
-      String strTwelveGod = _branchBusiness.earthTwelveGod(strEarth, strMonth);
+      String strTwelveGod =
+          _inputBranchBusiness.earthTwelveGod(strEarth, strMonth);
       if ("长生" == strTwelveGod || "帝旺" == strTwelveGod || "绝" == strTwelveGod) {
         String strMark = "[$strTwelveGod]";
         strResult = SACContext.appendToString(strResult, strMark);
@@ -270,13 +272,14 @@ class SABEasyAnalysisBusiness {
       String strEarth = _inputEasyBusiness.symbolEarth(stringSymbol);
       String strDay = _inputEasyBusiness.dayEarth();
 
-      String strTwelveGod = _branchBusiness.earthTwelveGod(strEarth, strDay);
+      String strTwelveGod =
+          _inputBranchBusiness.earthTwelveGod(strEarth, strDay);
 
       if (_logicBusiness.isSymbolOnDay(stringSymbol))
         strResult = SACContext.appendToString(strResult, "[临]");
       //else cont.
 
-      bool bConflicted = _branchBusiness.isEarthConflict(strDay, strEarth);
+      bool bConflicted = _inputBranchBusiness.isEarthConflict(strDay, strEarth);
       if (bConflicted) {
         if (_logicBusiness.isSymbolBackMoveAtRow(nRow, easyType))
           strResult = SACContext.appendToString(strResult, "[暗动]");
@@ -462,7 +465,7 @@ class SABEasyAnalysisBusiness {
 
     if (_logicBusiness.isEarthPairDay(
         strEarth, _inputEasyBusiness.dayEarth())) {
-      strResult = _branchBusiness.sixPairDescription(
+      strResult = _inputBranchBusiness.sixPairDescription(
           strEarth, _inputEasyBusiness.dayEarth());
     }
     //else cont.
@@ -476,10 +479,10 @@ class SABEasyAnalysisBusiness {
     String strEarth = _inputEasyBusiness.symbolEarth(stringSymbol);
 
     String strDay = _inputEasyBusiness.dayEarth();
-    if (!_branchBusiness.isEarthConflict(strDay, strEarth) &&
-        !_branchBusiness.isEarthConflict(
+    if (!_inputBranchBusiness.isEarthConflict(strDay, strEarth) &&
+        !_inputBranchBusiness.isEarthConflict(
             strDay, _inputEasyBusiness.monthEarth())) {
-      strResult = _branchBusiness.sixPairDescription(
+      strResult = _inputBranchBusiness.sixPairDescription(
           strEarth, _inputEasyBusiness.monthEarth());
     }
     //else cont.
@@ -516,9 +519,10 @@ class SABEasyAnalysisBusiness {
 
     //爻逢合住，遇日建以冲开，谓之合处逢冲，是也。
     String strDay = _inputEasyBusiness.dayEarth();
-    if (!_branchBusiness.isEarthConflict(strDay, basicEarth) &&
-        !_branchBusiness.isEarthConflict(strDay, otherEarth)) {
-      strResult = _branchBusiness.sixPairDescription(basicEarth, otherEarth);
+    if (!_inputBranchBusiness.isEarthConflict(strDay, basicEarth) &&
+        !_inputBranchBusiness.isEarthConflict(strDay, otherEarth)) {
+      strResult =
+          _inputBranchBusiness.sixPairDescription(basicEarth, otherEarth);
     }
     //else cont.
 

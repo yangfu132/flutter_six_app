@@ -7,11 +7,11 @@ import 'SABHealthOriginBusiness.dart';
 
 ///动爻的强弱计算
 class SABMoveHealthBusiness {
-  SABMoveHealthBusiness(this._inputEasyBusiness);
+  SABMoveHealthBusiness(this._inputEasyBusiness, this._inputBranchBusiness);
   final SABEasyBusiness _inputEasyBusiness;
 
   SABHealthOriginBusiness _originBusiness;
-  SABEarthBranchBusiness _branchBusiness;
+  final SABEarthBranchBusiness _inputBranchBusiness;
   SABEasyLogicBusiness _logicBusiness;
 
   //calculateHealthAtLevel3Row
@@ -78,12 +78,12 @@ class SABMoveHealthBusiness {
     if (null != effectsSymbol && "" != effectsSymbol) {
       String effectsEarth = _inputEasyBusiness.symbolEarth(effectsSymbol);
 
-      if (_branchBusiness.isEarthBorn(effectsEarth, basicEarth)) {
+      if (_inputBranchBusiness.isEarthBorn(effectsEarth, basicEarth)) {
         fHealth += symbolOutAtRow(effectsRow, effectsEasyType);
       }
       //else cont.
 
-      if (_branchBusiness.isEarthRestricts(effectsEarth, basicEarth)) {
+      if (_inputBranchBusiness.isEarthRestricts(effectsEarth, basicEarth)) {
         fHealth -= (MAX_DEFENSIVE - basicDefense) *
             symbolOutAtRow(effectsRow, effectsEasyType);
       }
@@ -157,9 +157,9 @@ class SABMoveHealthBusiness {
   bool isEffectingEarth(String basicEarth, int itemRow) {
     bool bResult = false;
     String earth = _inputEasyBusiness.earthAtFromRow(itemRow);
-    if (_branchBusiness.isEarthBorn(earth, basicEarth)) {
+    if (_inputBranchBusiness.isEarthBorn(earth, basicEarth)) {
       bResult = true;
-    } else if (_branchBusiness.isEarthRestricts(earth, basicEarth)) {
+    } else if (_inputBranchBusiness.isEarthRestricts(earth, basicEarth)) {
       bResult = true;
     }
     //else cont.

@@ -8,16 +8,17 @@ import '../Easy/SABEasyBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import '../Health/SABEasyHealthBusiness.dart';
 import '../Health/SABHealthOriginBusiness.dart';
-import 'SABEasyResultModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 import '../Analysis/SABEasyAnalysisBusiness.dart';
+import 'SABEasyResultModel.dart';
 
 class SABEasyResultBusiness {
   SABEasyModel _inputEasyModel;
   SABEasyBusiness _outEasyBusiness;
+  SABEarthBranchBusiness _outBranchBusiness;
   SABEasyHealthBusiness _healthBusiness;
   SABEasyLogicBusiness _logicBusiness;
-  SABEarthBranchBusiness _branchBusiness;
+
   SABEasyAnalysisBusiness _analysisBusiness;
   SABHealthOriginBusiness _originBusiness;
 
@@ -26,6 +27,13 @@ class SABEasyResultBusiness {
       _outEasyBusiness = SABEasyBusiness(_inputEasyModel);
     } //else cont.
     return _outEasyBusiness;
+  }
+
+  SABEarthBranchBusiness branchBusiness() {
+    if (null == _outBranchBusiness) {
+      _outBranchBusiness = SABEarthBranchBusiness();
+    } //else cont.
+    return _outBranchBusiness;
   }
 
   SABEasyLogicBusiness logicBusiness() {
@@ -307,7 +315,7 @@ class SABEasyResultBusiness {
     String onResult = "用神月破：实破之 $usefulEarth (日、月、年)则不破";
     result = SACContext.appendToString(result, onResult);
 
-    String strEarthPair = _branchBusiness.earthSixPair(usefulEarth);
+    String strEarthPair = branchBusiness().earthSixPair(usefulEarth);
     String strEarthPairResult = "用神月破：应期为逢合之 $strEarthPair (日、月、年)则不破";
 
     result = SACContext.appendToString(result, strEarthPairResult);
@@ -670,7 +678,7 @@ class SABEasyResultBusiness {
       if (logicBusiness().isUsefulGodStrong()) {
         String fromEarth =
             easyBusiness().earthAtFromRow(_logicBusiness.usefulGodRow());
-        String timeEarth = _branchBusiness.getSixConflict(fromEarth);
+        String timeEarth = branchBusiness().getSixConflict(fromEarth);
 
         result =
             result + "伏吟之卦，用神旺相冲开之年月其志则神，预计${timeEarth}年或者${timeEarth}月冲开。";
@@ -678,7 +686,7 @@ class SABEasyResultBusiness {
           logicBusiness().isUsefulGodChangeToConflict()) {
         String fromEarth =
             easyBusiness().earthAtFromRow(_logicBusiness.usefulGodRow());
-        String timeEarth = _branchBusiness.getSixConflict(fromEarth);
+        String timeEarth = branchBusiness().getSixConflict(fromEarth);
         result = result + "用神休囚，冲开之年月忧郁而已,预计${timeEarth}年或者${timeEarth}月冲开。";
       }
       //else cont.

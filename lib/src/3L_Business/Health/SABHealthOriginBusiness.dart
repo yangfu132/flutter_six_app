@@ -81,13 +81,13 @@ import '../Logic/SABEasyLogicBusiness.dart';
  
  */
 class SABHealthOriginBusiness {
-  SABHealthOriginBusiness(this._inputEasyBusiness);
+  SABHealthOriginBusiness(this._inputEasyBusiness, this._inputBranchBusiness);
   final SABEasyBusiness _inputEasyBusiness;
 
   Map<int, double> _healthMap;
   List _finishedList;
 
-  SABEarthBranchBusiness _branchBusiness;
+  final SABEarthBranchBusiness _inputBranchBusiness;
 
   SABEasyLogicBusiness _logicBusiness;
 
@@ -173,7 +173,7 @@ class SABHealthOriginBusiness {
   double earthHealthAtTwelveGod(String basicEarth, String atEarth) {
     double fResult = 1.0;
 
-    String twelve = _branchBusiness.earthTwelveGod(basicEarth, atEarth);
+    String twelve = _inputBranchBusiness.earthTwelveGod(basicEarth, atEarth);
 
     /*
      长生、冠带、临官、帝旺为四旺运
@@ -245,7 +245,7 @@ class SABHealthOriginBusiness {
   double earthHealthAtSeason(String basicEarth, String atEarth) {
     double fResult = 1.0;
 
-    String season = _branchBusiness.seasonDescription(basicEarth, atEarth);
+    String season = _inputBranchBusiness.seasonDescription(basicEarth, atEarth);
     if (null != season) {
       double base = 0;
 
