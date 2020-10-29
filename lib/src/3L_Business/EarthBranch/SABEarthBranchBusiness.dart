@@ -33,6 +33,10 @@ class SABEarthBranchBusiness {
     return result;
   }
 
+  String getSixConflict(String basicEarth) {
+    return _branchModel.getSixConflict()[basicEarth];
+  }
+
   String earthTwelveGod(String itemEarth, String atEarth) {
     String strResult = "";
 
