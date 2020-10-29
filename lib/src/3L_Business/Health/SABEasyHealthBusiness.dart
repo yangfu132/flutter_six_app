@@ -1,18 +1,15 @@
 import '../../1L_Context/SACGlobal.dart';
-import '../../1L_Context/SACContext.dart';
-import '../Easy/SABEasyBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABMoveHealthBusiness.dart';
 import 'SABStaticHealthBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 
 class SABEasyHealthBusiness {
-  SABEasyHealthBusiness(this._inputEasyBusiness);
-  SABEasyBusiness _inputEasyBusiness;
+  SABEasyHealthBusiness(this._inputLogicBusiness);
   SABMoveHealthBusiness _moveBusiness;
   SABStaticHealthBusiness _staticBusiness;
   SABHealthOriginBusiness _originBusiness;
-  SABEasyLogicBusiness _inputLogicBusiness;
+  final SABEasyLogicBusiness _inputLogicBusiness;
 
   bool calculateHealth() {
     // 找到不受生克的动爻，如果找不到这个卦就没办法解开，最好重新占卜，这叫做乱动；
@@ -76,7 +73,7 @@ class SABEasyHealthBusiness {
   ///世的健康值
   double lifeHealth() {
     double fResult = 0;
-    int lifeIndex = _inputEasyBusiness.getLifeIndex();
+    int lifeIndex = _inputLogicBusiness.getLifeIndex();
     fResult = _originBusiness.getHealth(lifeIndex);
     return fResult;
   }

@@ -1,13 +1,11 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
-import '../Easy/SABEasyBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 
 ///动爻的强弱计算
 class SABMoveHealthBusiness {
-  SABMoveHealthBusiness(this._inputEasyBusiness, this._inputLogicBusiness);
-  final SABEasyBusiness _inputEasyBusiness;
+  SABMoveHealthBusiness(this._inputLogicBusiness);
 
   SABHealthOriginBusiness _originBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
@@ -15,7 +13,7 @@ class SABMoveHealthBusiness {
   //calculateHealthAtLevel3Row
   void calculateHealthOfMove(int item, EasyTypeEnum easyType) {
     double basicHealth = 0;
-    if (_inputEasyBusiness.isMovementAtRow(item))
+    if (_inputLogicBusiness.isMovementAtRow(item))
       basicHealth = moveSymbolBasicHealthAtRow(item);
     else
       basicHealth = _originBusiness.symbolBasicHealthAtRow(item, easyType);
@@ -43,7 +41,7 @@ class SABMoveHealthBusiness {
           calculateHealthOfMove(item, EasyTypeEnum.from);
         else {
           double basicHealth = 0;
-          if (_inputEasyBusiness.isMovementAtRow(item))
+          if (_inputLogicBusiness.isMovementAtRow(item))
             basicHealth = moveSymbolBasicHealthAtRow(item);
           else
             basicHealth =
@@ -66,15 +64,15 @@ class SABMoveHealthBusiness {
         _originBusiness.symbolDefensiveAtRow(basicRow, EasyTypeEnum.from);
 
     String basicSymbol =
-        _inputEasyBusiness.symbolAtRow(basicRow, EasyTypeEnum.from);
+        _inputLogicBusiness.symbolAtRow(basicRow, EasyTypeEnum.from);
 
-    String basicEarth = _inputEasyBusiness.symbolEarth(basicSymbol);
+    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
     String effectsSymbol =
-        _inputEasyBusiness.symbolAtRow(effectsRow, effectsEasyType);
+        _inputLogicBusiness.symbolAtRow(effectsRow, effectsEasyType);
 
     if (null != effectsSymbol && "" != effectsSymbol) {
-      String effectsEarth = _inputEasyBusiness.symbolEarth(effectsSymbol);
+      String effectsEarth = _inputLogicBusiness.symbolEarth(effectsSymbol);
 
       if (_inputLogicBusiness.isEarthBorn(effectsEarth, basicEarth)) {
         fHealth += symbolOutAtRow(effectsRow, effectsEasyType);
@@ -154,7 +152,7 @@ class SABMoveHealthBusiness {
 
   bool isEffectingEarth(String basicEarth, int itemRow) {
     bool bResult = false;
-    String earth = _inputEasyBusiness.earthAtFromRow(itemRow);
+    String earth = _inputLogicBusiness.earthAtFromRow(itemRow);
     if (_inputLogicBusiness.isEarthBorn(earth, basicEarth)) {
       bResult = true;
     } else if (_inputLogicBusiness.isEarthRestricts(earth, basicEarth)) {
@@ -166,11 +164,11 @@ class SABMoveHealthBusiness {
   }
 
   List effectingArrayAtLevel3Row(int nLevel3Row, EasyTypeEnum easyType) {
-    String basicSymbol = _inputEasyBusiness.symbolAtRow(nLevel3Row, easyType);
+    String basicSymbol = _inputLogicBusiness.symbolAtRow(nLevel3Row, easyType);
 
     List arrayEffects = [];
 
-    String basicEarth = _inputEasyBusiness.symbolEarth(basicSymbol);
+    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
     List level3Array = _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_MOVE);
 
@@ -203,8 +201,8 @@ class SABMoveHealthBusiness {
   List effectingArrayAtLevel6Row(int nRow, EasyTypeEnum easyType) {
     List arrayEffects = [];
 
-    String basicSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
-    String basicEarth = _inputEasyBusiness.symbolEarth(basicSymbol);
+    String basicSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
+    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
     List levelArray = _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_MOVE);
     levelArray.add(nRow);
@@ -226,7 +224,7 @@ class SABMoveHealthBusiness {
 
     if (EasyTypeEnum.from == easyType) {
       //明动爻对其它爻都有生克权
-      if (_inputEasyBusiness.isMovementAtRow(nEffectingRow))
+      if (_inputLogicBusiness.isMovementAtRow(nEffectingRow))
         bResult = _inputLogicBusiness.isEffectableRow(nEffectingRow, easyType);
       else {
         //被日冲的爻只有在strong时才是暗动，才能生克动爻

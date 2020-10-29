@@ -7,12 +7,11 @@ import 'SABMoveHealthBusiness.dart';
 
 ///静爻的强弱
 class SABStaticHealthBusiness {
-  SABStaticHealthBusiness(this._inputEasyBusiness);
-  final SABEasyBusiness _inputEasyBusiness;
+  SABStaticHealthBusiness(this._inputLogicBusiness);
 
   SABHealthOriginBusiness _originBusiness;
   SABMoveHealthBusiness _moveBusiness;
-  SABEasyLogicBusiness _inputLogicBusiness;
+  final SABEasyLogicBusiness _inputLogicBusiness;
 
   void calculateHealthAtLevel4Row(int item, EasyTypeEnum easyType) {
     double basicHealth = symbolHealthAtRow(item, easyType);
@@ -139,11 +138,11 @@ class SABStaticHealthBusiness {
   }
 
   List effectingArrayAtLevel4Row(int nRow, EasyTypeEnum easyType) {
-    String basicSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
+    String basicSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
 
     List arrayEffects = [];
 
-    String basicEarth = _inputEasyBusiness.symbolEarth(basicSymbol);
+    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
     List levelArray =
         _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_STATIC);
