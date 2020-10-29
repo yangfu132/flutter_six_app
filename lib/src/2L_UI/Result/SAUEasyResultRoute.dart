@@ -4,10 +4,12 @@ import '../../3L_Business/Result/SABEasyResultBusiness.dart';
 import '../../3L_Business/Result/SABEasyResultModel.dart';
 
 class SAUEasyResultRoute extends StatefulWidget {
-  SAUEasyResultRoute(this.easyModel) {
-    this.resultBusiness.configResultModel(this.easyModel, this.resultModel);
+  SAUEasyResultRoute(this._inputEasyModel) {
+    this
+        .resultBusiness
+        .configResultModel(this._inputEasyModel, this.resultModel);
   }
-  final SABEasyModel easyModel;
+  final SABEasyModel _inputEasyModel;
   final SABEasyResultBusiness resultBusiness = SABEasyResultBusiness();
   final SABEasyResultModel resultModel = SABEasyResultModel();
   @override

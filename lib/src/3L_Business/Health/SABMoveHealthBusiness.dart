@@ -8,7 +8,7 @@ import 'SABHealthOriginBusiness.dart';
 
 ///动爻的强弱计算
 class SABMoveHealthBusiness {
-  SABEasyModel _inputModel;
+  SABEasyModel _inputEasyModel;
 
   SABHealthOriginBusiness _originBusiness;
   SABEasyBusiness _easyBusiness;
@@ -18,7 +18,7 @@ class SABMoveHealthBusiness {
   //calculateHealthAtLevel3Row
   void calculateHealthOfMove(int item, EasyTypeEnum easyType) {
     double basicHealth = 0;
-    if (_inputModel.isMovementAtRow(item))
+    if (_inputEasyModel.isMovementAtRow(item))
       basicHealth = moveSymbolBasicHealthAtRow(item);
     else
       basicHealth = _originBusiness.symbolBasicHealthAtRow(item, easyType);
@@ -46,7 +46,7 @@ class SABMoveHealthBusiness {
           calculateHealthOfMove(item, EasyTypeEnum.from);
         else {
           double basicHealth = 0;
-          if (_inputModel.isMovementAtRow(item))
+          if (_inputEasyModel.isMovementAtRow(item))
             basicHealth = moveSymbolBasicHealthAtRow(item);
           else
             basicHealth =
@@ -228,7 +228,7 @@ class SABMoveHealthBusiness {
 
     if (EasyTypeEnum.from == easyType) {
       //明动爻对其它爻都有生克权
-      if (_inputModel.isMovementAtRow(nEffectingRow))
+      if (_inputEasyModel.isMovementAtRow(nEffectingRow))
         bResult = _logicBusiness.isEffectableRow(nEffectingRow, easyType);
       else {
         //被日冲的爻只有在strong时才是暗动，才能生克动爻

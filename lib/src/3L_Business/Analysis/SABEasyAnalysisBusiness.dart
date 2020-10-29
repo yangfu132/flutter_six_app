@@ -6,7 +6,7 @@ import '../Logic/SABEasyLogicBusiness.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 class SABEasyAnalysisBusiness {
-  SABEasyModel _easyModel;
+  SABEasyModel _inputEasyModel;
   SABEasyBusiness _easyBusiness;
   SABEasyLogicBusiness _logicBusiness;
   SABEarthBranchBusiness _branchBusiness;
@@ -88,7 +88,7 @@ class SABEasyAnalysisBusiness {
       result = symbolEffected(stringSymbol, arrayEffects);
 
       //六爻安静，旺相之爻可以生得休囚之爻，亦可以克得休囚之爻。
-      if (!_easyModel.isMovementAtRow(nIndex)) {
+      if (!_inputEasyModel.isMovementAtRow(nIndex)) {
         String staticResult = staticEffectedAtRow(nIndex, easyType);
         result = SACContext.appendToString(result, staticResult);
       } //endi
@@ -348,7 +348,7 @@ class SABEasyAnalysisBusiness {
       String strMonthPair = symbolMonthPairDescription(baseSymbol);
       if ("" != strMonthPair) {
         if (EasyTypeEnum.from == easyType) {
-          if (_easyModel.isMovementAtRow(nRow)) {
+          if (_inputEasyModel.isMovementAtRow(nRow)) {
             strMonthPair =
                 "本爻与月合: $strMonthPair; 动而逢合谓之合绊。爻动或与日月动爻合者，谓之逢合而绊住，反不能动之意。";
           } else {
@@ -381,7 +381,7 @@ class SABEasyAnalysisBusiness {
 
       if ("" != strPairResult) {
         if (EasyTypeEnum.from == easyType) {
-          if (_easyModel.isMovementAtRow(nRow)) {
+          if (_inputEasyModel.isMovementAtRow(nRow)) {
             strPairResult =
                 "本爻与日合: $strPairResult; 动而逢合谓之合绊。爻动或与日月动爻合者，谓之逢合而绊住，反不能动之意。";
           } else {
@@ -600,7 +600,7 @@ class SABEasyAnalysisBusiness {
     String posionLeft = positionAtMerge(nRow);
 
     if (0 <= nRow && nRow < 6) {
-      if (_easyModel.isMovementAtRow(nRow))
+      if (_inputEasyModel.isMovementAtRow(nRow))
         strResult = strResult + posionLeft;
       else
         strResult = strResult + "$posionLeft(待)";

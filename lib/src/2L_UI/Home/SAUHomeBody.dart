@@ -104,9 +104,9 @@ class SAUHomeBodyState extends State<SAUHomeBody> {
                 _bAnimation = false;
                 setState(() {});
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  SABEasyModel easyModel = SABEasyModel('测试', '子孙');
-                  easyModel.generateEasyArray();
-                  return SAUEasyResultRoute(easyModel);
+                  SABEasyModel outEasyModel = SABEasyModel('测试', '子孙');
+                  outEasyModel.generateEasyArray();
+                  return SAUEasyResultRoute(outEasyModel);
                 }));
               }),
               visible: _bAnimation,
