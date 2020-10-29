@@ -22,7 +22,7 @@ class SABEasyLogicBusiness {
     return 0;
   }
 
-  List rowArrayAtLevel(OutRightEnum level) {
+  List rowArrayAtOutRightLevel(OutRightEnum level) {
     return [];
   }
 
@@ -830,7 +830,7 @@ class SABEasyLogicBusiness {
   List movementIndexArray() {
     List movementArray = List();
 
-    List arrayLevel = rowArrayAtLevel(OutRightEnum.RIGHT_MOVE);
+    List arrayLevel = rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     for (int intRow in arrayLevel) {
       if (!isMovementAtRow(intRow)) {
         if (isSymbolHealthStrong(intRow, EasyTypeEnum.from))

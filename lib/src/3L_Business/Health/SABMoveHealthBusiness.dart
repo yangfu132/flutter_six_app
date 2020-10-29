@@ -34,7 +34,8 @@ class SABMoveHealthBusiness {
 
   bool calculateHealthAtLevel3() {
     bool bResult = isLevel3HasBegin();
-    List arrayLevel3 = _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_MOVE);
+    List arrayLevel3 =
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     for (int item in arrayLevel3) {
       if (_originBusiness.isUnFinish(item)) {
         if (bResult)
@@ -170,7 +171,8 @@ class SABMoveHealthBusiness {
 
     String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
-    List level3Array = _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_MOVE);
+    List level3Array =
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
 
     for (int itemRow in level3Array) {
       if (nLevel3Row != itemRow) {
@@ -204,7 +206,8 @@ class SABMoveHealthBusiness {
     String basicSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
     String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
-    List levelArray = _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_MOVE);
+    List levelArray =
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     levelArray.add(nRow);
 
     for (int itemRow in levelArray) {
@@ -245,7 +248,8 @@ class SABMoveHealthBusiness {
 
   bool isLevel3HasBegin() {
     bool bHasBegin = false;
-    List arrayLevel3 = _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_MOVE);
+    List arrayLevel3 =
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     if (arrayLevel3.length > 0) {
       for (int intItem in arrayLevel3) {
         List arrayEffects =

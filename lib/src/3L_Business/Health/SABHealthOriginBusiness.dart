@@ -142,8 +142,8 @@ class SABHealthOriginBusiness {
     return arrayStrong;
   }
 
-  List rowArrayAtLevel(OutRightEnum level) {
-    //TODO
+  ///原函数名rowArrayAtLevel
+  List rowArrayAtOutRightLevel(OutRightEnum level) {
     List array = [];
     for (int nRow = 0; nRow < 6; nRow++) {
       if (level == symbolOutRightAtRow(nRow, EasyTypeEnum.from)) {

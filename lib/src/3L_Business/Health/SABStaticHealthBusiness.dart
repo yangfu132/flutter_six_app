@@ -48,7 +48,7 @@ class SABStaticHealthBusiness {
   bool isLevel4HasBegin() {
     bool bHasBegin = false;
     List arrayLevel =
-        _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_STATIC);
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
     if (arrayLevel.length > 0) {
       for (int item in arrayLevel) {
         List arrayEffects = effectingArrayAtLevel4Row(item, EasyTypeEnum.from);
@@ -82,7 +82,7 @@ class SABStaticHealthBusiness {
     bool bHasBegin3 = _moveBusiness.calculateHealthAtLevel3();
 
     List arrayLevel4 =
-        _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_STATIC);
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
     for (int item in arrayLevel4) {
       if (_originBusiness.isUnFinish(item)) {
         double basicHealth = baseHealthAtLevel4Row(item, EasyTypeEnum.from);
@@ -145,7 +145,7 @@ class SABStaticHealthBusiness {
     String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
     List levelArray =
-        _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_STATIC);
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
 
     for (int itemRow in levelArray) {
       if (nRow != itemRow) {

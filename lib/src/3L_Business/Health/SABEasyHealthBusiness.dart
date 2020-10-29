@@ -23,7 +23,7 @@ class SABEasyHealthBusiness {
 
     bool bHasBegin = calculateHealthOfStatic();
     List listRightEmpty =
-        _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_EMPTY);
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
 
     for (int nRow in listRightEmpty)
       _moveBusiness.calculateHealthOfMove(nRow, EasyTypeEnum.from);
@@ -35,7 +35,7 @@ class SABEasyHealthBusiness {
   bool calculateHealthOfStatic() {
     bool bHasBeginMove = _moveBusiness.calculateHealthAtLevel3();
     List arrayStatic =
-        _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_EMPTY);
+        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
     for (int nRow in arrayStatic) {
       if (_originBusiness.isUnFinish(nRow)) {
         double basicHealth =
