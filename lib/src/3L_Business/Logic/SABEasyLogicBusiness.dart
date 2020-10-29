@@ -5,13 +5,13 @@ import '../Easy/SABElementModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 class SABEasyLogicBusiness {
+  SABEasyLogicBusiness(this._inputEasyBusiness) {
+    _branchBusiness = SABEarthBranchBusiness();
+  }
   final SABEasyBusiness _inputEasyBusiness;
   SABEarthBranchBusiness _branchBusiness;
   //属性：用神的索引号
   int _usefulGodRow = globalRowInvalid;
-  SABEasyLogicBusiness(this._inputEasyBusiness) {
-    _branchBusiness = SABEarthBranchBusiness();
-  }
 
   double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
     return 0;

@@ -8,10 +8,12 @@ import 'SABMoveHealthBusiness.dart';
 
 ///静爻的强弱
 class SABStaticHealthBusiness {
+  SABStaticHealthBusiness(this._inputEasyBusiness);
+  final SABEasyBusiness _inputEasyBusiness;
+
   SABHealthOriginBusiness _originBusiness;
   SABMoveHealthBusiness _moveBusiness;
   SABEasyLogicBusiness _logicBusiness;
-  SABEasyBusiness _inputEasyBusiness;
 
   void calculateHealthAtLevel4Row(int item, EasyTypeEnum easyType) {
     double basicHealth = symbolHealthAtRow(item, easyType);

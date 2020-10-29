@@ -5,9 +5,11 @@ import '../Logic/SABEasyLogicBusiness.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 class SABEasyAnalysisBusiness {
-  SABEasyBusiness _inputEasyBusiness;
+  final SABEasyBusiness _inputEasyBusiness;
   SABEasyLogicBusiness _logicBusiness;
   SABEarthBranchBusiness _branchBusiness;
+
+  SABEasyAnalysisBusiness(this._inputEasyBusiness);
 
   ///`basic`//////////////////////////////////////////////////////
 

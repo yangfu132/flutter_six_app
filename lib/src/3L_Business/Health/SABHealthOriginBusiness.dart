@@ -81,11 +81,11 @@ import '../Logic/SABEasyLogicBusiness.dart';
  
  */
 class SABHealthOriginBusiness {
+  SABHealthOriginBusiness(this._inputEasyBusiness);
+  final SABEasyBusiness _inputEasyBusiness;
+
   Map<int, double> _healthMap;
-
   List _finishedList;
-
-  SABEasyBusiness _inputEasyBusiness;
 
   SABEarthBranchBusiness _branchBusiness;
 

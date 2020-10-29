@@ -7,8 +7,10 @@ import 'SABHealthOriginBusiness.dart';
 
 ///动爻的强弱计算
 class SABMoveHealthBusiness {
+  SABMoveHealthBusiness(this._inputEasyBusiness);
+  final SABEasyBusiness _inputEasyBusiness;
+
   SABHealthOriginBusiness _originBusiness;
-  SABEasyBusiness _inputEasyBusiness;
   SABEarthBranchBusiness _branchBusiness;
   SABEasyLogicBusiness _logicBusiness;
 
