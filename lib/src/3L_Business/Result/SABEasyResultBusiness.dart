@@ -38,7 +38,7 @@ class SABEasyResultBusiness {
 
   SABEasyLogicBusiness logicBusiness() {
     if (null == _logicBusiness) {
-      _logicBusiness = SABEasyLogicBusiness(easyBusiness());
+      _logicBusiness = SABEasyLogicBusiness(easyBusiness(), branchBusiness());
     } //else cont.
     return _logicBusiness;
   }
