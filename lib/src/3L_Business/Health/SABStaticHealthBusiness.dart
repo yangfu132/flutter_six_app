@@ -1,6 +1,5 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
-import '../Easy/SABEasyModel.dart';
 import '../Easy/SABEasyBusiness.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
@@ -12,7 +11,7 @@ class SABStaticHealthBusiness {
   SABHealthOriginBusiness _originBusiness;
   SABMoveHealthBusiness _moveBusiness;
   SABEasyLogicBusiness _logicBusiness;
-  SABEasyBusiness _easyBusiness;
+  SABEasyBusiness _inputEasyBusiness;
 
   void calculateHealthAtLevel4Row(int item, EasyTypeEnum easyType) {
     double basicHealth = symbolHealthAtRow(item, easyType);
@@ -139,11 +138,11 @@ class SABStaticHealthBusiness {
   }
 
   List effectingArrayAtLevel4Row(int nRow, EasyTypeEnum easyType) {
-    String basicSymbol = _easyBusiness.symbolAtRow(nRow, easyType);
+    String basicSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
 
     List arrayEffects = [];
 
-    String basicEarth = _easyBusiness.symbolEarth(basicSymbol);
+    String basicEarth = _inputEasyBusiness.symbolEarth(basicSymbol);
 
     List levelArray =
         _originBusiness.rowArrayAtLevel(OutRightEnum.RIGHT_STATIC);

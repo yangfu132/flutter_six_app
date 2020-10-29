@@ -33,14 +33,14 @@ class SABEasyResultBusiness {
 
   SABEasyLogicBusiness logicBusiness() {
     if (null == _logicBusiness) {
-      _logicBusiness = SABEasyLogicBusiness(_inputEasyModel);
+      _logicBusiness = SABEasyLogicBusiness(easyBusiness());
     } //else cont.
     return _logicBusiness;
   }
 
   SABEasyHealthBusiness healthBusiness() {
     if (null == _healthBusiness) {
-      _healthBusiness = SABEasyHealthBusiness(_inputEasyModel);
+      _healthBusiness = SABEasyHealthBusiness(easyBusiness());
     } //else cont.
     return _healthBusiness;
   }
@@ -61,7 +61,7 @@ class SABEasyResultBusiness {
 
   ///`用神`//////////////////////////////////////////////////////
   String resultUsefulGode() {
-    return "${this._inputEasyModel.getUsefulGod()}，类像参见用神爻。";
+    return "${this.easyBusiness().getUsefulGod()}，类像参见用神爻。";
   }
 
   ///`卦体`//////////////////////////////////////////////////////
@@ -205,7 +205,7 @@ class SABEasyResultBusiness {
 
     bool bToSixPair = false;
 
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
           _logicBusiness.isEasySixPair(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -214,7 +214,7 @@ class SABEasyResultBusiness {
         _logicBusiness.isEasySixConflict(_easyBusiness.fromEasyDictionary());
 
     bool bToConflict = false;
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToConflict =
           _logicBusiness.isEasySixConflict(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -445,7 +445,7 @@ class SABEasyResultBusiness {
         _logicBusiness.isEasySixPair(_easyBusiness.fromEasyDictionary());
 
     bool bToSixPair = false;
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
           _logicBusiness.isEasySixPair(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -454,7 +454,7 @@ class SABEasyResultBusiness {
         _logicBusiness.isEasySixConflict(_easyBusiness.fromEasyDictionary());
 
     bool bToConflict = false;
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToConflict =
           _logicBusiness.isEasySixConflict(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -495,7 +495,7 @@ class SABEasyResultBusiness {
         _logicBusiness.isEasySixPair(_easyBusiness.fromEasyDictionary());
 
     bool bToSixPair = false;
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
           _logicBusiness.isEasySixPair(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -504,7 +504,7 @@ class SABEasyResultBusiness {
         _logicBusiness.isEasySixConflict(_easyBusiness.fromEasyDictionary());
 
     bool bToConflict = false;
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToConflict =
           _logicBusiness.isEasySixConflict(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -546,7 +546,7 @@ class SABEasyResultBusiness {
         _logicBusiness.isEasySixPair(_easyBusiness.fromEasyDictionary());
 
     bool bToSixPair = false;
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
           _logicBusiness.isEasySixPair(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -555,7 +555,7 @@ class SABEasyResultBusiness {
         _logicBusiness.isEasySixConflict(_easyBusiness.fromEasyDictionary());
 
     bool bToConflict = false;
-    if (_inputEasyModel.fromEasyKey() != _inputEasyModel.toEasyKey())
+    if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToConflict =
           _logicBusiness.isEasySixConflict(_easyBusiness.toEasyDictionary());
     //else cont. 是静卦
@@ -668,7 +668,7 @@ class SABEasyResultBusiness {
   String repeatedEasyResult() {
     //伏吟之卦，用神旺相冲开之年月其志则神，用神休囚，冲开之年月忧郁而已。
     String result = "";
-    if (_inputEasyModel.isMovementAtRow(_logicBusiness.usefulGodRow())) {
+    if (easyBusiness().isMovementAtRow(_logicBusiness.usefulGodRow())) {
       if (logicBusiness().isUsefulGodStrong()) {
         String fromEarth =
             _easyBusiness.earthAtFromRow(_logicBusiness.usefulGodRow());

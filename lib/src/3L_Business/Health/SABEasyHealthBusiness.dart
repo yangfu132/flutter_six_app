@@ -1,6 +1,5 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
-import '../Easy/SABEasyModel.dart';
 import '../Easy/SABEasyBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABMoveHealthBusiness.dart';
@@ -8,9 +7,8 @@ import 'SABStaticHealthBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 
 class SABEasyHealthBusiness {
-  SABEasyHealthBusiness(this._inputEasyModel);
-  SABEasyBusiness _easyBusiness;
-  final SABEasyModel _inputEasyModel;
+  SABEasyHealthBusiness(this._inputEasyBusiness);
+  SABEasyBusiness _inputEasyBusiness;
   SABMoveHealthBusiness _moveBusiness;
   SABStaticHealthBusiness _staticBusiness;
   SABHealthOriginBusiness _originBusiness;
@@ -78,7 +76,7 @@ class SABEasyHealthBusiness {
 //世的强弱
   double lifeHealth() {
     double fResult = 0;
-    int lifeIndex = _easyBusiness.getLifeIndex();
+    int lifeIndex = _inputEasyBusiness.getLifeIndex();
     fResult = _originBusiness.getHealth(lifeIndex);
     return fResult;
   }

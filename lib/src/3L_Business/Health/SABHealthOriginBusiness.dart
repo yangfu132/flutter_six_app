@@ -1,6 +1,5 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
-import '../Easy/SABEasyModel.dart';
 import '../Easy/SABEasyBusiness.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
@@ -86,7 +85,7 @@ class SABHealthOriginBusiness {
 
   List _finishedList;
 
-  SABEasyBusiness _easyBusiness;
+  SABEasyBusiness _inputEasyBusiness;
 
   SABEarthBranchBusiness _branchBusiness;
 
@@ -338,25 +337,26 @@ class SABHealthOriginBusiness {
   double symbolBasicHealthAtRow(int nRow, EasyTypeEnum easyType) {
     double fResult = 0.0;
 
-    String stringSymbol = _easyBusiness.symbolAtRow(nRow, easyType);
+    String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
 
     if ("" != stringSymbol) {
-      String basicEarth = _easyBusiness.symbolEarth(stringSymbol);
+      String basicEarth = _inputEasyBusiness.symbolEarth(stringSymbol);
 
       //日
       if (_logicBusiness.isEmptyAtRow(nRow, easyType))
         fResult = 0;
       else
-        fResult = earthHealthAtDayEarth(basicEarth, _easyBusiness.dayEarth());
+        fResult =
+            earthHealthAtDayEarth(basicEarth, _inputEasyBusiness.dayEarth());
 
       //月
       if (MonthBrokenEnum.Broken_NO !=
           _logicBusiness.symbolConflictStateOnMonth(
-              stringSymbol, _easyBusiness.monthEarth()))
+              stringSymbol, _inputEasyBusiness.monthEarth()))
         fResult += 0;
       else
-        fResult += earthHealthAtMonthAndDay(
-            basicEarth, _easyBusiness.monthEarth(), _easyBusiness.dayEarth());
+        fResult += earthHealthAtMonthAndDay(basicEarth,
+            _inputEasyBusiness.monthEarth(), _inputEasyBusiness.dayEarth());
     } else
       colog("error!");
 
@@ -434,7 +434,7 @@ class SABHealthOriginBusiness {
      */
 
     OutRightEnum fResult = OutRightEnum.RIGHT_NULL;
-    String stringSymbol = _easyBusiness.symbolAtRow(nRow, easyType);
+    String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
     if (_logicBusiness.symbolBasicEmptyState(stringSymbol) !=
         EmptyEnum.Empty_YES) {
       bool bPaireDay = _logicBusiness.isSymbolDayPair(stringSymbol);
@@ -444,7 +444,7 @@ class SABHealthOriginBusiness {
       } else {
         bool bConflictDay =
             _logicBusiness.isSymbolConflictDayAtRow(nRow, EasyTypeEnum.from);
-        bool bMove = _easyBusiness.isSymbolMovement(stringSymbol);
+        bool bMove = _inputEasyBusiness.isSymbolMovement(stringSymbol);
         if (bMove)
           fResult = OutRightEnum.RIGHT_MOVE;
         else if (bConflictDay)
@@ -480,8 +480,8 @@ class SABHealthOriginBusiness {
     else {
       if (_logicBusiness.movementIndexArray().length > 0) {
         //动卦中静爻的作用没有那么大
-        String stringSymbol = _easyBusiness.symbolAtRow(nRow, easyType);
-        if (!_easyBusiness.isSymbolMovement(stringSymbol)) fResult = 0.5;
+        String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
+        if (!_inputEasyBusiness.isSymbolMovement(stringSymbol)) fResult = 0.5;
         //else cont.
       }
       //else cont.
@@ -530,7 +530,7 @@ class SABHealthOriginBusiness {
     double bResult = 0.0;
 
     if (EasyTypeEnum.to != easyType) {
-      String stringSymbol = _easyBusiness.symbolAtRow(nRow, easyType);
+      String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
       if ("" != stringSymbol) {
         if (_logicBusiness.isSymbolOnMonth(stringSymbol))
           bResult = MAX_DEFENSIVE;
