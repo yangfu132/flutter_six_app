@@ -12,7 +12,7 @@ class SABStaticHealthBusiness {
 
   SABHealthOriginBusiness _originBusiness;
   SABMoveHealthBusiness _moveBusiness;
-  SABEasyLogicBusiness _logicBusiness;
+  SABEasyLogicBusiness _inputLogicBusiness;
 
   void calculateHealthAtLevel4Row(int item, EasyTypeEnum easyType) {
     double basicHealth = symbolHealthAtRow(item, easyType);
@@ -129,7 +129,7 @@ class SABStaticHealthBusiness {
 
     if (OutRightEnum.RIGHT_STATIC ==
         _originBusiness.symbolOutRightAtRow(nEffectingRow, easyType)) {
-      if (_logicBusiness.isSymbolHealthStrong(nEffectingRow, easyType))
+      if (_inputLogicBusiness.isSymbolHealthStrong(nEffectingRow, easyType))
         bResult = true;
       //else cont.
     } else

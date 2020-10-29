@@ -1,18 +1,16 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Easy/SABEasyBusiness.dart';
-import '../EarthBranch/SABEarthBranchBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 
 ///动爻的强弱计算
 class SABMoveHealthBusiness {
-  SABMoveHealthBusiness(this._inputEasyBusiness, this._inputBranchBusiness);
+  SABMoveHealthBusiness(this._inputEasyBusiness, this._inputLogicBusiness);
   final SABEasyBusiness _inputEasyBusiness;
 
   SABHealthOriginBusiness _originBusiness;
-  final SABEarthBranchBusiness _inputBranchBusiness;
-  SABEasyLogicBusiness _logicBusiness;
+  final SABEasyLogicBusiness _inputLogicBusiness;
 
   //calculateHealthAtLevel3Row
   void calculateHealthOfMove(int item, EasyTypeEnum easyType) {
@@ -78,12 +76,12 @@ class SABMoveHealthBusiness {
     if (null != effectsSymbol && "" != effectsSymbol) {
       String effectsEarth = _inputEasyBusiness.symbolEarth(effectsSymbol);
 
-      if (_inputBranchBusiness.isEarthBorn(effectsEarth, basicEarth)) {
+      if (_inputLogicBusiness.isEarthBorn(effectsEarth, basicEarth)) {
         fHealth += symbolOutAtRow(effectsRow, effectsEasyType);
       }
       //else cont.
 
-      if (_inputBranchBusiness.isEarthRestricts(effectsEarth, basicEarth)) {
+      if (_inputLogicBusiness.isEarthRestricts(effectsEarth, basicEarth)) {
         fHealth -= (MAX_DEFENSIVE - basicDefense) *
             symbolOutAtRow(effectsRow, effectsEasyType);
       }
@@ -157,9 +155,9 @@ class SABMoveHealthBusiness {
   bool isEffectingEarth(String basicEarth, int itemRow) {
     bool bResult = false;
     String earth = _inputEasyBusiness.earthAtFromRow(itemRow);
-    if (_inputBranchBusiness.isEarthBorn(earth, basicEarth)) {
+    if (_inputLogicBusiness.isEarthBorn(earth, basicEarth)) {
       bResult = true;
-    } else if (_inputBranchBusiness.isEarthRestricts(earth, basicEarth)) {
+    } else if (_inputLogicBusiness.isEarthRestricts(earth, basicEarth)) {
       bResult = true;
     }
     //else cont.
@@ -196,7 +194,7 @@ class SABMoveHealthBusiness {
     //TODO:除了动爻，静爻可以生克伏神吗？
     //TODO:除了旬空的不可以生克伏神，还有别的不可以生克伏神吗？
 
-    if (_logicBusiness.isEmptyAtRow(nRow, easyType)) bResult = false;
+    if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType)) bResult = false;
     //else cont.
 
     return bResult;
@@ -229,13 +227,13 @@ class SABMoveHealthBusiness {
     if (EasyTypeEnum.from == easyType) {
       //明动爻对其它爻都有生克权
       if (_inputEasyBusiness.isMovementAtRow(nEffectingRow))
-        bResult = _logicBusiness.isEffectableRow(nEffectingRow, easyType);
+        bResult = _inputLogicBusiness.isEffectableRow(nEffectingRow, easyType);
       else {
         //被日冲的爻只有在strong时才是暗动，才能生克动爻
 
         if (_originBusiness.isUnFinish(nEffectingRow)) {
           bResult =
-              _logicBusiness.isSymbolHealthStrong(nEffectingRow, easyType);
+              _inputLogicBusiness.isSymbolHealthStrong(nEffectingRow, easyType);
         } else {
           //未被计算的日冲爻，需要被计算
           bResult = true;

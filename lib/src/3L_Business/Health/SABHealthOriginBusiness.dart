@@ -1,7 +1,6 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Easy/SABEasyBusiness.dart';
-import '../EarthBranch/SABEarthBranchBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 
 /*
@@ -81,15 +80,13 @@ import '../Logic/SABEasyLogicBusiness.dart';
  
  */
 class SABHealthOriginBusiness {
-  SABHealthOriginBusiness(this._inputEasyBusiness, this._inputBranchBusiness);
+  SABHealthOriginBusiness(this._inputEasyBusiness, this._inputLogicBusiness);
   final SABEasyBusiness _inputEasyBusiness;
 
   Map<int, double> _healthMap;
   List _finishedList;
 
-  final SABEarthBranchBusiness _inputBranchBusiness;
-
-  SABEasyLogicBusiness _logicBusiness;
+  final SABEasyLogicBusiness _inputLogicBusiness;
 
   ///`基础函数`//////////////////////////////////////////////////////
 
@@ -173,7 +170,7 @@ class SABHealthOriginBusiness {
   double earthHealthAtTwelveGod(String basicEarth, String atEarth) {
     double fResult = 1.0;
 
-    String twelve = _inputBranchBusiness.earthTwelveGod(basicEarth, atEarth);
+    String twelve = _inputLogicBusiness.earthTwelveGod(basicEarth, atEarth);
 
     /*
      长生、冠带、临官、帝旺为四旺运
@@ -245,7 +242,7 @@ class SABHealthOriginBusiness {
   double earthHealthAtSeason(String basicEarth, String atEarth) {
     double fResult = 1.0;
 
-    String season = _inputBranchBusiness.seasonDescription(basicEarth, atEarth);
+    String season = _inputLogicBusiness.seasonDescription(basicEarth, atEarth);
     if (null != season) {
       double base = 0;
 
@@ -299,10 +296,10 @@ class SABHealthOriginBusiness {
     fResult += earthHealthAtTwelveGod(basicEarth, monthEarth) *
         (maxSeason * 3 / 10 / maxTwelve);
 
-    if (_logicBusiness.isEarthOnMonth(basicEarth, monthEarth)) {
+    if (_inputLogicBusiness.isEarthOnMonth(basicEarth, monthEarth)) {
       //月临
       fResult = healthDayOrMonthOn();
-    } else if (_logicBusiness.isEarthPairMonth(basicEarth, monthEarth)) {
+    } else if (_inputLogicBusiness.isEarthPairMonth(basicEarth, monthEarth)) {
       /*
          《增删卜易》六合章第十九 “爻静或与日月动爻合者，得合而起，即使爻值休囚亦有旺相之意。”
          但此处应该有问题，静爻是没有办法与别人合的；所以应该是爻静与日月合，休囚亦有旺相之意。
@@ -321,9 +318,9 @@ class SABHealthOriginBusiness {
   double earthHealthAtDayEarth(String basicEarth, String dayEarth) {
     double fResult = earthHealthAtTwelveGod(basicEarth, dayEarth);
     //日临
-    if (_logicBusiness.isOnDayEarth(basicEarth, dayEarth)) {
+    if (_inputLogicBusiness.isOnDayEarth(basicEarth, dayEarth)) {
       fResult = healthDayOrMonthOn();
-    } else if (_logicBusiness.isEarthPairDay(basicEarth, dayEarth)) {
+    } else if (_inputLogicBusiness.isEarthPairDay(basicEarth, dayEarth)) {
       //日合
       if (fResult < healthCriticalValue())
         fResult = healthCriticalValue() * 1.1;
@@ -343,7 +340,7 @@ class SABHealthOriginBusiness {
       String basicEarth = _inputEasyBusiness.symbolEarth(stringSymbol);
 
       //日
-      if (_logicBusiness.isEmptyAtRow(nRow, easyType))
+      if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
         fResult = 0;
       else
         fResult =
@@ -351,7 +348,7 @@ class SABHealthOriginBusiness {
 
       //月
       if (MonthBrokenEnum.Broken_NO !=
-          _logicBusiness.symbolConflictStateOnMonth(
+          _inputLogicBusiness.symbolConflictStateOnMonth(
               stringSymbol, _inputEasyBusiness.monthEarth()))
         fResult += 0;
       else
@@ -435,15 +432,15 @@ class SABHealthOriginBusiness {
 
     OutRightEnum fResult = OutRightEnum.RIGHT_NULL;
     String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
-    if (_logicBusiness.symbolBasicEmptyState(stringSymbol) !=
+    if (_inputLogicBusiness.symbolBasicEmptyState(stringSymbol) !=
         EmptyEnum.Empty_YES) {
-      bool bPaireDay = _logicBusiness.isSymbolDayPair(stringSymbol);
-      bool bPaireMonth = _logicBusiness.isSymbolMonthPair(stringSymbol);
+      bool bPaireDay = _inputLogicBusiness.isSymbolDayPair(stringSymbol);
+      bool bPaireMonth = _inputLogicBusiness.isSymbolMonthPair(stringSymbol);
       if (bPaireDay || bPaireMonth) {
         fResult = OutRightEnum.RIGHT_MOVE;
       } else {
-        bool bConflictDay =
-            _logicBusiness.isSymbolConflictDayAtRow(nRow, EasyTypeEnum.from);
+        bool bConflictDay = _inputLogicBusiness.isSymbolConflictDayAtRow(
+            nRow, EasyTypeEnum.from);
         bool bMove = _inputEasyBusiness.isSymbolMovement(stringSymbol);
         if (bMove)
           fResult = OutRightEnum.RIGHT_MOVE;
@@ -475,10 +472,10 @@ class SABHealthOriginBusiness {
 
     //TODO:转化率到底是多少
 
-    if (_logicBusiness.isEmptyAtRow(nRow, easyType))
+    if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
       fResult = 0.0;
     else {
-      if (_logicBusiness.movementIndexArray().length > 0) {
+      if (_inputLogicBusiness.movementIndexArray().length > 0) {
         //动卦中静爻的作用没有那么大
         String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
         if (!_inputEasyBusiness.isSymbolMovement(stringSymbol)) fResult = 0.5;
@@ -491,11 +488,11 @@ class SABHealthOriginBusiness {
     /*******************************************
      虽然这段代码是废话，因为临是不影响输出的；
      但是放在这里可以提醒自己不要忘记；
-     if (_logicBusiness.isSymbolOnMonth(stringSymbol))
+     if (_inputLogicBusiness.isSymbolOnMonth(stringSymbol))
      fResult = 1.0;
      //else cont.
      
-     if (_logicBusiness.isSymbolOnDay(stringSymbol))
+     if (_inputLogicBusiness.isSymbolOnDay(stringSymbol))
      fResult = 1.0;
      //else cont.
      *******************************************/
@@ -532,15 +529,15 @@ class SABHealthOriginBusiness {
     if (EasyTypeEnum.to != easyType) {
       String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
       if ("" != stringSymbol) {
-        if (_logicBusiness.isSymbolOnMonth(stringSymbol))
+        if (_inputLogicBusiness.isSymbolOnMonth(stringSymbol))
           bResult = MAX_DEFENSIVE;
-        else if (_logicBusiness.isSymbolOnDay(stringSymbol))
+        else if (_inputLogicBusiness.isSymbolOnDay(stringSymbol))
           bResult = MAX_DEFENSIVE;
-        else if (_logicBusiness.isEmptyAtRow(nRow, easyType))
+        else if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_logicBusiness.isSymbolMonthPair(stringSymbol))
+        else if (_inputLogicBusiness.isSymbolMonthPair(stringSymbol))
           bResult = MAX_DEFENSIVE;
-        else if (_logicBusiness.isSymbolDayPair(stringSymbol))
+        else if (_inputLogicBusiness.isSymbolDayPair(stringSymbol))
           bResult = MAX_DEFENSIVE;
         //else cont.
       } else

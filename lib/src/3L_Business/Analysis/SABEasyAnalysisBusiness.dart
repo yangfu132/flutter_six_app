@@ -2,14 +2,12 @@
 import '../../1L_Context/SACContext.dart';
 import '../Easy/SABEasyBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
-import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 class SABEasyAnalysisBusiness {
   final SABEasyBusiness _inputEasyBusiness;
-  SABEasyLogicBusiness _logicBusiness;
-  final SABEarthBranchBusiness _inputBranchBusiness;
+  SABEasyLogicBusiness _inputLogicBusiness;
 
-  SABEasyAnalysisBusiness(this._inputEasyBusiness, this._inputBranchBusiness);
+  SABEasyAnalysisBusiness(this._inputEasyBusiness);
 
   ///`basic`//////////////////////////////////////////////////////
 
@@ -64,7 +62,7 @@ class SABEasyAnalysisBusiness {
   String parentEffectAtRow(int nIndex, EasyTypeEnum easyType) {
     String result = "";
 
-    if (_logicBusiness.isStaticEasy())
+    if (_inputLogicBusiness.isStaticEasy())
       result = staticEffectedAtRow(nIndex, easyType);
     else
       result = movementEffectedAtRow(nIndex, easyType);
@@ -78,7 +76,7 @@ class SABEasyAnalysisBusiness {
     String stringSymbol = _inputEasyBusiness.symbolAtRow(nIndex, easyType);
 
     if (null != stringSymbol) {
-      List arrayEffects = _logicBusiness.movementIndexArray();
+      List arrayEffects = _inputLogicBusiness.movementIndexArray();
 
       //把自己从列表中移除
       if (EasyTypeEnum.from == easyType) arrayEffects.remove(nIndex);
@@ -105,12 +103,12 @@ class SABEasyAnalysisBusiness {
 
     String stringSymbol = _inputEasyBusiness.symbolAtRow(nIndex, easyType);
     if (null != stringSymbol) {
-      List arrayEffects = _logicBusiness.staticSeasonStrong();
+      List arrayEffects = _inputLogicBusiness.staticSeasonStrong();
       //把自己从列表中移除
       if (EasyTypeEnum.from == easyType) arrayEffects.remove(nIndex);
       //else cont.
 
-      if (!_logicBusiness.isSymbolSeasonStrong(stringSymbol)) {
+      if (!_inputLogicBusiness.isSymbolSeasonStrong(stringSymbol)) {
         result = symbolEffected(stringSymbol, arrayEffects);
       }
       //else cont.
@@ -128,38 +126,39 @@ class SABEasyAnalysisBusiness {
     for (int numItem in arrayEffects) {
       String earth = _inputEasyBusiness.earthAtFromRow(numItem);
 
-      bool bEffect = _logicBusiness.isEffectableRow(numItem, EasyTypeEnum.from);
+      bool bEffect =
+          _inputLogicBusiness.isEffectableRow(numItem, EasyTypeEnum.from);
 
       String strEffect = bEffect ? "" : "无效：";
 
-      if (_inputBranchBusiness.isEarthBorn(earth, basicEarth)) {
+      if (_inputLogicBusiness.isEarthBorn(earth, basicEarth)) {
         if ("" == strResult) {
           strResult = strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputBranchBusiness.earthElement(earth) +
+              _inputLogicBusiness.earthElement(earth) +
               "生";
         } else {
           strResult = "\r\n" +
               strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputBranchBusiness.earthElement(earth) +
+              _inputLogicBusiness.earthElement(earth) +
               "生";
         } //endi
-      } else if (_inputBranchBusiness.isEarthRestricts(earth, basicEarth)) {
+      } else if (_inputLogicBusiness.isEarthRestricts(earth, basicEarth)) {
         if ("" == strResult) {
           strResult = strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputBranchBusiness.earthElement(earth) +
+              _inputLogicBusiness.earthElement(earth) +
               "克";
         } else {
           strResult = "\r\n" +
               strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputBranchBusiness.earthElement(earth) +
+              _inputLogicBusiness.earthElement(earth) +
               "克";
         } //endi
       }
@@ -177,15 +176,15 @@ class SABEasyAnalysisBusiness {
     String fromEarth = _inputEasyBusiness.earthAtFromRow(nRow);
     String toEarth = _inputEasyBusiness.earthAtChangeRow(nRow);
     if ("" != toEarth) {
-      if (_logicBusiness.isSymbolChangeBornAtRow(nRow))
+      if (_inputLogicBusiness.isSymbolChangeBornAtRow(nRow))
         result = SACContext.appendToString(result, "回头生");
       //else cont.
 
-      if (_logicBusiness.isSymbolChangeBornAtRow(nRow))
+      if (_inputLogicBusiness.isSymbolChangeBornAtRow(nRow))
         result = SACContext.appendToString(result, "回头克");
       //else cont.
 
-      if (_logicBusiness.isSymbolChangeConflictAtRow(nRow))
+      if (_inputLogicBusiness.isSymbolChangeConflictAtRow(nRow))
         result = SACContext.appendToString(result, "回头冲");
       //else cont.
 
@@ -194,13 +193,13 @@ class SABEasyAnalysisBusiness {
       //else cont.
 
       String strForwardOrBack =
-          _logicBusiness.symbolForwardOrBack(fromEarth, toEarth);
+          _inputLogicBusiness.symbolForwardOrBack(fromEarth, toEarth);
       if ("" != strForwardOrBack)
         result = SACContext.appendToString(result, strForwardOrBack);
       //else cont.
 
       String strTwelveGod =
-          _inputBranchBusiness.earthTwelveGod(fromEarth, toEarth);
+          _inputLogicBusiness.earthTwelveGod(fromEarth, toEarth);
       if ("长生" == strTwelveGod ||
           "帝旺" == strTwelveGod ||
           "墓" == strTwelveGod ||
@@ -212,7 +211,7 @@ class SABEasyAnalysisBusiness {
       }
       //else cont.
 
-      bool bToEmpty = _logicBusiness.isSymbolChangeEmpty(nRow);
+      bool bToEmpty = _inputLogicBusiness.isSymbolChangeEmpty(nRow);
       if (bToEmpty) result = SACContext.appendToString(result, "化空");
       //else cont.
     }
@@ -233,7 +232,7 @@ class SABEasyAnalysisBusiness {
 
       String strMonth = _inputEasyBusiness.monthEarth();
 
-      if (_logicBusiness.isSymbolOnMonth(stringSymbol))
+      if (_inputLogicBusiness.isSymbolOnMonth(stringSymbol))
         strResult = SACContext.appendToString(strResult, "[临]");
       //else cont.
 
@@ -248,7 +247,7 @@ class SABEasyAnalysisBusiness {
       //else cont.
 
       String strTwelveGod =
-          _inputBranchBusiness.earthTwelveGod(strEarth, strMonth);
+          _inputLogicBusiness.earthTwelveGod(strEarth, strMonth);
       if ("长生" == strTwelveGod || "帝旺" == strTwelveGod || "绝" == strTwelveGod) {
         String strMark = "[$strTwelveGod]";
         strResult = SACContext.appendToString(strResult, strMark);
@@ -273,17 +272,17 @@ class SABEasyAnalysisBusiness {
       String strDay = _inputEasyBusiness.dayEarth();
 
       String strTwelveGod =
-          _inputBranchBusiness.earthTwelveGod(strEarth, strDay);
+          _inputLogicBusiness.earthTwelveGod(strEarth, strDay);
 
-      if (_logicBusiness.isSymbolOnDay(stringSymbol))
+      if (_inputLogicBusiness.isSymbolOnDay(stringSymbol))
         strResult = SACContext.appendToString(strResult, "[临]");
       //else cont.
 
-      bool bConflicted = _inputBranchBusiness.isEarthConflict(strDay, strEarth);
+      bool bConflicted = _inputLogicBusiness.isEarthConflict(strDay, strEarth);
       if (bConflicted) {
-        if (_logicBusiness.isSymbolBackMoveAtRow(nRow, easyType))
+        if (_inputLogicBusiness.isSymbolBackMoveAtRow(nRow, easyType))
           strResult = SACContext.appendToString(strResult, "[暗动]");
-        else if (_logicBusiness.isSymbolDayBrokenAtRow(nRow, easyType))
+        else if (_inputLogicBusiness.isSymbolDayBrokenAtRow(nRow, easyType))
           strResult = SACContext.appendToString(strResult, "[日破]");
         else
           strResult = SACContext.appendToString(strResult, "[冲]");
@@ -316,7 +315,7 @@ class SABEasyAnalysisBusiness {
 
   String resultSymbolEmpty(int nRow, EasyTypeEnum easyType) {
     String strEmpty = "";
-    switch (_logicBusiness.symbolEmptyState(nRow, easyType)) {
+    switch (_inputLogicBusiness.symbolEmptyState(nRow, easyType)) {
       case EmptyEnum.Empty_NO:
         break;
       case EmptyEnum.Empty_YES:
@@ -416,7 +415,7 @@ class SABEasyAnalysisBusiness {
       if (EasyTypeEnum.from == easyType) {
         String strSymbolPair = "";
         //爻与爻合者，二也; 两爻都需要是动爻才能合
-        List movementArray = _logicBusiness.movementIndexArray();
+        List movementArray = _inputLogicBusiness.movementIndexArray();
         if (movementArray.length >= 2) {
           for (int item in movementArray) {
             String tempSymbol = _inputEasyBusiness.symbolAtFromRow(item);
@@ -463,9 +462,9 @@ class SABEasyAnalysisBusiness {
 
     String strEarth = _inputEasyBusiness.symbolEarth(stringSymbol);
 
-    if (_logicBusiness.isEarthPairDay(
+    if (_inputLogicBusiness.isEarthPairDay(
         strEarth, _inputEasyBusiness.dayEarth())) {
-      strResult = _inputBranchBusiness.sixPairDescription(
+      strResult = _inputLogicBusiness.sixPairDescription(
           strEarth, _inputEasyBusiness.dayEarth());
     }
     //else cont.
@@ -479,10 +478,10 @@ class SABEasyAnalysisBusiness {
     String strEarth = _inputEasyBusiness.symbolEarth(stringSymbol);
 
     String strDay = _inputEasyBusiness.dayEarth();
-    if (!_inputBranchBusiness.isEarthConflict(strDay, strEarth) &&
-        !_inputBranchBusiness.isEarthConflict(
+    if (!_inputLogicBusiness.isEarthConflict(strDay, strEarth) &&
+        !_inputLogicBusiness.isEarthConflict(
             strDay, _inputEasyBusiness.monthEarth())) {
-      strResult = _inputBranchBusiness.sixPairDescription(
+      strResult = _inputLogicBusiness.sixPairDescription(
           strEarth, _inputEasyBusiness.monthEarth());
     }
     //else cont.
@@ -494,7 +493,7 @@ class SABEasyAnalysisBusiness {
     String strSymbolPair = "";
     String basicSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
     if (_inputEasyBusiness.isSymbolMovement(basicSymbol)) {
-      List movementArray = _logicBusiness.movementIndexArray();
+      List movementArray = _inputLogicBusiness.movementIndexArray();
       for (int item in movementArray) {
         if (nRow != item) {
           String tempSymbol = _inputEasyBusiness.symbolAtFromRow(item);
@@ -519,10 +518,10 @@ class SABEasyAnalysisBusiness {
 
     //爻逢合住，遇日建以冲开，谓之合处逢冲，是也。
     String strDay = _inputEasyBusiness.dayEarth();
-    if (!_inputBranchBusiness.isEarthConflict(strDay, basicEarth) &&
-        !_inputBranchBusiness.isEarthConflict(strDay, otherEarth)) {
+    if (!_inputLogicBusiness.isEarthConflict(strDay, basicEarth) &&
+        !_inputLogicBusiness.isEarthConflict(strDay, otherEarth)) {
       strResult =
-          _inputBranchBusiness.sixPairDescription(basicEarth, otherEarth);
+          _inputLogicBusiness.sixPairDescription(basicEarth, otherEarth);
     }
     //else cont.
 
@@ -568,7 +567,7 @@ class SABEasyAnalysisBusiness {
     String strResult = "";
 
     //一卦之内有三爻动而合局者，一也。
-    List movementArray = _logicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.movementIndexArray();
     String strThreePair = subResultThreePairOfRowArray(movementArray);
 
     List array = [0, 1, 2, 3, 4, 5];
@@ -591,7 +590,7 @@ class SABEasyAnalysisBusiness {
 
   int moveCountInArray(List arrayPairRow) {
     int nCount = 0;
-    List movementArray = _logicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.movementIndexArray();
     for (String item in arrayPairRow) {
       if (-1 != movementArray.indexOf(item)) nCount++;
       //else cont.
@@ -619,8 +618,8 @@ class SABEasyAnalysisBusiness {
   String subThreePairAtRowArray(List arrayPairRow) {
     String strResult = "";
 
-    List arrayR = _logicBusiness.earthThreePairInArray(
-        _logicBusiness.earthAtMergeRowArray(arrayPairRow));
+    List arrayR = _inputLogicBusiness.earthThreePairInArray(
+        _inputLogicBusiness.earthAtMergeRowArray(arrayPairRow));
 
     if (arrayR.length == 1) {
       if (moveCountInArray(arrayPairRow) >= 2) {
@@ -685,7 +684,7 @@ class SABEasyAnalysisBusiness {
     String strResult = "";
     //有内卦初爻三爻动，动而变出之爻成三合者，三也。
 
-    List movementArray = _logicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.movementIndexArray();
     if (-1 != movementArray.indexOf(3) && -1 != movementArray.indexOf(5)) {
       String strPair = "";
       List arrayRow1 = [];
@@ -722,7 +721,7 @@ class SABEasyAnalysisBusiness {
     //有外卦四爻六爻动，动而变出之爻成合者，四也。
     int nFirst = 0;
     int nSecond = 0;
-    List movementArray = _logicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.movementIndexArray();
     if (-1 != movementArray.indexOf(nFirst) &&
         -1 != movementArray.indexOf(nSecond)) {
       String strPair = "";
@@ -761,7 +760,7 @@ class SABEasyAnalysisBusiness {
   String monthBrokenDescriptionAtRow(int nRow, EasyTypeEnum easyType) {
     String monthBroken = "";
     String stringSymbol = _inputEasyBusiness.symbolAtRow(nRow, easyType);
-    switch (_logicBusiness.symbolMonthBrokenState(stringSymbol)) {
+    switch (_inputLogicBusiness.symbolMonthBrokenState(stringSymbol)) {
       case MonthBrokenEnum.Broken_NO:
         break;
       case MonthBrokenEnum.Broken_YES:

@@ -12,7 +12,7 @@ class SABEasyHealthBusiness {
   SABMoveHealthBusiness _moveBusiness;
   SABStaticHealthBusiness _staticBusiness;
   SABHealthOriginBusiness _originBusiness;
-  SABEasyLogicBusiness _logicBusiness;
+  SABEasyLogicBusiness _inputLogicBusiness;
 
   bool calculateHealth() {
     // 找到不受生克的动爻，如果找不到这个卦就没办法解开，最好重新占卜，这叫做乱动；
@@ -61,7 +61,7 @@ class SABEasyHealthBusiness {
 
   double usefulHealth() {
     double fResult = 0;
-    int usefulIndex = _logicBusiness.usefulGodRow();
+    int usefulIndex = _inputLogicBusiness.usefulGodRow();
 
     if (0 <= usefulIndex && usefulIndex < 6) {
       fResult = _originBusiness.getHealth(usefulIndex);
@@ -73,7 +73,7 @@ class SABEasyHealthBusiness {
     return fResult;
   }
 
-//世的强弱
+  ///世的健康值
   double lifeHealth() {
     double fResult = 0;
     int lifeIndex = _inputEasyBusiness.getLifeIndex();
@@ -94,5 +94,13 @@ class SABEasyHealthBusiness {
     strResult = fHealth.toStringAsFixed(4) + strResult;
 
     return strResult;
+  }
+
+  double lifeHealthWithCritical() {
+    return lifeHealth() - _originBusiness.healthCriticalValue();
+  }
+
+  double usefulHealthWithCritical() {
+    return usefulHealth() - _originBusiness.healthCriticalValue();
   }
 }

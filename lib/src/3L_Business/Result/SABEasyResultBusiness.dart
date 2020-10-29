@@ -7,20 +7,17 @@ import '../Easy/SABEasyModel.dart';
 import '../Easy/SABEasyBusiness.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import '../Health/SABEasyHealthBusiness.dart';
-import '../Health/SABHealthOriginBusiness.dart';
-import '../EarthBranch/SABEarthBranchBusiness.dart';
 import '../Analysis/SABEasyAnalysisBusiness.dart';
 import 'SABEasyResultModel.dart';
 
 class SABEasyResultBusiness {
   SABEasyModel _inputEasyModel;
   SABEasyBusiness _outEasyBusiness;
-  SABEarthBranchBusiness _outBranchBusiness;
+
   SABEasyHealthBusiness _healthBusiness;
-  SABEasyLogicBusiness _logicBusiness;
+  SABEasyLogicBusiness _inputLogicBusiness;
 
   SABEasyAnalysisBusiness _analysisBusiness;
-  SABHealthOriginBusiness _originBusiness;
 
   SABEasyBusiness easyBusiness() {
     if (null == _outEasyBusiness) {
@@ -29,18 +26,11 @@ class SABEasyResultBusiness {
     return _outEasyBusiness;
   }
 
-  SABEarthBranchBusiness branchBusiness() {
-    if (null == _outBranchBusiness) {
-      _outBranchBusiness = SABEarthBranchBusiness();
-    } //else cont.
-    return _outBranchBusiness;
-  }
-
   SABEasyLogicBusiness logicBusiness() {
-    if (null == _logicBusiness) {
-      _logicBusiness = SABEasyLogicBusiness(easyBusiness(), branchBusiness());
+    if (null == _inputLogicBusiness) {
+      _inputLogicBusiness = SABEasyLogicBusiness(easyBusiness());
     } //else cont.
-    return _logicBusiness;
+    return _inputLogicBusiness;
   }
 
   SABEasyHealthBusiness healthBusiness() {
@@ -207,22 +197,22 @@ class SABEasyResultBusiness {
     String strResult = "";
 
     bool bFromSixPair =
-        _logicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
+        _inputLogicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
 
     bool bToSixPair = false;
 
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
-          _logicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
+          _inputLogicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
-    bool bFromConflict =
-        _logicBusiness.isEasySixConflict(easyBusiness().fromEasyDictionary());
+    bool bFromConflict = _inputLogicBusiness
+        .isEasySixConflict(easyBusiness().fromEasyDictionary());
 
     bool bToConflict = false;
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
-      bToConflict =
-          _logicBusiness.isEasySixConflict(easyBusiness().toEasyDictionary());
+      bToConflict = _inputLogicBusiness
+          .isEasySixConflict(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
     if (bFromSixPair && !bToConflict && !bToSixPair) {
@@ -301,7 +291,7 @@ class SABEasyResultBusiness {
     //既动则有祸福之基。目下虽破，出月则不破，今日虽破，实破之日则不破，逢合之日则不破。近应日时，远应年月。
 
     //今日虽破，实破之日则不破
-    int usefulIndex = _logicBusiness.usefulGodRow();
+    int usefulIndex = _inputLogicBusiness.usefulGodRow();
 
     String usefulSymbol = "";
 
@@ -315,7 +305,7 @@ class SABEasyResultBusiness {
     String onResult = "用神月破：实破之 $usefulEarth (日、月、年)则不破";
     result = SACContext.appendToString(result, onResult);
 
-    String strEarthPair = branchBusiness().earthSixPair(usefulEarth);
+    String strEarthPair = logicBusiness().earthSixPair(usefulEarth);
     String strEarthPairResult = "用神月破：应期为逢合之 $strEarthPair (日、月、年)则不破";
 
     result = SACContext.appendToString(result, strEarthPairResult);
@@ -328,7 +318,7 @@ class SABEasyResultBusiness {
   String timeResult() {
     String strResult = "";
 
-    int usefulIndex = _logicBusiness.usefulGodRow();
+    int usefulIndex = _inputLogicBusiness.usefulGodRow();
 
     if (usefulIndex > globalRowInvalid) {
       String usefulSymbol = easyBusiness().symbolAtMergeRow(usefulIndex);
@@ -348,7 +338,8 @@ class SABEasyResultBusiness {
             _analysisBusiness.resultSymbolEmpty(usefulIndex, EasyTypeEnum.hide);
       } //endi
 
-      EmptyEnum emptyState = _logicBusiness.symbolBasicEmptyState(usefulSymbol);
+      EmptyEnum emptyState =
+          _inputLogicBusiness.symbolBasicEmptyState(usefulSymbol);
       if (EmptyEnum.Empty_NoUseful == emptyState) {
         //用神没有出现
         strUseful = strUseful + "卦中用神未现";
@@ -364,7 +355,7 @@ class SABEasyResultBusiness {
         strResult = SACContext.appendToString(strResult, strUseful);
       }
 
-      if (_logicBusiness.isSymbolChangeEmpty(usefulIndex)) {
+      if (_inputLogicBusiness.isSymbolChangeEmpty(usefulIndex)) {
         //化空
         String str = "变爻";
         str = str + outEmptyDate();
@@ -374,7 +365,7 @@ class SABEasyResultBusiness {
 
       //月破
       MonthBrokenEnum monthBrokenState =
-          _logicBusiness.symbolMonthBrokenState(usefulSymbol);
+          _inputLogicBusiness.symbolMonthBrokenState(usefulSymbol);
       if (MonthBrokenEnum.Broken_OnDay == monthBrokenState ||
           MonthBrokenEnum.Broken_Move == monthBrokenState ||
           MonthBrokenEnum.Broken_DayBorn == monthBrokenState) {
@@ -392,11 +383,9 @@ class SABEasyResultBusiness {
 
     String strResult = "";
     //生克
-    double lifeHealth =
-        _healthBusiness.lifeHealth() - _originBusiness.healthCriticalValue();
+    double lifeHealth = _healthBusiness.lifeHealthWithCritical();
 
-    double usefulHealth =
-        _healthBusiness.usefulHealth() - _originBusiness.healthCriticalValue();
+    double usefulHealth = _healthBusiness.usefulHealthWithCritical();
 
     if (lifeHealth > 0 && usefulHealth > 0) {
       strResult =
@@ -448,21 +437,21 @@ class SABEasyResultBusiness {
     String strResult = "";
 
     bool bFromSixPair =
-        _logicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
+        _inputLogicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
 
     bool bToSixPair = false;
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
-          _logicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
+          _inputLogicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
-    bool bFromConflict =
-        _logicBusiness.isEasySixConflict(easyBusiness().fromEasyDictionary());
+    bool bFromConflict = _inputLogicBusiness
+        .isEasySixConflict(easyBusiness().fromEasyDictionary());
 
     bool bToConflict = false;
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
-      bToConflict =
-          _logicBusiness.isEasySixConflict(easyBusiness().toEasyDictionary());
+      bToConflict = _inputLogicBusiness
+          .isEasySixConflict(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
     if (bFromSixPair && !bToConflict && !bToSixPair) {
@@ -498,21 +487,21 @@ class SABEasyResultBusiness {
     String strResult = "";
 
     bool bFromSixPair =
-        _logicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
+        _inputLogicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
 
     bool bToSixPair = false;
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
-          _logicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
+          _inputLogicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
-    bool bFromConflict =
-        _logicBusiness.isEasySixConflict(easyBusiness().fromEasyDictionary());
+    bool bFromConflict = _inputLogicBusiness
+        .isEasySixConflict(easyBusiness().fromEasyDictionary());
 
     bool bToConflict = false;
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
-      bToConflict =
-          _logicBusiness.isEasySixConflict(easyBusiness().toEasyDictionary());
+      bToConflict = _inputLogicBusiness
+          .isEasySixConflict(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
     if (bFromConflict && !bToConflict && !bToSixPair) {
@@ -549,21 +538,21 @@ class SABEasyResultBusiness {
     String strResult = "";
 
     bool bFromSixPair =
-        _logicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
+        _inputLogicBusiness.isEasySixPair(easyBusiness().fromEasyDictionary());
 
     bool bToSixPair = false;
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
       bToSixPair =
-          _logicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
+          _inputLogicBusiness.isEasySixPair(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
-    bool bFromConflict =
-        _logicBusiness.isEasySixConflict(easyBusiness().fromEasyDictionary());
+    bool bFromConflict = _inputLogicBusiness
+        .isEasySixConflict(easyBusiness().fromEasyDictionary());
 
     bool bToConflict = false;
     if (easyBusiness().fromEasyKey() != easyBusiness().toEasyKey())
-      bToConflict =
-          _logicBusiness.isEasySixConflict(easyBusiness().toEasyDictionary());
+      bToConflict = _inputLogicBusiness
+          .isEasySixConflict(easyBusiness().toEasyDictionary());
     //else cont. 是静卦
 
     if (bFromSixPair && !bToConflict && !bToSixPair) {
@@ -617,15 +606,15 @@ class SABEasyResultBusiness {
     占行人在外忧郁。\r\n
     占彼此之形势者，内卦为我，外卦为他。内伏吟我心不遂，外伏吟他意不安。''';
 
-    if (_logicBusiness.isEasyRepeatedGroan()) {
+    if (_inputLogicBusiness.isEasyRepeatedGroan()) {
       String repeated = "卦伏吟：内外伏吟者，内外不安之象也。";
       result = "\r\n    $repeated\r\n    $repeatedResult ";
       result = result + "    应期：${repeatedEasyResult()}r\n";
-    } else if (_logicBusiness.isEasyWihtInRepeated()) {
+    } else if (_inputLogicBusiness.isEasyWihtInRepeated()) {
       String repeated = "卦伏吟：内卦伏吟内则不安。";
       result = "\r\n    $repeated\r\n    $repeatedResult ";
       result = result + "    应期：${repeatedEasyResult()}r\n";
-    } else if (_logicBusiness.isEasyOutsideRepeated()) {
+    } else if (_inputLogicBusiness.isEasyOutsideRepeated()) {
       String repeated = "卦伏吟：外卦伏吟外不宁。";
       result = "\r\n    $repeated\r\n    $repeatedResult ";
       result = result + "    应期：${repeatedEasyResult()}r\n";
@@ -674,19 +663,19 @@ class SABEasyResultBusiness {
   String repeatedEasyResult() {
     //伏吟之卦，用神旺相冲开之年月其志则神，用神休囚，冲开之年月忧郁而已。
     String result = "";
-    if (easyBusiness().isMovementAtRow(_logicBusiness.usefulGodRow())) {
+    if (easyBusiness().isMovementAtRow(_inputLogicBusiness.usefulGodRow())) {
       if (logicBusiness().isUsefulGodStrong()) {
         String fromEarth =
-            easyBusiness().earthAtFromRow(_logicBusiness.usefulGodRow());
-        String timeEarth = branchBusiness().getSixConflict(fromEarth);
+            easyBusiness().earthAtFromRow(_inputLogicBusiness.usefulGodRow());
+        String timeEarth = logicBusiness().getSixConflict(fromEarth);
 
         result =
             result + "伏吟之卦，用神旺相冲开之年月其志则神，预计${timeEarth}年或者${timeEarth}月冲开。";
       } else if (logicBusiness().isUsefulGodChangeToRestricts() ||
           logicBusiness().isUsefulGodChangeToConflict()) {
         String fromEarth =
-            easyBusiness().earthAtFromRow(_logicBusiness.usefulGodRow());
-        String timeEarth = branchBusiness().getSixConflict(fromEarth);
+            easyBusiness().earthAtFromRow(_inputLogicBusiness.usefulGodRow());
+        String timeEarth = logicBusiness().getSixConflict(fromEarth);
         result = result + "用神休囚，冲开之年月忧郁而已,预计${timeEarth}年或者${timeEarth}月冲开。";
       }
       //else cont.
@@ -719,7 +708,7 @@ class SABEasyResultBusiness {
     String strSkyTrunk = easyBusiness().skyTrunkString();
     int rangeTrunk = strSkyTrunk.indexOf(strDayTrunk);
 
-    String emptyEarth = _logicBusiness.emptyEarth();
+    String emptyEarth = _inputLogicBusiness.emptyEarth();
     if (null != emptyEarth && "" != emptyEarth) {
       int lenght = strSkyTrunk.length - rangeTrunk;
       String subString = emptyEarth.substring(0, 1);
