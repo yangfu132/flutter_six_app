@@ -1,15 +1,23 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
-import 'SABMoveHealthBusiness.dart';
 import 'SABStaticHealthBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 
 class SABEasyHealthBusiness {
   SABEasyHealthBusiness(this._inputLogicBusiness);
-  SABMoveHealthBusiness _moveBusiness;
   SABStaticHealthBusiness _staticBusiness;
-  SABHealthOriginBusiness _originBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
+
+  SABStaticHealthBusiness staticBusiness() {
+    if (null == _staticBusiness) {
+      _staticBusiness = SABStaticHealthBusiness(_inputLogicBusiness);
+    }
+    return _staticBusiness;
+  }
+
+  SABHealthOriginBusiness originBusiness() {
+    return staticBusiness().moveBusiness().originBusiness();
+  }
 
   bool calculateHealth() {
     // 找到不受生克的动爻，如果找不到这个卦就没办法解开，最好重新占卜，这叫做乱动；
@@ -23,33 +31,33 @@ class SABEasyHealthBusiness {
 
     bool bHasBegin = calculateHealthOfStatic();
     List listRightEmpty =
-        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
 
     for (int nRow in listRightEmpty)
-      _moveBusiness.calculateHealthOfMove(nRow, EasyTypeEnum.from);
+      staticBusiness().calculateHealthOfMove(nRow, EasyTypeEnum.from);
     return bHasBegin;
   }
 
   ///Level:指的是OutRightEnum，Level4代指 RIGHT_STATIC
   ///bool calculateHealthAtLevel4() {
   bool calculateHealthOfStatic() {
-    bool bHasBeginMove = _moveBusiness.calculateHealthAtLevel3();
+    bool bHasBeginMove = staticBusiness().calculateHealthAtLevel3();
     List arrayStatic =
-        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
     for (int nRow in arrayStatic) {
-      if (_originBusiness.isUnFinish(nRow)) {
+      if (originBusiness().isUnFinish(nRow)) {
         double basicHealth =
-            _staticBusiness.baseHealthAtLevel4Row(nRow, EasyTypeEnum.from);
-        _originBusiness.setHealth(basicHealth, nRow);
+            staticBusiness().baseHealthAtLevel4Row(nRow, EasyTypeEnum.from);
+        originBusiness().setHealth(basicHealth, nRow);
       }
     }
-    bool bHasBeginStatic = _staticBusiness.isLevel4HasBegin();
+    bool bHasBeginStatic = staticBusiness().isLevel4HasBegin();
     for (int nRow in arrayStatic) {
-      if (_originBusiness.isUnFinish(nRow)) {
+      if (originBusiness().isUnFinish(nRow)) {
         if (bHasBeginStatic) {
-          _staticBusiness.calculateHealthAtLevel4Row(nRow, EasyTypeEnum.from);
+          staticBusiness().calculateHealthAtLevel4Row(nRow, EasyTypeEnum.from);
         } else {
-          _originBusiness.addToFinishArray(nRow);
+          originBusiness().addToFinishArray(nRow);
         }
       }
     }
@@ -61,10 +69,10 @@ class SABEasyHealthBusiness {
     int usefulIndex = _inputLogicBusiness.usefulGodRow();
 
     if (0 <= usefulIndex && usefulIndex < 6) {
-      fResult = _originBusiness.getHealth(usefulIndex);
+      fResult = originBusiness().getHealth(usefulIndex);
     } else {
       int hideIndex = usefulIndex - ROW_FLY_BEGIN;
-      fResult = _staticBusiness.hideSymbolHealthAtRow(hideIndex);
+      fResult = staticBusiness().hideSymbolHealthAtRow(hideIndex);
     } //endi
 
     return fResult;
@@ -74,15 +82,15 @@ class SABEasyHealthBusiness {
   double lifeHealth() {
     double fResult = 0;
     int lifeIndex = _inputLogicBusiness.getLifeIndex();
-    fResult = _originBusiness.getHealth(lifeIndex);
+    fResult = originBusiness().getHealth(lifeIndex);
     return fResult;
   }
 
   String healthDescriptionAtRow(int nRow, EasyTypeEnum easyType) {
     String strResult = "";
 
-    double fHealth = _staticBusiness.symbolHealthAtRow(nRow, easyType);
-    fHealth -= _originBusiness.healthCriticalValue();
+    double fHealth = staticBusiness().symbolHealthAtRow(nRow, easyType);
+    fHealth -= originBusiness().healthCriticalValue();
     if (fHealth > 0)
       strResult = "强";
     else
@@ -94,10 +102,10 @@ class SABEasyHealthBusiness {
   }
 
   double lifeHealthWithCritical() {
-    return lifeHealth() - _originBusiness.healthCriticalValue();
+    return lifeHealth() - originBusiness().healthCriticalValue();
   }
 
   double usefulHealthWithCritical() {
-    return usefulHealth() - _originBusiness.healthCriticalValue();
+    return usefulHealth() - originBusiness().healthCriticalValue();
   }
 }

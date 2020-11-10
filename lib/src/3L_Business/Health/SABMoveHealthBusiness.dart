@@ -10,34 +10,41 @@ class SABMoveHealthBusiness {
   SABHealthOriginBusiness _originBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
 
+  SABHealthOriginBusiness originBusiness() {
+    if (null == _originBusiness) {
+      _originBusiness = SABHealthOriginBusiness(_inputLogicBusiness);
+    }
+    return _originBusiness;
+  }
+
   //calculateHealthAtLevel3Row
   void calculateHealthOfMove(int item, EasyTypeEnum easyType) {
     double basicHealth = 0;
     if (_inputLogicBusiness.isMovementAtRow(item))
       basicHealth = moveSymbolBasicHealthAtRow(item);
     else
-      basicHealth = _originBusiness.symbolBasicHealthAtRow(item, easyType);
+      basicHealth = originBusiness().symbolBasicHealthAtRow(item, easyType);
 
     List arrayEffects = effectingArrayAtLevel3Row(item, easyType);
 
     for (int itemEffects in arrayEffects) {
-      if (_originBusiness.isUnFinish(itemEffects)) {
+      if (originBusiness().isUnFinish(itemEffects)) {
         calculateHealthOfMove(item, easyType);
       }
       //else cont.
 
       basicHealth += adjustHealthAtRow(item, easyType, itemEffects, easyType);
     } //endf
-    _originBusiness.setHealth(basicHealth, item);
-    _originBusiness.addToFinishArray(item);
+    originBusiness().setHealth(basicHealth, item);
+    originBusiness().addToFinishArray(item);
   }
 
   bool calculateHealthAtLevel3() {
     bool bResult = isLevel3HasBegin();
     List arrayLevel3 =
-        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     for (int item in arrayLevel3) {
-      if (_originBusiness.isUnFinish(item)) {
+      if (originBusiness().isUnFinish(item)) {
         if (bResult)
           calculateHealthOfMove(item, EasyTypeEnum.from);
         else {
@@ -45,11 +52,11 @@ class SABMoveHealthBusiness {
           if (_inputLogicBusiness.isMovementAtRow(item))
             basicHealth = moveSymbolBasicHealthAtRow(item);
           else
-            basicHealth =
-                _originBusiness.symbolBasicHealthAtRow(item, EasyTypeEnum.from);
+            basicHealth = originBusiness()
+                .symbolBasicHealthAtRow(item, EasyTypeEnum.from);
 
-          _originBusiness.setHealth(basicHealth, item);
-          _originBusiness.addToFinishArray(item);
+          originBusiness().setHealth(basicHealth, item);
+          originBusiness().addToFinishArray(item);
         } //endi
       }
       //else cont.
@@ -62,7 +69,7 @@ class SABMoveHealthBusiness {
     double fHealth = 0;
 
     double basicDefense =
-        _originBusiness.symbolDefensiveAtRow(basicRow, EasyTypeEnum.from);
+        originBusiness().symbolDefensiveAtRow(basicRow, EasyTypeEnum.from);
 
     String basicSymbol =
         _inputLogicBusiness.symbolAtRow(basicRow, EasyTypeEnum.from);
@@ -96,11 +103,11 @@ class SABMoveHealthBusiness {
 
     if (EasyTypeEnum.to == easyType) {
       double toHealth = toSymbolHealthAtRow(nRow);
-      result = toHealth * _originBusiness.conversionRateAtRow(nRow, easyType);
+      result = toHealth * originBusiness().conversionRateAtRow(nRow, easyType);
     } else if (EasyTypeEnum.from == easyType) {
-      if (_originBusiness.isUnFinish(nRow)) {
-        double health = _originBusiness.getHealth(nRow);
-        result = health * _originBusiness.conversionRateAtRow(nRow, easyType);
+      if (originBusiness().isUnFinish(nRow)) {
+        double health = originBusiness().getHealth(nRow);
+        result = health * originBusiness().conversionRateAtRow(nRow, easyType);
       } else {
         colog("error!");
       }
@@ -113,7 +120,7 @@ class SABMoveHealthBusiness {
   ///`变爻的health`//////////////////////////////////////////////////////
 
   double toSymbolHealthAtRow(int nRow) {
-    return _originBusiness.symbolBasicHealthAtRow(nRow, EasyTypeEnum.to);
+    return originBusiness().symbolBasicHealthAtRow(nRow, EasyTypeEnum.to);
   }
 
   ///`动爻的基本值`//////////////////////////////////////////////////////
@@ -124,7 +131,7 @@ class SABMoveHealthBusiness {
   double moveSymbolBasicHealthAtRow(int nRow) {
     double fResult = -100.0;
 
-    fResult = _originBusiness.symbolBasicHealthAtRow(nRow, EasyTypeEnum.from);
+    fResult = originBusiness().symbolBasicHealthAtRow(nRow, EasyTypeEnum.from);
 
     if (isSymbolEffectableAtRow(nRow, EasyTypeEnum.from)) {
       fResult +=
@@ -147,7 +154,7 @@ class SABMoveHealthBusiness {
      */
     bool bResult = false;
     bResult =
-        MAX_DEFENSIVE != _originBusiness.symbolDefensiveAtRow(nRow, easyType);
+        MAX_DEFENSIVE != originBusiness().symbolDefensiveAtRow(nRow, easyType);
     return bResult;
   }
 
@@ -172,7 +179,7 @@ class SABMoveHealthBusiness {
     String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
     List level3Array =
-        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
 
     for (int itemRow in level3Array) {
       if (nLevel3Row != itemRow) {
@@ -207,7 +214,7 @@ class SABMoveHealthBusiness {
     String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
     List levelArray =
-        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     levelArray.add(nRow);
 
     for (int itemRow in levelArray) {
@@ -232,7 +239,7 @@ class SABMoveHealthBusiness {
       else {
         //被日冲的爻只有在strong时才是暗动，才能生克动爻
 
-        if (_originBusiness.isUnFinish(nEffectingRow)) {
+        if (originBusiness().isUnFinish(nEffectingRow)) {
           bResult =
               _inputLogicBusiness.isSymbolHealthStrong(nEffectingRow, easyType);
         } else {
@@ -249,7 +256,7 @@ class SABMoveHealthBusiness {
   bool isLevel3HasBegin() {
     bool bHasBegin = false;
     List arrayLevel3 =
-        _originBusiness.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     if (arrayLevel3.length > 0) {
       for (int intItem in arrayLevel3) {
         List arrayEffects =
@@ -261,7 +268,7 @@ class SABMoveHealthBusiness {
         } else {
           bool allFinish = true;
           for (int itemEffects in arrayEffects) {
-            if (_originBusiness.isUnFinish(itemEffects)) {
+            if (originBusiness().isUnFinish(itemEffects)) {
               allFinish = false;
               break;
             }

@@ -1,5 +1,4 @@
 import 'dart:math';
-import '../../1L_Context/SACGlobal.dart';
 
 ///此Model仅代表占卜时所创造的数据；
 class SABEasyModel {

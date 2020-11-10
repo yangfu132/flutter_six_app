@@ -1037,7 +1037,6 @@ class SABEasyLogicBusiness {
   String symbolSeason(String stringSymbol) {
     return branchBusiness()
         .seasonDescription(monthEarth(), symbolEarth(stringSymbol));
-    ;
   }
 
   bool isSymbolSeasonStrong(String stringSymbol) {
@@ -1811,9 +1810,8 @@ class SABEasyLogicBusiness {
 
     if (MonthBrokenEnum.Broken_NO == stateEmpty ||
         MonthBrokenEnum.Broken_Move == stateEmpty ||
-        MonthBrokenEnum.Broken_MoveBorn == stateEmpty)
-      ;
-    else
+        MonthBrokenEnum.Broken_MoveBorn == stateEmpty) {
+    } else
       bResult = true;
 
     //有气不动亦为空
@@ -2408,14 +2406,12 @@ class SABEasyLogicBusiness {
     //舍其休囚而用旺相；
     List strongArray = List();
 
-    int maxIndex = globalRowInvalid;
     double maxValue = -10000;
 
     for (int intItem in usefulArray) {
       double strongValue = symbolHealthAtRow(intItem, EasyTypeEnum.from);
       if (maxValue < strongValue) {
         maxValue = strongValue;
-        maxIndex = intItem;
       }
       //else cont.
     } //endf

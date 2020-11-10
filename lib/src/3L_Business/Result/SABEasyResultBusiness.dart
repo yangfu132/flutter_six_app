@@ -4,7 +4,7 @@ import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../../4L_Service/SASStringService.dart';
 import '../Easy/SABEasyModel.dart';
-import '../Easy/SABEasyBusiness.dart';
+
 import '../Logic/SABEasyLogicBusiness.dart';
 import '../Health/SABEasyHealthBusiness.dart';
 import '../Analysis/SABEasyAnalysisBusiness.dart';
@@ -12,7 +12,6 @@ import 'SABEasyResultModel.dart';
 
 class SABEasyResultBusiness {
   SABEasyModel _inputEasyModel;
-  SABEasyBusiness _outEasyBusiness;
 
   SABEasyHealthBusiness _healthBusiness;
   SABEasyLogicBusiness _inputLogicBusiness;
@@ -664,13 +663,13 @@ class SABEasyResultBusiness {
         String timeEarth = logicBusiness().getSixConflict(fromEarth);
 
         result =
-            result + "伏吟之卦，用神旺相冲开之年月其志则神，预计${timeEarth}年或者${timeEarth}月冲开。";
+            result + "伏吟之卦，用神旺相冲开之年月其志则神，预计 $timeEarth 年或者 $timeEarth 月冲开。";
       } else if (logicBusiness().isUsefulGodChangeToRestricts() ||
           logicBusiness().isUsefulGodChangeToConflict()) {
         String fromEarth =
             logicBusiness().earthAtFromRow(_inputLogicBusiness.usefulGodRow());
         String timeEarth = logicBusiness().getSixConflict(fromEarth);
-        result = result + "用神休囚，冲开之年月忧郁而已,预计${timeEarth}年或者${timeEarth}月冲开。";
+        result = result + "用神休囚，冲开之年月忧郁而已,预计 $timeEarth 年或者 $timeEarth 月冲开。";
       }
       //else cont.
     } else
@@ -706,7 +705,7 @@ class SABEasyResultBusiness {
     if (null != emptyEarth && "" != emptyEarth) {
       int lenght = strSkyTrunk.length - rangeTrunk;
       String subString = emptyEarth.substring(0, 1);
-      strResult = "旬空：${lenght} 日后甲${subString}日出空";
+      strResult = "旬空：$lenght 日后甲$subString 日出空";
     } else
       colog("error!");
     return strResult;
