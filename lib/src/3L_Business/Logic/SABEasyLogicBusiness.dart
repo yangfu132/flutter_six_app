@@ -4,27 +4,17 @@ import '../Easy/SABEasyModel.dart';
 import '../Easy/SABEasyBusiness.dart';
 import '../Easy/SABElementModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
+import 'SABEasyLogicDelegate.dart';
 
 class SABEasyLogicBusiness {
-  SABEasyLogicBusiness(this._inputEasyModel);
+  SABEasyLogicBusiness(this._inputEasyModel, this._inputDelegate);
   final SABEasyModel _inputEasyModel;
+  SABEasyLogicDelegate _inputDelegate;
   SABEarthBranchBusiness _branchBusiness;
   SABEasyBusiness _easyBusiness;
 
   //属性：用神的索引号
   int _usefulGodRow = globalRowInvalid;
-
-  double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
-    return 0;
-  }
-
-  double healthCriticalValue() {
-    return 0;
-  }
-
-  List rowArrayAtOutRightLevel(OutRightEnum level) {
-    return [];
-  }
 
   ///`六亲歌章第五`//////////////////////////////////////////////////////
 
@@ -830,7 +820,8 @@ class SABEasyLogicBusiness {
   List movementIndexArray() {
     List movementArray = List();
 
-    List arrayLevel = rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+    List arrayLevel =
+        _inputDelegate.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     for (int intRow in arrayLevel) {
       if (!isMovementAtRow(intRow)) {
         if (isSymbolHealthStrong(intRow, EasyTypeEnum.from))
@@ -1056,8 +1047,8 @@ class SABEasyLogicBusiness {
   bool isSymbolHealthStrong(int intRow, EasyTypeEnum easyType) {
     bool bResult = false;
 
-    double fHealth = symbolHealthAtRow(intRow, easyType);
-    bResult = fHealth > healthCriticalValue();
+    double fHealth = _inputDelegate.symbolHealthAtRow(intRow, easyType);
+    bResult = fHealth > _inputDelegate.healthCriticalValue();
 
     return bResult;
   }
@@ -2409,7 +2400,8 @@ class SABEasyLogicBusiness {
     double maxValue = -10000;
 
     for (int intItem in usefulArray) {
-      double strongValue = symbolHealthAtRow(intItem, EasyTypeEnum.from);
+      double strongValue =
+          _inputDelegate.symbolHealthAtRow(intItem, EasyTypeEnum.from);
       if (maxValue < strongValue) {
         maxValue = strongValue;
       }
@@ -2417,7 +2409,8 @@ class SABEasyLogicBusiness {
     } //endf
 
     for (int intItem in usefulArray) {
-      double strongValue = symbolHealthAtRow(intItem, EasyTypeEnum.from);
+      double strongValue =
+          _inputDelegate.symbolHealthAtRow(intItem, EasyTypeEnum.from);
       if (strongValue == maxValue) {
         strongArray.add(intItem);
       }

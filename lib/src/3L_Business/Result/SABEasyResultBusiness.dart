@@ -20,7 +20,8 @@ class SABEasyResultBusiness {
 
   SABEasyLogicBusiness logicBusiness() {
     if (null == _inputLogicBusiness) {
-      _inputLogicBusiness = SABEasyLogicBusiness(_inputEasyModel);
+      _inputLogicBusiness =
+          SABEasyLogicBusiness(_inputEasyModel, _healthBusiness);
     } //else cont.
     return _inputLogicBusiness;
   }

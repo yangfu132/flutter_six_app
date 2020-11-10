@@ -2,8 +2,9 @@ import '../../1L_Context/SACGlobal.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABStaticHealthBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
+import '../Logic/SABEasyLogicDelegate.dart';
 
-class SABEasyHealthBusiness {
+class SABEasyHealthBusiness extends SABEasyLogicDelegate {
   SABEasyHealthBusiness(this._inputLogicBusiness);
   SABStaticHealthBusiness _staticBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
@@ -107,5 +108,19 @@ class SABEasyHealthBusiness {
 
   double usefulHealthWithCritical() {
     return usefulHealth() - originBusiness().healthCriticalValue();
+  }
+
+  ///`SABEasyHealthDelegate`
+
+  double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
+    return staticBusiness().symbolHealthAtRow(nRow, easyType);
+  }
+
+  double healthCriticalValue() {
+    return originBusiness().healthCriticalValue();
+  }
+
+  List rowArrayAtOutRightLevel(OutRightEnum level) {
+    return originBusiness().rowArrayAtOutRightLevel(level);
   }
 }
