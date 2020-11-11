@@ -32,7 +32,7 @@ class _SAUEasyResultState extends State<SAUEasyResultRoute> {
       ),
       body: ListView.builder(
           itemCount: widget.resultModel.resultList.length * 2,
-          itemExtent: 50.0, //强制高度为50.0
+          //itemExtent: 50.0, //强制高度为50.0
           itemBuilder: (BuildContext context, int index) {
             int dataIndex = index ~/ 2;
             int kv = index % 2;
@@ -40,7 +40,14 @@ class _SAUEasyResultState extends State<SAUEasyResultRoute> {
             if (kv > 0)
               return ListTile(title: Text(value['value']));
             else
-              return ListTile(title: Text(value['key']));
+              return Container(
+                //color: Colors.grey,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                ),
+                child: ListTile(title: Text(value['key'])),
+              );
+            //return ListTile(title: Text(value['key']));
           }),
     );
   }

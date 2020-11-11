@@ -126,9 +126,6 @@ class SABHealthOriginBusiness {
     List array = [];
     for (int nRow = 0; nRow < 6; nRow++) {
       if (level == symbolOutRightAtRow(nRow, EasyTypeEnum.from)) {
-        if (nRow < 0) {
-          print('object');
-        }
         array.add(nRow);
       }
       //else cont.
@@ -298,7 +295,7 @@ class SABHealthOriginBusiness {
   double earthHealthAtDayEarth(String basicEarth, String dayEarth) {
     double fResult = earthHealthAtTwelveGod(basicEarth, dayEarth);
     //日临
-    if (_inputLogicBusiness.isOnDayEarth(basicEarth, dayEarth)) {
+    if (_inputLogicBusiness.isEarthOnDay(basicEarth, dayEarth)) {
       fResult = healthDayOrMonthOn();
     } else if (_inputLogicBusiness.isEarthPairDay(basicEarth, dayEarth)) {
       //日合
@@ -454,10 +451,13 @@ class SABHealthOriginBusiness {
     if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
       fResult = 0.0;
     else {
-      if (_inputLogicBusiness.movementIndexArray().length > 0) {
+      //if (_inputLogicBusiness.movementIndexArray().length > 0) {
+      if (rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE).length > 0) {
         //动卦中静爻的作用没有那么大
         String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
-        if (!_inputLogicBusiness.isSymbolMovement(stringSymbol)) fResult = 0.5;
+        if (!_inputLogicBusiness.isSymbolMovement(stringSymbol)) {
+          fResult = 0.5;
+        }
         //else cont.
       }
       //else cont.

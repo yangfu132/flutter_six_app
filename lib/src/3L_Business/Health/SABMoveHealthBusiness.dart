@@ -174,26 +174,31 @@ class SABMoveHealthBusiness {
   }
 
   List effectingArrayAtLevel3Row(int nLevel3Row, EasyTypeEnum easyType) {
-    String basicSymbol = _inputLogicBusiness.symbolAtRow(nLevel3Row, easyType);
-
     List arrayEffects = [];
 
-    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
+    String basicSymbol = _inputLogicBusiness.symbolAtRow(nLevel3Row, easyType);
 
-    List level3Array =
-        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+    ///TODO:为了找到分析的开头，假设日建或者月建是不收其他爻生克的;
+    if (_inputLogicBusiness.isSymbolOnDay(basicSymbol) ||
+        _inputLogicBusiness.isSymbolOnMonth(basicSymbol)) {
+      String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
-    for (int itemRow in level3Array) {
-      if (nLevel3Row != itemRow) {
-        if (isEffectingLevel3AtRow(itemRow, easyType)) {
-          if (isEffectingEarth(basicEarth, itemRow)) arrayEffects.add(itemRow);
-          //else cont.
+      List level3Array =
+          originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+
+      for (int itemRow in level3Array) {
+        if (nLevel3Row != itemRow) {
+          if (isEffectingLevel3AtRow(itemRow, easyType)) {
+            if (isEffectingEarth(basicEarth, itemRow))
+              arrayEffects.add(itemRow);
+            //else cont.
+          }
+          //else 日冲休囚静爻算是日破
         }
-        //else 日冲休囚静爻算是日破
-      }
-      //else cont.
+        //else cont.
 
-    } //endf
+      } //endf
+    }
 
     return arrayEffects;
   }

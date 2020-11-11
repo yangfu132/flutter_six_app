@@ -43,8 +43,8 @@ class SABEasyModel {
       //else cont.
       _listEasyData.add(randomNum);
     } //endf
-    return _listEasyData;
-    //return _listEasyData = [8, 1, 1, 8, 8, 1];
+    //return _listEasyData;
+    return _listEasyData = [8, 8, 0, 8, 0, 0];
   }
 
   bool isMovementAtRow(int nRow) {

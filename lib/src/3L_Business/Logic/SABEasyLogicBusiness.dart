@@ -1181,7 +1181,7 @@ class SABEasyLogicBusiness {
     return earthElement(dayEarth());
   }
 
-  bool isOnDayEarth(String basicEarth, String dayEarth) {
+  bool isEarthOnDay(String basicEarth, String dayEarth) {
     return dayEarth == basicEarth;
   }
 
@@ -1285,7 +1285,7 @@ class SABEasyLogicBusiness {
   }
 
   bool isSymbolOnDay(String stringSymbol) {
-    return dayEarth() == symbolEarth(stringSymbol);
+    return isEarthOnDay(symbolEarth(stringSymbol), dayEarth());
   }
 
   ///`六合章第十九`//////////////////////////////////////////////////////
