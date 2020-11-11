@@ -3,20 +3,22 @@ import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 import 'SABMoveHealthBusiness.dart';
+import 'SABHealthModel.dart';
 
 ///静爻的强弱
 class SABStaticHealthBusiness {
-  SABStaticHealthBusiness(this._inputLogicBusiness);
+  SABStaticHealthBusiness(this._inputLogicBusiness, this._inputHealthModel);
 
   SABMoveHealthBusiness _moveBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
+  final SABHealthModel _inputHealthModel;
 
   void calculateHealthAtLevel4Row(int item, EasyTypeEnum easyType) {
     double basicHealth = symbolHealthAtRow(item, easyType);
     List arrayEffectsInLevel4 = effectingArrayAtLevel4Row(item, easyType);
 
     for (int itemEffects in arrayEffectsInLevel4) {
-      if (originBusiness().isUnFinish(itemEffects)) {
+      if (_inputHealthModel.isUnFinish(itemEffects)) {
         calculateHealthAtLevel4Row(itemEffects, easyType);
       }
       //else cont.
@@ -24,15 +26,15 @@ class SABStaticHealthBusiness {
       basicHealth += moveBusiness()
           .adjustHealthAtRow(item, easyType, itemEffects, easyType);
     } //endf
-    originBusiness().setHealth(basicHealth, item);
-    originBusiness().addToFinishArray(item);
+    _inputHealthModel.setHealth(basicHealth, item);
+    _inputHealthModel.addToFinishArray(item);
   }
 
   double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
     double fHealth = 0.0;
 
     if (EasyTypeEnum.from == easyType) {
-      fHealth = originBusiness().getHealth(nRow);
+      fHealth = _inputHealthModel.getHealth(nRow);
     } else if (EasyTypeEnum.to == easyType) {
       fHealth = moveBusiness().toSymbolHealthAtRow(nRow);
     } else if (EasyTypeEnum.hide == easyType) {
@@ -57,7 +59,7 @@ class SABStaticHealthBusiness {
         } else {
           bool allFinish = true;
           for (int itemEffects in arrayEffects) {
-            if (originBusiness().isUnFinish(itemEffects)) {
+            if (_inputHealthModel.isUnFinish(itemEffects)) {
               allFinish = false;
               break;
             }
@@ -79,24 +81,23 @@ class SABStaticHealthBusiness {
   bool calculateHealthAtLevel4() {
     bool bHasBegin3 = moveBusiness().calculateHealthAtLevel3();
 
-    List arrayLevel4 = moveBusiness()
-        .originBusiness()
-        .rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
+    List arrayLevel4 =
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
     for (int item in arrayLevel4) {
-      if (originBusiness().isUnFinish(item)) {
+      if (_inputHealthModel.isUnFinish(item)) {
         double basicHealth = baseHealthAtLevel4Row(item, EasyTypeEnum.from);
-        originBusiness().setHealth(basicHealth, item);
+        _inputHealthModel.setHealth(basicHealth, item);
       }
       //else cont.
     } //endf
 
     bool bHasBegin4 = isLevel4HasBegin();
     for (int item in arrayLevel4) {
-      if (originBusiness().isUnFinish(item)) {
+      if (_inputHealthModel.isUnFinish(item)) {
         if (bHasBegin4)
           calculateHealthAtLevel4Row(item, EasyTypeEnum.from);
         else
-          originBusiness().addToFinishArray(item);
+          _inputHealthModel.addToFinishArray(item);
       }
       //else cont.
     } //endi
@@ -112,7 +113,7 @@ class SABStaticHealthBusiness {
         moveBusiness().effectingArrayAtLevel3Row(nRow, easyType);
 
     for (int itemEffects in arrayEffectsInLevel3) {
-      if (originBusiness().isUnFinish(itemEffects)) {
+      if (_inputHealthModel.isUnFinish(itemEffects)) {
         moveBusiness().calculateHealthOfMove(itemEffects, easyType);
       } else {
         basicHealth += moveBusiness()
@@ -144,9 +145,8 @@ class SABStaticHealthBusiness {
 
     String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
 
-    List levelArray = moveBusiness()
-        .originBusiness()
-        .rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
+    List levelArray =
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
 
     for (int itemRow in levelArray) {
       if (nRow != itemRow) {
@@ -176,16 +176,12 @@ class SABStaticHealthBusiness {
         moveBusiness().effectingArrayAtLevel6Row(nRow, easyType);
 
     for (int itemEffects in arrayEffects) {
-      if (originBusiness().isUnFinish(itemEffects)) {
+      if (_inputHealthModel.isUnFinish(itemEffects)) {
         if (OutRightEnum.RIGHT_MOVE ==
-            moveBusiness()
-                .originBusiness()
-                .symbolOutRightAtRow(nRow, easyType)) {
+            originBusiness().symbolOutRightAtRow(nRow, easyType)) {
           moveBusiness().calculateHealthOfMove(itemEffects, easyType);
         } else if (OutRightEnum.RIGHT_STATIC ==
-            moveBusiness()
-                .originBusiness()
-                .symbolOutRightAtRow(nRow, easyType)) {
+            originBusiness().symbolOutRightAtRow(nRow, easyType)) {
           calculateHealthAtLevel4();
         } //endi
       }
@@ -204,7 +200,8 @@ class SABStaticHealthBusiness {
 
   SABMoveHealthBusiness moveBusiness() {
     if (null == _moveBusiness) {
-      _moveBusiness = SABMoveHealthBusiness(_inputLogicBusiness);
+      _moveBusiness =
+          SABMoveHealthBusiness(_inputLogicBusiness, _inputHealthModel);
     }
     return _moveBusiness;
   }

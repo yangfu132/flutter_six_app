@@ -5,6 +5,7 @@ import '../Easy/SABEasyBusiness.dart';
 import '../Easy/SABElementModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 import 'SABEasyLogicDelegate.dart';
+import 'SABLogicModel.dart';
 
 class SABEasyLogicBusiness {
   SABEasyLogicBusiness(this._inputEasyModel, this._inputDelegate);
@@ -12,6 +13,7 @@ class SABEasyLogicBusiness {
   SABEasyLogicDelegate _inputDelegate;
   SABEarthBranchBusiness _branchBusiness;
   SABEasyBusiness _easyBusiness;
+  SABLogicModel _logicModel;
 
   //属性：用神的索引号
   int _usefulGodRow = globalRowInvalid;
@@ -2557,15 +2559,15 @@ class SABEasyLogicBusiness {
   }
 
   String monthEarth() {
-    return easyBusiness().monthEarth();
+    return logicModel().stringMonthEarth;
   }
 
   String daySky() {
-    return easyBusiness().daySky();
+    return logicModel().stringDaySky;
   }
 
   String dayEarth() {
-    return easyBusiness().dayEarth();
+    return logicModel().stringDayEarth;
   }
 
   String earthAtFromRow(int intIndex) {
@@ -2601,5 +2603,16 @@ class SABEasyLogicBusiness {
       _easyBusiness = SABEasyBusiness(_inputEasyModel);
     } //else cont.
     return _easyBusiness;
+  }
+
+  SABLogicModel logicModel() {
+    if (null == _logicModel) {
+      _logicModel = SABLogicModel();
+      _logicModel.stringDayEarth = easyBusiness().dayEarth();
+      _logicModel.stringMonthEarth = easyBusiness().monthEarth();
+      _logicModel.stringDaySky = easyBusiness().daySky();
+      _logicModel.stringMonthSky = easyBusiness().monthSky();
+    }
+    return _logicModel;
   }
 }

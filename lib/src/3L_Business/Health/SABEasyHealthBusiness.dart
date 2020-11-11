@@ -2,24 +2,15 @@ import '../../1L_Context/SACGlobal.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABStaticHealthBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
+import 'SABHealthModel.dart';
 
 class SABEasyHealthBusiness {
   SABEasyHealthBusiness(this._inputLogicBusiness);
-  SABStaticHealthBusiness _staticBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
+  SABStaticHealthBusiness _staticBusiness;
+  SABHealthModel _outHealthModel;
 
-  SABStaticHealthBusiness staticBusiness() {
-    if (null == _staticBusiness) {
-      _staticBusiness = SABStaticHealthBusiness(_inputLogicBusiness);
-    }
-    return _staticBusiness;
-  }
-
-  SABHealthOriginBusiness originBusiness() {
-    return staticBusiness().moveBusiness().originBusiness();
-  }
-
-  bool calculateHealth() {
+  SABHealthModel calculateHealth() {
     // 找到不受生克的动爻，如果找不到这个卦就没办法解开，最好重新占卜，这叫做乱动；
     // 子丑寅卯辰巳午未申酉戌亥，扣除旬空与日临，也可以形成闭环，比如：
     // 甲子月 甲子日 子 寅 巳 未 酉
@@ -29,13 +20,14 @@ class SABEasyHealthBusiness {
     //  月破；月破的爻在月支上的health为0，依然可以起到生克作用，但是力量非常弱。
     //  日破，对health没有影响，对right的影响与日冲是一样的。
 
-    bool bHasBegin = calculateHealthOfStatic();
+    outHealthModel().bValidEasy = calculateHealthOfStatic();
     List listRightEmpty =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
 
     for (int nRow in listRightEmpty)
       staticBusiness().calculateHealthOfMove(nRow, EasyTypeEnum.from);
-    return bHasBegin;
+
+    return outHealthModel();
   }
 
   ///Level:指的是OutRightEnum，Level4代指 RIGHT_STATIC
@@ -45,19 +37,19 @@ class SABEasyHealthBusiness {
     List arrayStatic =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
     for (int nRow in arrayStatic) {
-      if (originBusiness().isUnFinish(nRow)) {
+      if (outHealthModel().isUnFinish(nRow)) {
         double basicHealth =
             staticBusiness().baseHealthAtLevel4Row(nRow, EasyTypeEnum.from);
-        originBusiness().setHealth(basicHealth, nRow);
+        outHealthModel().setHealth(basicHealth, nRow);
       }
     }
     bool bHasBeginStatic = staticBusiness().isLevel4HasBegin();
     for (int nRow in arrayStatic) {
-      if (originBusiness().isUnFinish(nRow)) {
+      if (outHealthModel().isUnFinish(nRow)) {
         if (bHasBeginStatic) {
           staticBusiness().calculateHealthAtLevel4Row(nRow, EasyTypeEnum.from);
         } else {
-          originBusiness().addToFinishArray(nRow);
+          outHealthModel().addToFinishArray(nRow);
         }
       }
     }
@@ -69,7 +61,11 @@ class SABEasyHealthBusiness {
     int usefulIndex = _inputLogicBusiness.usefulGodRow();
 
     if (0 <= usefulIndex && usefulIndex < 6) {
-      fResult = originBusiness().getHealth(usefulIndex);
+      fResult = outHealthModel().getHealth(usefulIndex);
+    } else if (ROW_MONTH == usefulIndex) {
+      fResult = originBusiness().monthHealthValue();
+    } else if (ROW_DAY == usefulIndex) {
+      fResult = originBusiness().dayHealthValue();
     } else {
       int hideIndex = usefulIndex - ROW_FLY_BEGIN;
       fResult = staticBusiness().hideSymbolHealthAtRow(hideIndex);
@@ -82,7 +78,7 @@ class SABEasyHealthBusiness {
   double lifeHealth() {
     double fResult = 0;
     int lifeIndex = _inputLogicBusiness.getLifeIndex();
-    fResult = originBusiness().getHealth(lifeIndex);
+    fResult = outHealthModel().getHealth(lifeIndex);
     return fResult;
   }
 
@@ -121,5 +117,25 @@ class SABEasyHealthBusiness {
 
   List rowArrayAtOutRightLevel(OutRightEnum level) {
     return originBusiness().rowArrayAtOutRightLevel(level);
+  }
+
+  ///`加载函数`
+  SABHealthModel outHealthModel() {
+    if (null == _outHealthModel) {
+      _outHealthModel = SABHealthModel();
+    }
+    return _outHealthModel;
+  }
+
+  SABStaticHealthBusiness staticBusiness() {
+    if (null == _staticBusiness) {
+      _staticBusiness =
+          SABStaticHealthBusiness(_inputLogicBusiness, outHealthModel());
+    }
+    return _staticBusiness;
+  }
+
+  SABHealthOriginBusiness originBusiness() {
+    return staticBusiness().moveBusiness().originBusiness();
   }
 }

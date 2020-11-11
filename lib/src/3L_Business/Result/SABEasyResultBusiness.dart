@@ -10,6 +10,7 @@ import '../Health/SABEasyHealthBusiness.dart';
 import '../Analysis/SABEasyAnalysisBusiness.dart';
 import 'SABEasyResultModel.dart';
 import '../Logic/SABEasyLogicDelegate.dart';
+import '../Health/SABHealthModel.dart';
 
 class SABEasyResultBusiness extends SABEasyLogicDelegate {
   SABEasyModel _inputEasyModel;
@@ -20,16 +21,19 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
   void configResultModel(
       SABEasyModel inputEasyModel, SABEasyResultModel outputResultModel) {
     this._inputEasyModel = inputEasyModel;
-    healthBusiness().calculateHealth();
+    SABHealthModel theHealthModel = healthBusiness().calculateHealth();
     List resultList = outputResultModel.resultList;
-    resultList[0]['value'] = inputEasyModel.getEasyGoal();
-    resultList[1]['value'] = this.resultUsefulGode();
-    resultList[2]['value'] = this.resultEasy();
-    resultList[3]['value'] = this.resultRepeatedOrConflict();
-    resultList[4]['value'] = this.resultSixPairOrConflict();
-    resultList[5]['value'] = this.resultThreePair();
-    resultList[6]['value'] = this.resultSymbol();
-    resultList[7]['value'] = this.resultHappenTime();
+    if (theHealthModel.bValidEasy) {
+      resultList[0]['value'] = inputEasyModel.getEasyGoal();
+      resultList[1]['value'] = this.resultUsefulGode();
+      resultList[2]['value'] = this.resultEasy();
+      resultList[3]['value'] = this.resultRepeatedOrConflict();
+      resultList[4]['value'] = this.resultSixPairOrConflict();
+      resultList[5]['value'] = this.resultThreePair();
+      resultList[6]['value'] = this.resultSymbol(theHealthModel);
+      resultList[7]['value'] = this.resultHappenTime();
+    } else
+      colog('无效的数据');
   }
 
   ///`用神`//////////////////////////////////////////////////////
@@ -245,10 +249,9 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
   }
 
   ///`基于世爻与用神的判定结果`//////////////////////////////////////////////////////
-  String resultSymbol() {
+  String resultSymbol(SABHealthModel theHealthModel) {
     String strResult = '卦体为主，世用为辅，如果是平常卦就以世用为主。';
-    bool bValidEasy = healthBusiness().calculateHealth();
-    if (bValidEasy) {
+    if (theHealthModel.bValidEasy) {
       strResult =
           SASStringService.appendToString(strResult, subresultSymbolStandard());
     } else

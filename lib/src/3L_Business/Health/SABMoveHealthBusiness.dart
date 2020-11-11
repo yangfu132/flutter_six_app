@@ -2,13 +2,15 @@ import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
+import 'SABHealthModel.dart';
 
 ///动爻的强弱计算
 class SABMoveHealthBusiness {
-  SABMoveHealthBusiness(this._inputLogicBusiness);
+  SABMoveHealthBusiness(this._inputLogicBusiness, this._inputHealthModel);
 
   SABHealthOriginBusiness _originBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
+  final SABHealthModel _inputHealthModel;
 
   SABHealthOriginBusiness originBusiness() {
     if (null == _originBusiness) {
@@ -28,15 +30,15 @@ class SABMoveHealthBusiness {
     List arrayEffects = effectingArrayAtLevel3Row(item, easyType);
 
     for (int itemEffects in arrayEffects) {
-      if (originBusiness().isUnFinish(itemEffects)) {
+      if (_inputHealthModel.isUnFinish(itemEffects)) {
         calculateHealthOfMove(item, easyType);
       }
       //else cont.
 
       basicHealth += adjustHealthAtRow(item, easyType, itemEffects, easyType);
     } //endf
-    originBusiness().setHealth(basicHealth, item);
-    originBusiness().addToFinishArray(item);
+    _inputHealthModel.setHealth(basicHealth, item);
+    _inputHealthModel.addToFinishArray(item);
   }
 
   bool calculateHealthAtLevel3() {
@@ -44,7 +46,7 @@ class SABMoveHealthBusiness {
     List arrayLevel3 =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     for (int item in arrayLevel3) {
-      if (originBusiness().isUnFinish(item)) {
+      if (_inputHealthModel.isUnFinish(item)) {
         if (bResult)
           calculateHealthOfMove(item, EasyTypeEnum.from);
         else {
@@ -55,8 +57,8 @@ class SABMoveHealthBusiness {
             basicHealth = originBusiness()
                 .symbolBasicHealthAtRow(item, EasyTypeEnum.from);
 
-          originBusiness().setHealth(basicHealth, item);
-          originBusiness().addToFinishArray(item);
+          _inputHealthModel.setHealth(basicHealth, item);
+          _inputHealthModel.addToFinishArray(item);
         } //endi
       }
       //else cont.
@@ -105,8 +107,8 @@ class SABMoveHealthBusiness {
       double toHealth = toSymbolHealthAtRow(nRow);
       result = toHealth * originBusiness().conversionRateAtRow(nRow, easyType);
     } else if (EasyTypeEnum.from == easyType) {
-      if (!originBusiness().isUnFinish(nRow)) {
-        double health = originBusiness().getHealth(nRow);
+      if (!_inputHealthModel.isUnFinish(nRow)) {
+        double health = _inputHealthModel.getHealth(nRow);
         result = health * originBusiness().conversionRateAtRow(nRow, easyType);
       } else {
         colog("error!");
@@ -239,7 +241,7 @@ class SABMoveHealthBusiness {
       else {
         //被日冲的爻只有在strong时才是暗动，才能生克动爻
 
-        if (!originBusiness().isUnFinish(nEffectingRow)) {
+        if (!_inputHealthModel.isUnFinish(nEffectingRow)) {
           bResult =
               _inputLogicBusiness.isSymbolHealthStrong(nEffectingRow, easyType);
         } else {
@@ -268,7 +270,7 @@ class SABMoveHealthBusiness {
         } else {
           bool allFinish = true;
           for (int itemEffects in arrayEffects) {
-            if (originBusiness().isUnFinish(itemEffects)) {
+            if (_inputHealthModel.isUnFinish(itemEffects)) {
               allFinish = false;
               break;
             }
