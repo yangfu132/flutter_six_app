@@ -3,10 +3,7 @@ import 'dart:math';
 ///此Model仅代表占卜时所创造的数据；
 class SABEasyModel {
   //构造函数
-  SABEasyModel(this._strEasyGoal, this._strUsefulGod) {
-    _nEasyTime = DateTime.now();
-    _listEasyData = generateEasyArray();
-  }
+  SABEasyModel(this._strEasyGoal, this._strUsefulGod) {}
 
   //属性：实例发生时间
   DateTime _nEasyTime;
@@ -36,16 +33,18 @@ class SABEasyModel {
 
   ///利用随机数创造数据
   List generateEasyArray() {
-    List listResult = List();
+    _nEasyTime = DateTime.now();
+    _listEasyData = List();
     for (int nIndex = 0; nIndex < 6; nIndex++) {
       int randomNum = Random().nextInt(3);
       if (2 == randomNum)
         randomNum = 8;
       else if (3 == randomNum) randomNum = 9;
       //else cont.
-      listResult.add(randomNum);
+      _listEasyData.add(randomNum);
     } //endf
-    return listResult;
+    return _listEasyData;
+    //return _listEasyData = [8, 1, 1, 8, 8, 1];
   }
 
   bool isMovementAtRow(int nRow) {

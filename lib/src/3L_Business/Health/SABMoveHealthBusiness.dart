@@ -31,7 +31,7 @@ class SABMoveHealthBusiness {
 
     for (int itemEffects in arrayEffects) {
       if (_inputHealthModel.isUnFinish(itemEffects)) {
-        calculateHealthOfMove(item, easyType);
+        calculateHealthOfMove(itemEffects, easyType);
       }
       //else cont.
 
