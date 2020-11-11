@@ -105,7 +105,7 @@ class SABMoveHealthBusiness {
       double toHealth = toSymbolHealthAtRow(nRow);
       result = toHealth * originBusiness().conversionRateAtRow(nRow, easyType);
     } else if (EasyTypeEnum.from == easyType) {
-      if (originBusiness().isUnFinish(nRow)) {
+      if (!originBusiness().isUnFinish(nRow)) {
         double health = originBusiness().getHealth(nRow);
         result = health * originBusiness().conversionRateAtRow(nRow, easyType);
       } else {
@@ -239,7 +239,7 @@ class SABMoveHealthBusiness {
       else {
         //被日冲的爻只有在strong时才是暗动，才能生克动爻
 
-        if (originBusiness().isUnFinish(nEffectingRow)) {
+        if (!originBusiness().isUnFinish(nEffectingRow)) {
           bResult =
               _inputLogicBusiness.isSymbolHealthStrong(nEffectingRow, easyType);
         } else {

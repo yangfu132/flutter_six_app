@@ -45,9 +45,8 @@ class SABStaticHealthBusiness {
 
   bool isLevel4HasBegin() {
     bool bHasBegin = false;
-    List arrayLevel = moveBusiness()
-        .originBusiness()
-        .rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
+    List arrayLevel =
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
     if (arrayLevel.length > 0) {
       for (int item in arrayLevel) {
         List arrayEffects = effectingArrayAtLevel4Row(item, EasyTypeEnum.from);
@@ -128,9 +127,7 @@ class SABStaticHealthBusiness {
     bool bResult = false;
 
     if (OutRightEnum.RIGHT_STATIC ==
-        moveBusiness()
-            .originBusiness()
-            .symbolOutRightAtRow(nEffectingRow, easyType)) {
+        originBusiness().symbolOutRightAtRow(nEffectingRow, easyType)) {
       if (_inputLogicBusiness.isSymbolHealthStrong(nEffectingRow, easyType))
         bResult = true;
       //else cont.

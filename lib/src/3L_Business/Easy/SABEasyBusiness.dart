@@ -154,7 +154,8 @@ class SABEasyBusiness {
       String strSymbol = symbolStringAtRow(intIndex, fromDict);
 
       if (strSymbol.length >= 4) {
-        String symbolDes = strSymbol.substring(strSymbol.length - 4, 4);
+        String symbolDes =
+            strSymbol.substring(strSymbol.length - 4, strSymbol.length);
         int nValue = _inputEasyModel.symbolAtIndex(intIndex);
         if (8 == nValue) {
           result = "×" + symbolDes;
@@ -311,7 +312,7 @@ class SABEasyBusiness {
     String stringResult = "";
 
     if (symbol.length >= 1)
-      stringResult = symbol.substring(symbol.length - 1, 1);
+      stringResult = symbol.substring(symbol.length - 1, symbol.length);
     else
       colog("");
 
@@ -322,7 +323,8 @@ class SABEasyBusiness {
     String stringResult = "";
 
     if (stringSymbol.length >= 4)
-      stringResult = stringSymbol.substring(stringSymbol.length - 4, 2);
+      stringResult = stringSymbol.substring(
+          stringSymbol.length - 4, stringSymbol.length - 2);
     else
       colog("");
 
@@ -369,7 +371,8 @@ class SABEasyBusiness {
   String symbolEarth(String stringSymbol) {
     String stringResult = "";
     if (stringSymbol.length >= 2)
-      stringResult = stringSymbol.substring(stringSymbol.length - 2, 1);
+      stringResult = stringSymbol.substring(
+          stringSymbol.length - 2, stringSymbol.length - 1);
     else
       stringResult = "卦中用神未现"; //colog("error!");
 

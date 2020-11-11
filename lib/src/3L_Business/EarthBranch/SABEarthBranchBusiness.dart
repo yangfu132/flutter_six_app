@@ -41,7 +41,7 @@ class SABEarthBranchBusiness {
 
     Map oneData = _branchModel.twelveGold()[itemEarth];
     //长生
-    if (null == oneData) {
+    if (null != oneData) {
       strResult = oneData[atEarth];
     }
 

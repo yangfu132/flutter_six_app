@@ -214,8 +214,8 @@ class SABEightDiagramsModel {
   }
 
   Map easyData() {
-    if (_myAllEasyTableData == null) {
-      Map dictionary;
+    if (null == _myAllEasyTableData) {
+      Map dictionary = {};
       _myAllEasyTableData = dictionary;
 
       {

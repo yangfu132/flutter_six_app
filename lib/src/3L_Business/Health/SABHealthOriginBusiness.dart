@@ -81,18 +81,24 @@ import '../Logic/SABEasyLogicBusiness.dart';
 class SABHealthOriginBusiness {
   SABHealthOriginBusiness(this._inputLogicBusiness);
 
-  Map<int, double> _healthMap;
-  List _finishedList;
+  Map<int, double> _healthMap = {};
+  List _finishedList = [];
 
   final SABEasyLogicBusiness _inputLogicBusiness;
 
   ///`基础函数`//////////////////////////////////////////////////////
 
   void setHealth(double numHealth, int nRow) {
+    if (null == numHealth) {
+      print('numHealth:$numHealth');
+    }
     _healthMap[nRow] = numHealth;
   }
 
   double getHealth(int nRow) {
+    if (null == _healthMap[nRow]) {
+      print('nRow:$nRow');
+    }
     return _healthMap[nRow];
   }
 
@@ -147,6 +153,9 @@ class SABHealthOriginBusiness {
     List array = [];
     for (int nRow = 0; nRow < 6; nRow++) {
       if (level == symbolOutRightAtRow(nRow, EasyTypeEnum.from)) {
+        if (nRow < 0) {
+          print('object');
+        }
         array.add(nRow);
       }
       //else cont.
@@ -361,8 +370,7 @@ class SABHealthOriginBusiness {
   double healthCriticalValue() {
     double fResult = 0.0;
 
-    fResult = earthHealthAtDayEarth("寅", "巳");
-
+    fResult = earthHealthAtTwelveGod("寅", "巳");
     //TODO:月是有十二法与五法合算的，出入这个参数是否代表临界值；
     fResult += earthHealthAtMonthAndDay("寅", "巳", "巳");
 

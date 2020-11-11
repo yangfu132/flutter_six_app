@@ -2,9 +2,8 @@ import '../../1L_Context/SACGlobal.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABStaticHealthBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
-import '../Logic/SABEasyLogicDelegate.dart';
 
-class SABEasyHealthBusiness extends SABEasyLogicDelegate {
+class SABEasyHealthBusiness {
   SABEasyHealthBusiness(this._inputLogicBusiness);
   SABStaticHealthBusiness _staticBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
@@ -44,7 +43,7 @@ class SABEasyHealthBusiness extends SABEasyLogicDelegate {
   bool calculateHealthOfStatic() {
     bool bHasBeginMove = staticBusiness().calculateHealthAtLevel3();
     List arrayStatic =
-        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_EMPTY);
+        originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
     for (int nRow in arrayStatic) {
       if (originBusiness().isUnFinish(nRow)) {
         double basicHealth =

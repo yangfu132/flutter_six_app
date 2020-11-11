@@ -9,33 +9,18 @@ import '../Logic/SABEasyLogicBusiness.dart';
 import '../Health/SABEasyHealthBusiness.dart';
 import '../Analysis/SABEasyAnalysisBusiness.dart';
 import 'SABEasyResultModel.dart';
+import '../Logic/SABEasyLogicDelegate.dart';
 
-class SABEasyResultBusiness {
+class SABEasyResultBusiness extends SABEasyLogicDelegate {
   SABEasyModel _inputEasyModel;
-
-  SABEasyHealthBusiness _healthBusiness;
   SABEasyLogicBusiness _inputLogicBusiness;
-
+  SABEasyHealthBusiness _healthBusiness;
   SABEasyAnalysisBusiness _analysisBusiness;
-
-  SABEasyLogicBusiness logicBusiness() {
-    if (null == _inputLogicBusiness) {
-      _inputLogicBusiness =
-          SABEasyLogicBusiness(_inputEasyModel, _healthBusiness);
-    } //else cont.
-    return _inputLogicBusiness;
-  }
-
-  SABEasyHealthBusiness healthBusiness() {
-    if (null == _healthBusiness) {
-      _healthBusiness = SABEasyHealthBusiness(logicBusiness());
-    } //else cont.
-    return _healthBusiness;
-  }
 
   void configResultModel(
       SABEasyModel inputEasyModel, SABEasyResultModel outputResultModel) {
     this._inputEasyModel = inputEasyModel;
+    healthBusiness().calculateHealth();
     List resultList = outputResultModel.resultList;
     resultList[0]['value'] = inputEasyModel.getEasyGoal();
     resultList[1]['value'] = this.resultUsefulGode();
@@ -262,7 +247,7 @@ class SABEasyResultBusiness {
   ///`基于世爻与用神的判定结果`//////////////////////////////////////////////////////
   String resultSymbol() {
     String strResult = '卦体为主，世用为辅，如果是平常卦就以世用为主。';
-    bool bValidEasy = _healthBusiness.calculateHealth();
+    bool bValidEasy = healthBusiness().calculateHealth();
     if (bValidEasy) {
       strResult =
           SASStringService.appendToString(strResult, subresultSymbolStandard());
@@ -319,8 +304,8 @@ class SABEasyResultBusiness {
 
       String strUseful = "";
       if (0 <= usefulIndex && usefulIndex < 6)
-        strUseful =
-            _analysisBusiness.resultSymbolEmpty(usefulIndex, EasyTypeEnum.from);
+        strUseful = analysisBusiness()
+            .resultSymbolEmpty(usefulIndex, EasyTypeEnum.from);
       else if (ROW_MONTH == usefulIndex) {
         //TODO:当用神是日 或者 月 的时候
         strUseful = "月为用神";
@@ -328,8 +313,8 @@ class SABEasyResultBusiness {
         strUseful = "日为用神";
       } else {
         usefulIndex = usefulIndex - ROW_FLY_BEGIN;
-        strUseful =
-            _analysisBusiness.resultSymbolEmpty(usefulIndex, EasyTypeEnum.hide);
+        strUseful = analysisBusiness()
+            .resultSymbolEmpty(usefulIndex, EasyTypeEnum.hide);
       } //endi
 
       EmptyEnum emptyState =
@@ -377,9 +362,9 @@ class SABEasyResultBusiness {
 
     String strResult = "";
     //生克
-    double lifeHealth = _healthBusiness.lifeHealthWithCritical();
+    double lifeHealth = healthBusiness().lifeHealthWithCritical();
 
-    double usefulHealth = _healthBusiness.usefulHealthWithCritical();
+    double usefulHealth = healthBusiness().usefulHealthWithCritical();
 
     if (lifeHealth > 0 && usefulHealth > 0) {
       strResult =
@@ -710,5 +695,42 @@ class SABEasyResultBusiness {
     } else
       colog("error!");
     return strResult;
+  }
+
+  ///`加载函数`
+
+  SABEasyAnalysisBusiness analysisBusiness() {
+    if (null == _analysisBusiness) {
+      _analysisBusiness = SABEasyAnalysisBusiness(logicBusiness());
+    }
+    return _analysisBusiness;
+  }
+
+  SABEasyLogicBusiness logicBusiness() {
+    if (null == _inputLogicBusiness) {
+      _inputLogicBusiness = SABEasyLogicBusiness(_inputEasyModel, this);
+    } //else cont.
+    return _inputLogicBusiness;
+  }
+
+  SABEasyHealthBusiness healthBusiness() {
+    if (null == _healthBusiness) {
+      _healthBusiness = SABEasyHealthBusiness(logicBusiness());
+    } //else cont.
+    return _healthBusiness;
+  }
+
+  ///`SABEasyHealthDelegate`
+
+  double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
+    return healthBusiness().symbolHealthAtRow(nRow, easyType);
+  }
+
+  double healthCriticalValue() {
+    return healthBusiness().healthCriticalValue();
+  }
+
+  List rowArrayAtOutRightLevel(OutRightEnum level) {
+    return healthBusiness().rowArrayAtOutRightLevel(level);
   }
 }
