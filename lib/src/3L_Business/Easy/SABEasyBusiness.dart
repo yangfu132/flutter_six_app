@@ -138,8 +138,7 @@ class SABEasyBusiness {
     int intHideIndex = intIndex;
 
     if (intHideIndex >= 0) {
-      String symbolName = symbolStringAtRow(intHideIndex, placeFirstEasy());
-      result = result + symbolName;
+      result = symbolStringAtRow(intHideIndex, placeFirstEasy());
     } else
       result = "卦中用神未现"; //colog("error!");
 

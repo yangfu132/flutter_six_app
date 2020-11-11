@@ -46,7 +46,6 @@ class _WOActionImageState extends State<AnimationMutileImage> {
       if (_imageIndex > widget.imageCaches.length) {
         _imageIndex = 1;
       }
-      print('_imageIndex:$_imageIndex');
       Image imageValue = widget.imageCaches[_imageIndex];
 
       _container = Container(
