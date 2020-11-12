@@ -3,7 +3,7 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../../4L_Service/SASStringService.dart';
-import '../Easy/SABEasyModel.dart';
+import '../Easy/SABEasyDigitModel.dart';
 
 import '../Logic/SABEasyLogicBusiness.dart';
 import '../Health/SABEasyHealthBusiness.dart';
@@ -13,13 +13,13 @@ import '../Logic/SABEasyLogicDelegate.dart';
 import '../Health/SABHealthModel.dart';
 
 class SABEasyResultBusiness extends SABEasyLogicDelegate {
-  SABEasyModel _inputEasyModel;
+  SABEasyDigitModel _inputEasyModel;
   SABEasyLogicBusiness _inputLogicBusiness;
   SABEasyHealthBusiness _healthBusiness;
   SABEasyAnalysisBusiness _analysisBusiness;
 
   void configResultModel(
-      SABEasyModel inputEasyModel, SABEasyResultModel outputResultModel) {
+      SABEasyDigitModel inputEasyModel, SABEasyResultModel outputResultModel) {
     this._inputEasyModel = inputEasyModel;
     SABHealthModel theHealthModel = healthBusiness().calculateHealth();
     List resultList = outputResultModel.resultList;

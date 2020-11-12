@@ -1,7 +1,7 @@
 ﻿import '../../1L_Context/SACContext.dart';
 import '../../1L_Context/SACGlobal.dart';
 import 'SABEightDiagramsModel.dart';
-import 'SABEasyModel.dart';
+import 'SABEasyDigitModel.dart';
 import 'SABElementModel.dart';
 import "package:flutter_perpttual_calendar/flutter_perpttual_calendar.dart";
 
@@ -14,7 +14,7 @@ class SABEasyBusiness {
 
   PWBCalendarBusiness _businessCalendar;
 
-  final SABEasyModel _inputEasyModel;
+  final SABEasyDigitModel _inputEasyModel;
 
   /// `此模块包含基础数据函数，提供给外部使用`////////////////////////////////////////
 
@@ -133,6 +133,21 @@ class SABEasyBusiness {
     return stringResult;
   }
 
+  String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
+    String strSymbol;
+
+    if (enumEasyType == EasyTypeEnum.from) {
+      strSymbol = symbolAtFromRow(intRow);
+    } else if (enumEasyType == EasyTypeEnum.to) {
+      strSymbol = symbolAtChangeRow(intRow);
+    } else if (enumEasyType == EasyTypeEnum.hide) {
+      strSymbol = symbolAtHideRow(intRow);
+    } else
+      colog("error!");
+
+    return strSymbol;
+  }
+
   String symbolAtHideRow(int intIndex) {
     String result;
     int intHideIndex = intIndex;
@@ -192,21 +207,6 @@ class SABEasyBusiness {
     //else cont.
 
     return stringResult;
-  }
-
-  String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
-    String strSymbol;
-
-    if (enumEasyType == EasyTypeEnum.from) {
-      strSymbol = symbolAtFromRow(intRow);
-    } else if (enumEasyType == EasyTypeEnum.to) {
-      strSymbol = symbolAtChangeRow(intRow);
-    } else if (enumEasyType == EasyTypeEnum.hide) {
-      strSymbol = symbolAtHideRow(intRow);
-    } else
-      colog("error!");
-
-    return strSymbol;
   }
 
   /// `此模块包含世应相关的方法`///////////////////////////////////////////////////

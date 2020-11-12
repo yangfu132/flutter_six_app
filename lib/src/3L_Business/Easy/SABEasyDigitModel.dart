@@ -1,9 +1,9 @@
 import 'dart:math';
 
 ///此Model仅代表占卜时所创造的数据；
-class SABEasyModel {
+class SABEasyDigitModel {
   //构造函数
-  SABEasyModel(this._strEasyGoal, this._strUsefulGod) {}
+  SABEasyDigitModel(this._strEasyGoal, this._strUsefulGod);
 
   //属性：实例发生时间
   DateTime _nEasyTime;

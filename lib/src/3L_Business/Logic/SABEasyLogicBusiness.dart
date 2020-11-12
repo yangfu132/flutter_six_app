@@ -1,6 +1,6 @@
 ﻿import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
-import '../Easy/SABEasyModel.dart';
+import '../Easy/SABEasyDigitModel.dart';
 import '../Easy/SABEasyBusiness.dart';
 import '../Easy/SABElementModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
@@ -9,7 +9,7 @@ import 'SABLogicModel.dart';
 
 class SABEasyLogicBusiness {
   SABEasyLogicBusiness(this._inputEasyModel, this._inputDelegate);
-  final SABEasyModel _inputEasyModel;
+  final SABEasyDigitModel _inputEasyModel;
   SABEasyLogicDelegate _inputDelegate;
   SABEarthBranchBusiness _branchBusiness;
   SABEasyBusiness _easyBusiness;
@@ -2612,6 +2612,36 @@ class SABEasyLogicBusiness {
       _logicModel.stringMonthEarth = easyBusiness().monthEarth();
       _logicModel.stringDaySky = easyBusiness().daySky();
       _logicModel.stringMonthSky = easyBusiness().monthSky();
+      _logicModel.isStaticEasy = isStaticEasy();
+      List arrayMovement = [];
+      List arrayFromSeasonStrong = [];
+      List arrayToSeasonStrong = [];
+      List arrayHideSeasonStrong = [];
+      for (int intRow = 0; intRow < 6; intRow++) {
+        _logicModel.mapFromEasy[intRow] = symbolAtFromRow(intRow);
+        _logicModel.mapToEasy[intRow] = symbolAtChangeRow(intRow);
+        _logicModel.mapHideEasy[intRow] =
+            easyBusiness().symbolAtHideRow(intRow);
+
+        if (isMovementAtRow(intRow)) {
+          arrayMovement.add(intRow);
+        }
+
+        if (isSymbolSeasonStrong(_logicModel.mapFromEasy[intRow])) {
+          arrayFromSeasonStrong.add(intRow);
+        }
+
+        if (isSymbolSeasonStrong(_logicModel.mapToEasy[intRow])) {
+          arrayToSeasonStrong.add(intRow);
+        }
+
+        if (isSymbolSeasonStrong(_logicModel.mapHideEasy[intRow])) {
+          arrayHideSeasonStrong.add(intRow);
+        }
+      }
+      _logicModel.arrayMovement = arrayMovement;
+      _logicModel.arrayRightMove = movementIndexArray();
+      _logicModel.arrayFromSeasonStrong = staticSeasonStrong();
     }
     return _logicModel;
   }
