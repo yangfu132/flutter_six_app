@@ -6,7 +6,6 @@ import '../Easy/SABElementModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 import 'SABEasyLogicDelegate.dart';
 import 'SABEasyLogicModel.dart';
-import '../Easy/SABEasyWordsModel.dart';
 
 class SABEasyLogicBusiness {
   SABEasyLogicBusiness(this._inputEasyModel, this._inputDelegate);
@@ -36,7 +35,7 @@ class SABEasyLogicBusiness {
 
     List easyEasy = easyDictionary["data"];
     for (int index = 0; index < 6; index++) {
-      String stringSymbolParent = wordsModel().symbolParent(easyEasy[index]);
+      String stringSymbolParent = easyBusiness().symbolParent(easyEasy[index]);
       if (stringSymbolParent == parent) {
         parrentArray.add(index);
       }
@@ -125,7 +124,7 @@ class SABEasyLogicBusiness {
     } else if (usefulIndex >= ROW_FLY_BEGIN) {
       String hideSymbol =
           easyBusiness().symbolAtHideRow(usefulIndex - ROW_FLY_BEGIN);
-      strUsefulElement = wordsModel().symbolElement(hideSymbol);
+      strUsefulElement = easyBusiness().symbolElement(hideSymbol);
     } else
       colog("error!");
 
@@ -204,14 +203,14 @@ class SABEasyLogicBusiness {
   List lifeBornArray() {
     String lifeSymbol =
         easyBusiness().symbolAtRow(getLifeIndex(), EasyTypeEnum.from);
-    String lifeElement = wordsModel().symbolElement(lifeSymbol);
+    String lifeElement = easyBusiness().symbolElement(lifeSymbol);
     return arrayParent("父母", lifeElement);
   }
 
   List lifeEnemyArray() {
     String lifeSymbol =
         easyBusiness().symbolAtRow(getLifeIndex(), EasyTypeEnum.from);
-    String lifeElement = wordsModel().symbolElement(lifeSymbol);
+    String lifeElement = easyBusiness().symbolElement(lifeSymbol);
     return arrayParent("官鬼", lifeElement);
   }
 
@@ -1924,7 +1923,7 @@ class SABEasyLogicBusiness {
   bool isSymbol_SuiGuiRuMu_AtRow(int intRow) {
     bool bResult = false;
     String strSymbol = symbolAtFromRow(intRow);
-    String strParent = wordsModel().symbolParent(strSymbol);
+    String strParent = easyBusiness().symbolParent(strSymbol);
     bool bGui = "官鬼" == strParent;
     bool bRuMu = isSymbolChangeMuAtRow(intRow);
 
@@ -2556,7 +2555,7 @@ class SABEasyLogicBusiness {
   }
 
   String symbolEarth(String stringSymbol) {
-    return wordsModel().symbolEarth(stringSymbol);
+    return easyBusiness().symbolEarth(stringSymbol);
   }
 
   String monthEarth() {
@@ -2604,10 +2603,6 @@ class SABEasyLogicBusiness {
       _easyBusiness = SABEasyBusiness(_inputEasyModel);
     } //else cont.
     return _easyBusiness;
-  }
-
-  SABEasyWordsModel wordsModel() {
-    easyBusiness().outEasyWordsModel();
   }
 
   SABEasyLogicModel logicModel() {

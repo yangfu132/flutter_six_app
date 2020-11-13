@@ -26,40 +26,6 @@ class SABEasyWordsModel {
     return strSymbol;
   }
 
-  String symbolElement(String symbol) {
-    String stringResult = "";
-
-    if (symbol.length >= 1)
-      stringResult = symbol.substring(symbol.length - 1, symbol.length);
-    else
-      colog("");
-
-    return stringResult;
-  }
-
-  String symbolParent(String stringSymbol) {
-    String stringResult = "";
-
-    if (stringSymbol.length >= 4)
-      stringResult = stringSymbol.substring(
-          stringSymbol.length - 4, stringSymbol.length - 2);
-    else
-      colog("");
-
-    return stringResult;
-  }
-
-  String symbolEarth(String stringSymbol) {
-    String stringResult = "";
-    if (stringSymbol.length >= 2)
-      stringResult = stringSymbol.substring(
-          stringSymbol.length - 2, stringSymbol.length - 1);
-    else
-      stringResult = "卦中用神未现"; //colog("error!");
-
-    return stringResult;
-  }
-
   bool isMovementAtRow(int nRow) {
     return -1 != arrayMovement.indexOf(nRow);
   }
@@ -87,26 +53,50 @@ class SABEasyWordsModel {
   }
 
   void setFromSymbol(int intRow, String stringSymbol) {
-    SABSymbolWordsModel model = symbolsArray()[intRow];
-    model.mapSymbolFrom['name'] = stringSymbol;
-    model.mapSymbolFrom['parent'] = symbolParent(stringSymbol);
-    model.mapSymbolFrom['earth'] = symbolEarth(stringSymbol);
-    model.mapSymbolFrom['element'] = symbolElement(stringSymbol);
+    symbolsArray()[intRow].mapSymbolFrom['name'] = stringSymbol;
+  }
+
+  void setFromParent(int intRow, String stringParnet) {
+    symbolsArray()[intRow].mapSymbolFrom['parent'] = stringParnet;
+  }
+
+  void setFromEarth(int intRow, String stringEarth) {
+    symbolsArray()[intRow].mapSymbolFrom['earth'] = stringEarth;
+  }
+
+  void setFromElement(int intRow, String stringElement) {
+    symbolsArray()[intRow].mapSymbolFrom['element'] = stringElement;
   }
 
   void setToSymbol(int intRow, String stringSymbol) {
-    SABSymbolWordsModel model = symbolsArray()[intRow];
-    model.mapSymbolTo['name'] = stringSymbol;
-    model.mapSymbolTo['parent'] = symbolParent(stringSymbol);
-    model.mapSymbolTo['earth'] = symbolEarth(stringSymbol);
-    model.mapSymbolTo['element'] = symbolElement(stringSymbol);
+    symbolsArray()[intRow].mapSymbolTo['name'] = stringSymbol;
+  }
+
+  void setToParent(int intRow, String stringParnet) {
+    symbolsArray()[intRow].mapSymbolTo['parent'] = stringParnet;
+  }
+
+  void setToEarth(int intRow, String stringEarth) {
+    symbolsArray()[intRow].mapSymbolTo['earth'] = stringEarth;
+  }
+
+  void setToElement(int intRow, String stringElement) {
+    symbolsArray()[intRow].mapSymbolTo['element'] = stringElement;
   }
 
   void setHideSymbol(int intRow, String stringSymbol) {
-    SABSymbolWordsModel model = symbolsArray()[intRow];
-    model.mapSymbolHide['name'] = stringSymbol;
-    model.mapSymbolHide['parent'] = symbolParent(stringSymbol);
-    model.mapSymbolHide['earth'] = symbolEarth(stringSymbol);
-    model.mapSymbolHide['element'] = symbolElement(stringSymbol);
+    symbolsArray()[intRow].mapSymbolHide['name'] = stringSymbol;
+  }
+
+  void setHideParent(int intRow, String stringParnet) {
+    symbolsArray()[intRow].mapSymbolHide['parent'] = stringParnet;
+  }
+
+  void setHideEarth(int intRow, String stringEarth) {
+    symbolsArray()[intRow].mapSymbolHide['earth'] = stringEarth;
+  }
+
+  void setHideElement(int intRow, String stringElement) {
+    symbolsArray()[intRow].mapSymbolHide['element'] = stringElement;
   }
 }
