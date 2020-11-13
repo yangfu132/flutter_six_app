@@ -5,7 +5,7 @@ import '../Easy/SABEasyBusiness.dart';
 import '../Easy/SABElementModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 import 'SABEasyLogicDelegate.dart';
-import 'SABLogicModel.dart';
+import 'SABEasyLogicModel.dart';
 
 class SABEasyLogicBusiness {
   SABEasyLogicBusiness(this._inputEasyModel, this._inputDelegate);
@@ -13,7 +13,7 @@ class SABEasyLogicBusiness {
   SABEasyLogicDelegate _inputDelegate;
   SABEarthBranchBusiness _branchBusiness;
   SABEasyBusiness _easyBusiness;
-  SABLogicModel _logicModel;
+  SABEasyLogicModel _outLogicModel;
 
   //属性：用神的索引号
   int _usefulGodRow = globalRowInvalid;
@@ -2559,15 +2559,15 @@ class SABEasyLogicBusiness {
   }
 
   String monthEarth() {
-    return logicModel().stringMonthEarth;
+    return easyBusiness().outEasyWordsModel().stringMonthEarth;
   }
 
   String daySky() {
-    return logicModel().stringDaySky;
+    return easyBusiness().outEasyWordsModel().stringDaySky;
   }
 
   String dayEarth() {
-    return logicModel().stringDayEarth;
+    return easyBusiness().outEasyWordsModel().stringDayEarth;
   }
 
   String earthAtFromRow(int intIndex) {
@@ -2605,44 +2605,34 @@ class SABEasyLogicBusiness {
     return _easyBusiness;
   }
 
-  SABLogicModel logicModel() {
-    if (null == _logicModel) {
-      _logicModel = SABLogicModel();
-      _logicModel.stringDayEarth = easyBusiness().dayEarth();
-      _logicModel.stringMonthEarth = easyBusiness().monthEarth();
-      _logicModel.stringDaySky = easyBusiness().daySky();
-      _logicModel.stringMonthSky = easyBusiness().monthSky();
-      _logicModel.isStaticEasy = isStaticEasy();
+  SABEasyLogicModel logicModel() {
+    if (null == _outLogicModel) {
+      _outLogicModel = SABEasyLogicModel();
+      _outLogicModel.isStaticEasy = isStaticEasy();
       List arrayMovement = [];
       List arrayFromSeasonStrong = [];
       List arrayToSeasonStrong = [];
       List arrayHideSeasonStrong = [];
       for (int intRow = 0; intRow < 6; intRow++) {
-        _logicModel.mapFromEasy[intRow] = symbolAtFromRow(intRow);
-        _logicModel.mapToEasy[intRow] = symbolAtChangeRow(intRow);
-        _logicModel.mapHideEasy[intRow] =
-            easyBusiness().symbolAtHideRow(intRow);
-
         if (isMovementAtRow(intRow)) {
           arrayMovement.add(intRow);
         }
 
-        if (isSymbolSeasonStrong(_logicModel.mapFromEasy[intRow])) {
+        if (isSymbolSeasonStrong(symbolAtFromRow(intRow))) {
           arrayFromSeasonStrong.add(intRow);
         }
 
-        if (isSymbolSeasonStrong(_logicModel.mapToEasy[intRow])) {
+        if (isSymbolSeasonStrong(symbolAtChangeRow(intRow))) {
           arrayToSeasonStrong.add(intRow);
         }
 
-        if (isSymbolSeasonStrong(_logicModel.mapHideEasy[intRow])) {
+        if (isSymbolSeasonStrong(easyBusiness().symbolAtHideRow(intRow))) {
           arrayHideSeasonStrong.add(intRow);
         }
       }
-      _logicModel.arrayMovement = arrayMovement;
-      _logicModel.arrayRightMove = movementIndexArray();
-      _logicModel.arrayFromSeasonStrong = staticSeasonStrong();
+      _outLogicModel.arrayRightMove = movementIndexArray();
+      _outLogicModel.arrayFromSeasonStrong = staticSeasonStrong();
     }
-    return _logicModel;
+    return _outLogicModel;
   }
 }

@@ -4,6 +4,7 @@ import 'SABEightDiagramsModel.dart';
 import 'SABEasyDigitModel.dart';
 import 'SABElementModel.dart';
 import "package:flutter_perpttual_calendar/flutter_perpttual_calendar.dart";
+import 'SABEasyWordsModel.dart';
 
 ///此Business用于将EasyModel与数据进行关联；
 class SABEasyBusiness {
@@ -15,6 +16,8 @@ class SABEasyBusiness {
   PWBCalendarBusiness _businessCalendar;
 
   final SABEasyDigitModel _inputEasyModel;
+
+  SABEasyWordsModel _outEasyWordsModel;
 
   /// `此模块包含基础数据函数，提供给外部使用`////////////////////////////////////////
 
@@ -419,5 +422,28 @@ class SABEasyBusiness {
     //else cont.
 
     return _eightDiagrams;
+  }
+
+  SABEasyWordsModel outEasyWordsModel() {
+    if (null == _outEasyWordsModel) {
+      _outEasyWordsModel = SABEasyWordsModel();
+      _outEasyWordsModel.stringDayEarth = dayEarth();
+      _outEasyWordsModel.stringMonthEarth = monthEarth();
+      _outEasyWordsModel.stringDaySky = daySky();
+      _outEasyWordsModel.stringMonthSky = monthSky();
+
+      List arrayMovement = [];
+      for (int intRow = 0; intRow < 6; intRow++) {
+        _outEasyWordsModel.mapFromEasy[intRow] = symbolAtFromRow(intRow);
+        _outEasyWordsModel.mapToEasy[intRow] = symbolAtChangeRow(intRow);
+        _outEasyWordsModel.mapHideEasy[intRow] = symbolAtHideRow(intRow);
+
+        if (isMovementAtRow(intRow)) {
+          arrayMovement.add(intRow);
+        }
+      }
+      _outEasyWordsModel.arrayMovement = arrayMovement;
+    }
+    return _outEasyWordsModel;
   }
 }

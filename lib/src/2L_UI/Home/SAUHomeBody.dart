@@ -6,7 +6,7 @@ import 'package:audioplayers/audioplayers.dart';
 // import 'package:flutter/src/foundation/constants.dart';
 import 'AnimationDiceWidget.dart';
 import '../Result/SAUEasyResultRoute.dart';
-import '../../3L_Business/Easy/SABEasyModel.dart';
+import '../../3L_Business/Easy/SABEasyDigitModel.dart';
 
 class SAUHomeBody extends StatefulWidget {
   SAUHomeBody({Key key, this.title}) : super(key: key);
@@ -104,7 +104,8 @@ class SAUHomeBodyState extends State<SAUHomeBody> {
                 _bAnimation = false;
                 setState(() {});
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  SABEasyModel outEasyModel = SABEasyModel('测试', '子孙');
+                  SABEasyDigitModel outEasyModel =
+                      SABEasyDigitModel('测试', '子孙');
                   outEasyModel.generateEasyArray();
                   return SAUEasyResultRoute(outEasyModel);
                 }));

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../3L_Business/Easy/SABEasyModel.dart';
+import '../../3L_Business/Easy/SABEasyDigitModel.dart';
 import '../../3L_Business/Result/SABEasyResultBusiness.dart';
 import '../../3L_Business/Result/SABEasyResultModel.dart';
 
@@ -9,7 +9,7 @@ class SAUEasyResultRoute extends StatefulWidget {
         .resultBusiness
         .configResultModel(this._inputEasyModel, this.resultModel);
   }
-  final SABEasyModel _inputEasyModel;
+  final SABEasyDigitModel _inputEasyModel;
   final SABEasyResultBusiness resultBusiness = SABEasyResultBusiness();
   final SABEasyResultModel resultModel = SABEasyResultModel();
   @override
