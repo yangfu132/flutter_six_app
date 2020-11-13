@@ -9,7 +9,7 @@
   /// String stringEarth;
   /// String stringElement;
   ///
-  Map symbolFrom;
-  Map symbolTo;
-  Map symbolHide;
+  Map mapSymbolFrom;
+  Map mapSymbolTo;
+  Map mapSymbolHide;
 }

@@ -15,15 +15,49 @@ class SABEasyWordsModel {
     String strSymbol = '';
     SABSymbolWordsModel model = symbolsArray()[intRow];
     if (enumEasyType == EasyTypeEnum.from) {
-      strSymbol = model.symbolFrom['name'];
+      strSymbol = model.mapSymbolFrom['name'];
     } else if (enumEasyType == EasyTypeEnum.to) {
-      strSymbol = model.symbolTo['name'];
+      strSymbol = model.mapSymbolTo['name'];
     } else if (enumEasyType == EasyTypeEnum.hide) {
-      strSymbol = model.symbolHide['name'];
+      strSymbol = model.mapSymbolHide['name'];
     } else {
       colog("error!");
     }
     return strSymbol;
+  }
+
+  String symbolElement(String symbol) {
+    String stringResult = "";
+
+    if (symbol.length >= 1)
+      stringResult = symbol.substring(symbol.length - 1, symbol.length);
+    else
+      colog("");
+
+    return stringResult;
+  }
+
+  String symbolParent(String stringSymbol) {
+    String stringResult = "";
+
+    if (stringSymbol.length >= 4)
+      stringResult = stringSymbol.substring(
+          stringSymbol.length - 4, stringSymbol.length - 2);
+    else
+      colog("");
+
+    return stringResult;
+  }
+
+  String symbolEarth(String stringSymbol) {
+    String stringResult = "";
+    if (stringSymbol.length >= 2)
+      stringResult = stringSymbol.substring(
+          stringSymbol.length - 2, stringSymbol.length - 1);
+    else
+      stringResult = "卦中用神未现"; //colog("error!");
+
+    return stringResult;
   }
 
   bool isMovementAtRow(int nRow) {
@@ -54,25 +88,25 @@ class SABEasyWordsModel {
 
   void setFromSymbol(int intRow, String stringSymbol) {
     SABSymbolWordsModel model = symbolsArray()[intRow];
-    model.symbolFrom['name'] = stringSymbol;
-    model.symbolFrom['parent'] = '';
-    model.symbolFrom['earth'] = '';
-    model.symbolFrom['element'] = '';
+    model.mapSymbolFrom['name'] = stringSymbol;
+    model.mapSymbolFrom['parent'] = symbolParent(stringSymbol);
+    model.mapSymbolFrom['earth'] = symbolEarth(stringSymbol);
+    model.mapSymbolFrom['element'] = symbolElement(stringSymbol);
   }
 
   void setToSymbol(int intRow, String stringSymbol) {
     SABSymbolWordsModel model = symbolsArray()[intRow];
-    model.symbolTo['name'] = stringSymbol;
-    model.symbolTo['parent'] = '';
-    model.symbolTo['earth'] = '';
-    model.symbolTo['element'] = '';
+    model.mapSymbolTo['name'] = stringSymbol;
+    model.mapSymbolTo['parent'] = symbolParent(stringSymbol);
+    model.mapSymbolTo['earth'] = symbolEarth(stringSymbol);
+    model.mapSymbolTo['element'] = symbolElement(stringSymbol);
   }
 
   void setHideSymbol(int intRow, String stringSymbol) {
     SABSymbolWordsModel model = symbolsArray()[intRow];
-    model.symbolHide['name'] = stringSymbol;
-    model.symbolHide['parent'] = '';
-    model.symbolHide['earth'] = '';
-    model.symbolHide['element'] = '';
+    model.mapSymbolHide['name'] = stringSymbol;
+    model.mapSymbolHide['parent'] = symbolParent(stringSymbol);
+    model.mapSymbolHide['earth'] = symbolEarth(stringSymbol);
+    model.mapSymbolHide['element'] = symbolElement(stringSymbol);
   }
 }

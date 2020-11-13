@@ -5,6 +5,7 @@ import 'SABEasyDigitModel.dart';
 import 'SABElementModel.dart';
 import "package:flutter_perpttual_calendar/flutter_perpttual_calendar.dart";
 import 'SABEasyWordsModel.dart';
+import 'SABSymbolWordsModel.dart';
 
 ///此Business用于将EasyModel与数据进行关联；
 class SABEasyBusiness {
@@ -197,7 +198,7 @@ class SABEasyBusiness {
         if (null != toDict) {
           String symbol = symbolStringAtRow(intIndex, toDict);
 
-          String toElement = symbolElement(symbol);
+          String toElement = outEasyWordsModel().symbolElement(symbol);
 
           String strValue =
               SABElementModel.elementRelative(fromEasyElement, toElement);
@@ -244,14 +245,8 @@ class SABEasyBusiness {
   /// `此模块包含提取爻信息的方法`///////////////////////////////////////////////////
 
   String earthAtFromRow(int intIndex) {
-    String stringResult = "";
-    if (0 <= intIndex && intIndex < 6) {
-      String stringSymbol = symbolAtRow(intIndex, EasyTypeEnum.from);
-      stringResult = symbolEarth(stringSymbol);
-    }
-    //else cont.
-
-    return stringResult;
+    SABSymbolWordsModel model = outEasyWordsModel().symbolsArray()[intIndex];
+    return model.mapSymbolFrom['earth'];
   }
 
   String earthAtChangeRow(int intIndex) {
@@ -259,7 +254,7 @@ class SABEasyBusiness {
     if (0 <= intIndex && intIndex < 6) {
       if (_inputEasyModel.isMovementAtRow(intIndex)) {
         String stringSymbol = symbolAtChangeRow(intIndex);
-        stringResult = symbolEarth(stringSymbol);
+        stringResult = outEasyWordsModel().symbolEarth(stringSymbol);
       }
       //else cont.
     }
@@ -310,35 +305,13 @@ class SABEasyBusiness {
     return stringResult;
   }
 
-  String symbolElement(String symbol) {
-    String stringResult = "";
-
-    if (symbol.length >= 1)
-      stringResult = symbol.substring(symbol.length - 1, symbol.length);
-    else
-      colog("");
-
-    return stringResult;
-  }
-
-  String symbolParent(String stringSymbol) {
-    String stringResult = "";
-
-    if (stringSymbol.length >= 4)
-      stringResult = stringSymbol.substring(
-          stringSymbol.length - 4, stringSymbol.length - 2);
-    else
-      colog("");
-
-    return stringResult;
-  }
-
   String earthAtMergeRow(int intRow) {
     String stringResult = "";
 
     String stringSymbol = symbolAtMergeRow(intRow);
 
-    if ("" != stringSymbol) stringResult = symbolEarth(stringSymbol);
+    if ("" != stringSymbol)
+      stringResult = outEasyWordsModel().symbolEarth(stringSymbol);
     //else cont.
 
     return stringResult;
@@ -368,17 +341,6 @@ class SABEasyBusiness {
       colog("error!");
 
     return bResult;
-  }
-
-  String symbolEarth(String stringSymbol) {
-    String stringResult = "";
-    if (stringSymbol.length >= 2)
-      stringResult = stringSymbol.substring(
-          stringSymbol.length - 2, stringSymbol.length - 1);
-    else
-      stringResult = "卦中用神未现"; //colog("error!");
-
-    return stringResult;
   }
 
   String easyTitle() {
@@ -431,17 +393,37 @@ class SABEasyBusiness {
       _outEasyWordsModel.stringMonthEarth = monthEarth();
       _outEasyWordsModel.stringDaySky = daySky();
       _outEasyWordsModel.stringMonthSky = monthSky();
-
-      for (int intRow = 0; intRow < 6; intRow++) {
-        _outEasyWordsModel.setDigit(
-            intRow, _inputEasyModel.digitAtIndex(intRow));
-        _outEasyWordsModel.setMovement(
-            intRow, _inputEasyModel.isMovementAtRow(intRow));
-        _outEasyWordsModel.setFromSymbol(intRow, symbolAtFromRow(intRow));
-        _outEasyWordsModel.setToSymbol(intRow, symbolAtChangeRow(intRow));
-        _outEasyWordsModel.setHideSymbol(intRow, symbolAtHideRow(intRow));
-      }
     }
     return _outEasyWordsModel;
+  }
+
+  ///``
+  ///
+  void configWordsModel() {
+    for (int intRow = 0; intRow < 6; intRow++) {
+      outEasyWordsModel()
+          .setDigit(intRow, _inputEasyModel.digitAtIndex(intRow));
+      outEasyWordsModel()
+          .setMovement(intRow, _inputEasyModel.isMovementAtRow(intRow));
+      outEasyWordsModel().setFromSymbol(intRow, symbolAtFromRow(intRow));
+      outEasyWordsModel().setToSymbol(intRow, symbolAtChangeRow(intRow));
+      outEasyWordsModel().setHideSymbol(intRow, symbolAtHideRow(intRow));
+    }
+  }
+
+  List arrayRowWithParent(String parent, Map easyDictionary) {
+    List parrentArray = List();
+
+    List easyEasy = easyDictionary["data"];
+    for (int index = 0; index < 6; index++) {
+      String stringSymbolParent =
+          outEasyWordsModel().symbolParent(easyEasy[index]);
+      if (stringSymbolParent == parent) {
+        parrentArray.add(index);
+      }
+      //else cont.
+    } //endf
+
+    return parrentArray;
   }
 }
