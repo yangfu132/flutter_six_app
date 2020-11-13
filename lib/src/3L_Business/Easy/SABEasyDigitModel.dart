@@ -98,7 +98,7 @@ class SABEasyDigitModel {
     return strToKey;
   }
 
-  int symbolAtIndex(int intSymbolIndex) {
+  int digitAtIndex(int intSymbolIndex) {
     return _listEasyData[intSymbolIndex];
   }
 

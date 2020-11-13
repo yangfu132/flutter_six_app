@@ -173,7 +173,7 @@ class SABEasyBusiness {
       if (strSymbol.length >= 4) {
         String symbolDes =
             strSymbol.substring(strSymbol.length - 4, strSymbol.length);
-        int nValue = _inputEasyModel.symbolAtIndex(intIndex);
+        int nValue = _inputEasyModel.digitAtIndex(intIndex);
         if (8 == nValue) {
           result = "×" + symbolDes;
         } else if (9 == nValue) {
@@ -432,17 +432,15 @@ class SABEasyBusiness {
       _outEasyWordsModel.stringDaySky = daySky();
       _outEasyWordsModel.stringMonthSky = monthSky();
 
-      List arrayMovement = [];
       for (int intRow = 0; intRow < 6; intRow++) {
-        _outEasyWordsModel.mapFromEasy[intRow] = symbolAtFromRow(intRow);
-        _outEasyWordsModel.mapToEasy[intRow] = symbolAtChangeRow(intRow);
-        _outEasyWordsModel.mapHideEasy[intRow] = symbolAtHideRow(intRow);
-
-        if (isMovementAtRow(intRow)) {
-          arrayMovement.add(intRow);
-        }
+        _outEasyWordsModel.setDigit(
+            intRow, _inputEasyModel.digitAtIndex(intRow));
+        _outEasyWordsModel.setMovement(
+            intRow, _inputEasyModel.isMovementAtRow(intRow));
+        _outEasyWordsModel.setFromSymbol(intRow, symbolAtFromRow(intRow));
+        _outEasyWordsModel.setToSymbol(intRow, symbolAtChangeRow(intRow));
+        _outEasyWordsModel.setHideSymbol(intRow, symbolAtHideRow(intRow));
       }
-      _outEasyWordsModel.arrayMovement = arrayMovement;
     }
     return _outEasyWordsModel;
   }
