@@ -1,7 +1,10 @@
 ﻿import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
+import '../Easy/SABEasyWordsModel.dart';
 
 class SABEasyLogicModel {
+  SABEasyLogicModel(this.inputWordsModel);
+  final SABEasyWordsModel inputWordsModel;
   bool isStaticEasy;
 
   List arrayRightMove;

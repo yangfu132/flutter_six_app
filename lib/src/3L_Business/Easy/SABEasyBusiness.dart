@@ -220,10 +220,10 @@ class SABEasyBusiness {
   }
 
   String getGoalSymbol() {
-    return symbolAtRow(goalIndex(), EasyTypeEnum.from);
+    return symbolAtRow(_goalIndex(), EasyTypeEnum.from);
   }
 
-  int goalIndex() {
+  int _goalIndex() {
     Map fromDict = fromEasyDictionary();
     int yingIndex = fromDict["应"];
     return 6 - yingIndex;
@@ -399,14 +399,15 @@ class SABEasyBusiness {
 
   SABEasyWordsModel outEasyWordsModel() {
     if (null == _outEasyWordsModel) {
-      _outEasyWordsModel = SABEasyWordsModel();
+      _outEasyWordsModel = SABEasyWordsModel(_inputEasyModel);
       _outEasyWordsModel.stringDayEarth = dayEarth();
       _outEasyWordsModel.stringMonthEarth = monthEarth();
       _outEasyWordsModel.stringDaySky = daySky();
       _outEasyWordsModel.stringMonthSky = monthSky();
       _outEasyWordsModel.intLifeIndex = getLifeIndex();
-      _outEasyWordsModel.intGoalIndex = goalIndex();
-
+      _outEasyWordsModel.intGoalIndex = _goalIndex();
+      _outEasyWordsModel.stringFromName = fromEasyName();
+      _outEasyWordsModel.stringToName = toEasyName();
       for (int intRow = 0; intRow < 6; intRow++) {
         _outEasyWordsModel.setDigit(
             intRow, _inputEasyModel.digitAtIndex(intRow));

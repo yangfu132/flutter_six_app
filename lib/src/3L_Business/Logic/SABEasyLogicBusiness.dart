@@ -54,7 +54,7 @@ class SABEasyLogicBusiness {
     if (null != fromDict) {
       if (intIndex == getLifeIndex()) {
         strResult = "世";
-      } else if (intIndex == easyBusiness().goalIndex()) {
+      } else if (intIndex == getGoalIndex()) {
         strResult = "应";
       }
     }
@@ -2354,7 +2354,7 @@ class SABEasyLogicBusiness {
 
     if (globalRowInvalid == result) {
       //应爻位置上的用神
-      int goalIndex = easyBusiness().goalIndex();
+      int goalIndex = getGoalIndex();
 
       for (int intItem in usefulArray) {
         if (goalIndex == intItem) {
@@ -2501,24 +2501,8 @@ class SABEasyLogicBusiness {
     return easyBusiness().isSymbolMovement(stringSymbol);
   }
 
-  String fromEasyName() {
-    return easyBusiness().fromEasyName();
-  }
-
-  String toEasyName() {
-    return easyBusiness().toEasyName();
-  }
-
-  String fromEasyKey() {
-    return easyBusiness().fromEasyKey();
-  }
-
-  String toEasyKey() {
-    return easyBusiness().toEasyKey();
-  }
-
-  String getUsefulDeity() {
-    return easyBusiness().getUsefulDeity();
+  int lifeIndexAtEasy(Map easyDict) {
+    return easyBusiness().lifeIndexAtEasy(easyDict);
   }
 
   Map fromEasyDictionary() {
@@ -2529,12 +2513,32 @@ class SABEasyLogicBusiness {
     return easyBusiness().toEasyDictionary();
   }
 
-  int lifeIndexAtEasy(Map easyDict) {
-    return easyBusiness().lifeIndexAtEasy(easyDict);
+  String fromEasyName() {
+    return outEasyWordsModel().stringFromName;
+  }
+
+  String toEasyName() {
+    return outEasyWordsModel().stringToName;
+  }
+
+  String fromEasyKey() {
+    return outEasyWordsModel().inputDigitModel.fromEasyKey();
+  }
+
+  String toEasyKey() {
+    return outEasyWordsModel().inputDigitModel.toEasyKey();
+  }
+
+  String getUsefulDeity() {
+    return outEasyWordsModel().inputDigitModel.getUsefulDeity();
   }
 
   int getLifeIndex() {
-    return easyBusiness().getLifeIndex();
+    return outEasyWordsModel().intLifeIndex;
+  }
+
+  int getGoalIndex() {
+    return outEasyWordsModel().intGoalIndex;
   }
 
   String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
@@ -2611,7 +2615,7 @@ class SABEasyLogicBusiness {
 
   SABEasyLogicModel logicModel() {
     if (null == _outLogicModel) {
-      _outLogicModel = SABEasyLogicModel();
+      _outLogicModel = SABEasyLogicModel(outEasyWordsModel());
       _outLogicModel.isStaticEasy = isStaticEasy();
       List arrayMovement = [];
       List arrayFromSeasonStrong = [];
