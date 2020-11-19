@@ -10,6 +10,11 @@ class SABEasyLogicModel {
   List _listSymbols;
 
   bool isStaticEasy;
+
+  bool isFromEasySixPair;
+  bool isToEasySixPair;
+  bool isHideEasySixPair;
+
   List arrayRightMove;
   List arrayFromSeasonStrong;
   List arrayToSeasonStrong;
@@ -28,6 +33,32 @@ class SABEasyLogicModel {
       colog("error!");
     }
     return bResult;
+  }
+
+  bool isEasySixPair(EasyTypeEnum enumEasyType) {
+    bool bResult = false;
+    if (enumEasyType == EasyTypeEnum.from) {
+      bResult = isFromEasySixPair;
+    } else if (enumEasyType == EasyTypeEnum.to) {
+      bResult = isToEasySixPair;
+    } else if (enumEasyType == EasyTypeEnum.hide) {
+      bResult = isHideEasySixPair;
+    } else {
+      colog("error!");
+    }
+    return bResult;
+  }
+
+  void setIsEasySixPair(EasyTypeEnum enumEasyType, bool isEasySixPair) {
+    if (enumEasyType == EasyTypeEnum.from) {
+      isFromEasySixPair = isEasySixPair;
+    } else if (enumEasyType == EasyTypeEnum.to) {
+      isToEasySixPair = isEasySixPair;
+    } else if (enumEasyType == EasyTypeEnum.hide) {
+      isHideEasySixPair = isEasySixPair;
+    } else {
+      colog("error!");
+    }
   }
 
   String getSmbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {

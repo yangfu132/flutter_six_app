@@ -180,14 +180,12 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
     String strResult = "";
 
-    bool bFromSixPair =
-        _inputLogicBusiness.isEasySixPair(logicBusiness().fromEasyDictionary());
+    bool bFromSixPair = logicModel().isEasySixPair(EasyTypeEnum.from);
 
     bool bToSixPair = false;
 
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToSixPair =
-          _inputLogicBusiness.isEasySixPair(logicBusiness().toEasyDictionary());
+      bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
     bool bFromConflict = _inputLogicBusiness
@@ -418,13 +416,11 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
     String strResult = "";
 
-    bool bFromSixPair =
-        _inputLogicBusiness.isEasySixPair(logicBusiness().fromEasyDictionary());
+    bool bFromSixPair = logicModel().isEasySixPair(EasyTypeEnum.from);
 
     bool bToSixPair = false;
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToSixPair =
-          _inputLogicBusiness.isEasySixPair(logicBusiness().toEasyDictionary());
+      bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
     bool bFromConflict = _inputLogicBusiness
@@ -468,13 +464,11 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
     String strResult = "";
 
-    bool bFromSixPair =
-        _inputLogicBusiness.isEasySixPair(logicBusiness().fromEasyDictionary());
+    bool bFromSixPair = logicModel().isEasySixPair(EasyTypeEnum.from);
 
     bool bToSixPair = false;
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToSixPair =
-          _inputLogicBusiness.isEasySixPair(logicBusiness().toEasyDictionary());
+      bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
     bool bFromConflict = _inputLogicBusiness
@@ -519,13 +513,11 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
     String strResult = "";
 
-    bool bFromSixPair =
-        _inputLogicBusiness.isEasySixPair(logicBusiness().fromEasyDictionary());
+    bool bFromSixPair = logicModel().isEasySixPair(EasyTypeEnum.from);
 
     bool bToSixPair = false;
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToSixPair =
-          _inputLogicBusiness.isEasySixPair(logicBusiness().toEasyDictionary());
+      bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
     bool bFromConflict = _inputLogicBusiness

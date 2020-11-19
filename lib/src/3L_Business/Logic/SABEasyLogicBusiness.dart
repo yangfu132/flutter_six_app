@@ -327,7 +327,7 @@ class SABEasyLogicBusiness {
     bool bOnMonth = _isSymbolOnMonth(strSymbolBase);
     bool bOnDay = _isSymbolOnDay(strSymbolBase);
     bool bMonthBorn = _isSymbolMoveBorn(strSymbolBase);
-    bool bDayBorn = isSymbolDayBorn(strSymbolBase);
+    bool bDayBorn = _isSymbolDayBorn(strSymbolBase);
     bool bMoveBorn = isSymbolBornedByMoveAtRow(intRow, EasyTypeEnum.from);
     if (bStrong || bOnMonth || bOnDay || bMonthBorn || bDayBorn || bMoveBorn) {
       bResult = true;
@@ -698,15 +698,15 @@ class SABEasyLogicBusiness {
       bBalance = true;
     else {
       //生克
-      bool bMonthBorn = isSymbolMonthBorn(stringSymbol);
-      bool bDayBorn = isSymbolDayBorn(stringSymbol);
-      bool bMonthRestrict = isSymbolMonthRestrict(stringSymbol);
-      bool bDayRestrict = isSymbolDayRestrict(stringSymbol);
+      bool bMonthBorn = _isSymbolMonthBorn(stringSymbol);
+      bool bDayBorn = _isSymbolDayBorn(stringSymbol);
+      bool bMonthRestrict = _isSymbolMonthRestrict(stringSymbol);
+      bool bDayRestrict = _isSymbolDayRestrict(stringSymbol);
 
       //冲合
-      bool bDayConflict = isSymbolDayConflict(stringSymbol);
+      bool bDayConflict = _isSymbolDayConflict(stringSymbol);
       bool bDayPair = isSymbolDayPair(stringSymbol);
-      bool bMonthConflict = isSymbolMonthConflict(stringSymbol);
+      bool bMonthConflict = _isSymbolMonthConflict(stringSymbol);
       bool bMonthPair = isSymbolMonthPair(stringSymbol);
 
       if (bMonthRestrict) {
@@ -1067,7 +1067,7 @@ class SABEasyLogicBusiness {
     return monthEarth == basicEarth;
   }
 
-  bool isSymbolMonthBorn(String stringSymbol) {
+  bool _isSymbolMonthBorn(String stringSymbol) {
     String strMonth = monthEarth();
 
     String strEarth = _symbolEarth(stringSymbol);
@@ -1077,7 +1077,7 @@ class SABEasyLogicBusiness {
     return bBorn;
   }
 
-  bool isSymbolMonthRestrict(String stringSymbol) {
+  bool _isSymbolMonthRestrict(String stringSymbol) {
     String strMonth = monthEarth();
 
     String strEarth = _symbolEarth(stringSymbol);
@@ -1086,7 +1086,7 @@ class SABEasyLogicBusiness {
     return bRestricted;
   }
 
-  bool isSymbolMonthConflict(String stringSymbol) {
+  bool _isSymbolMonthConflict(String stringSymbol) {
     String strMonth = monthEarth();
 
     String strEarth = _symbolEarth(stringSymbol);
@@ -1188,7 +1188,7 @@ class SABEasyLogicBusiness {
     if (0 <= intRow && intRow < 6) {
       String stringSymbol = symbolAtRow(intRow, easyType);
       if (bResult) {
-        bResult = isSymbolDayConflict(stringSymbol);
+        bResult = _isSymbolDayConflict(stringSymbol);
       }
     } else
       colog("error!");
@@ -1196,7 +1196,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isSymbolDayBorn(String stringSymbol) {
+  bool _isSymbolDayBorn(String stringSymbol) {
     String strDayEarth = dayEarth();
 
     String strEarth = _symbolEarth(stringSymbol);
@@ -1206,7 +1206,7 @@ class SABEasyLogicBusiness {
     return bBorn;
   }
 
-  bool isSymbolDayRestrict(String stringSymbol) {
+  bool _isSymbolDayRestrict(String stringSymbol) {
     String strDayEarth = dayEarth();
 
     String strEarth = _symbolEarth(stringSymbol);
@@ -1215,7 +1215,7 @@ class SABEasyLogicBusiness {
     return bRestricted;
   }
 
-  bool isSymbolDayConflict(String stringSymbol) {
+  bool _isSymbolDayConflict(String stringSymbol) {
     String strDayEarth = dayEarth();
 
     String strEarth = _symbolEarth(stringSymbol);
@@ -1247,7 +1247,7 @@ class SABEasyLogicBusiness {
   }
 
 //冲衰弱之静爻则为日破
-  DayConflictEnum symbolDayConflictState(String stringSymbol) {
+  DayConflictEnum _symbolDayConflictState(String stringSymbol) {
     DayConflictEnum nResult = DayConflictEnum.Conflict_NO;
 
     String strDay = dayEarth();
@@ -1280,7 +1280,7 @@ class SABEasyLogicBusiness {
   ///`六合章第十九`//////////////////////////////////////////////////////
 
 //六合卦
-  bool isEasySixPair(Map easyDictionary) {
+  bool _isEasySixPair(Map easyDictionary) {
     bool bResult = false;
 
     List symbolPairArray = [];
@@ -1837,7 +1837,7 @@ class SABEasyLogicBusiness {
     //else cont.
 
     //有日建生扶者，亦不为空；
-    bool bDayBorn = isSymbolDayBorn(stringSymbol);
+    bool bDayBorn = _isSymbolDayBorn(stringSymbol);
     bResult = bResult || bDayBorn;
 
     if (easyType == EasyTypeEnum.from || easyType == EasyTypeEnum.hide) {
@@ -1983,11 +1983,11 @@ class SABEasyLogicBusiness {
       } else {
         //伏神被日月冲克者，二也。
         bool bFromDayConflict =
-            DayConflictEnum.Conflict_NO != symbolDayConflictState(basicSymbol);
+            DayConflictEnum.Conflict_NO != _symbolDayConflictState(basicSymbol);
         bool bFromMonthConflict =
             MonthBrokenEnum.Broken_NO != symbolMonthBrokenState(basicSymbol);
-        bool bFromMonthRestrict = isSymbolMonthRestrict(basicSymbol);
-        bool bFromDayRestrict = isSymbolDayRestrict(basicSymbol);
+        bool bFromMonthRestrict = _isSymbolMonthRestrict(basicSymbol);
+        bool bFromDayRestrict = _isSymbolDayRestrict(basicSymbol);
 
         if (bFromDayConflict ||
             bFromMonthConflict ||
@@ -2073,12 +2073,12 @@ class SABEasyLogicBusiness {
             } else {
               //伏神得遇日月动爻冲克飞神者，五也。
               bool bFromDayConflict = DayConflictEnum.Conflict_NO !=
-                  symbolDayConflictState(fromSymbol);
+                  _symbolDayConflictState(fromSymbol);
               bool bFromMonthConflict = MonthBrokenEnum.Broken_NO !=
                   symbolMonthBrokenState(fromSymbol);
               bool bFromMoveConflict = isSymbolMoveConflict(fromSymbol);
-              bool bFromMonthRestrict = isSymbolMonthRestrict(fromSymbol);
-              bool bFromDayRestrict = isSymbolDayRestrict(fromSymbol);
+              bool bFromMonthRestrict = _isSymbolMonthRestrict(fromSymbol);
+              bool bFromDayRestrict = _isSymbolDayRestrict(fromSymbol);
               bool bFromMoveRestrict =
                   isSymbolRestrictedByMoveAtIndex(intRow, EasyTypeEnum.from);
 
@@ -2095,7 +2095,7 @@ class SABEasyLogicBusiness {
                 bool bFromMonthBroken = MonthBrokenEnum.Broken_YES ==
                     symbolMonthBrokenState(fromSymbol);
                 bool bFromDayBroken = DayConflictEnum.Conflict_BROKEN ==
-                    symbolDayConflictState(fromSymbol);
+                    _symbolDayConflictState(fromSymbol);
                 bool bFromStrong = isSymbolSeasonStrong(fromSymbol);
 
                 bool bFromMu = isSymbolMuAtRow(intRow, EasyTypeEnum.from);
@@ -2650,6 +2650,15 @@ class SABEasyLogicBusiness {
       ///endf
       _outLogicModel.arrayRightMove = movementIndexArray();
       _outLogicModel.arrayFromSeasonStrong = staticSeasonStrong();
+
+      _outLogicModel.setIsEasySixPair(
+          EasyTypeEnum.from, _isEasySixPair(fromEasyDictionary()));
+
+      _outLogicModel.setIsEasySixPair(
+          EasyTypeEnum.to, _isEasySixPair(toEasyDictionary()));
+
+      _outLogicModel.setIsEasySixPair(
+          EasyTypeEnum.hide, _isEasySixPair(easyBusiness().placeFirstEasy()));
     }
     return _outLogicModel;
   }
