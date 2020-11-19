@@ -404,6 +404,8 @@ class SABEasyBusiness {
       _outEasyWordsModel.stringMonthEarth = monthEarth();
       _outEasyWordsModel.stringDaySky = daySky();
       _outEasyWordsModel.stringMonthSky = monthSky();
+      _outEasyWordsModel.intLifeIndex = getLifeIndex();
+      _outEasyWordsModel.intGoalIndex = goalIndex();
 
       for (int intRow = 0; intRow < 6; intRow++) {
         _outEasyWordsModel.setDigit(

@@ -1,5 +1,4 @@
 ﻿import '../../1L_Context/SACGlobal.dart';
-import '../../1L_Context/SACContext.dart';
 import 'SABSymbolWordsModel.dart';
 
 class SABEasyWordsModel {
@@ -7,7 +6,8 @@ class SABEasyWordsModel {
   String stringDaySky;
   String stringMonthSky;
   String stringMonthEarth;
-  int intLife;
+  int intLifeIndex;
+  int intGoalIndex;
 
   List arrayMovement;
   List _listSymbols;
