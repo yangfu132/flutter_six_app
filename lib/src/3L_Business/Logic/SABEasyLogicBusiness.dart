@@ -17,7 +17,7 @@ class SABEasyLogicBusiness {
   SABEasyLogicModel _outLogicModel;
 
   //属性：用神的索引号
-  int _usefulGodRow = globalRowInvalid;
+  int _usefulDeityRow = globalRowInvalid;
 
   ///`六亲歌章第五`//////////////////////////////////////////////////////
 
@@ -80,18 +80,18 @@ class SABEasyLogicBusiness {
   }
 
   ///`用神章第八--用神旺相`//////////////////////////////////////////////////////
-  bool isUsefulGodChangeToConflict() {
-    return isSymbolChangeConflictAtRow(usefulGodRow());
+  bool isUsefulDeityChangeToConflict() {
+    return isSymbolChangeConflictAtRow(usefulDeityRow());
   }
 
-  bool isUsefulGodChangeToRestricts() {
-    return isSymbolChangeRestrictAtRow(usefulGodRow());
+  bool isUsefulDeityChangeToRestricts() {
+    return isSymbolChangeRestrictAtRow(usefulDeityRow());
   }
 
-  bool isUsefulGodStrong() {
+  bool isUsefulDeityStrong() {
     bool bResult = false;
 
-    int usefulIndex = usefulGodRow();
+    int usefulIndex = usefulDeityRow();
     if (0 <= usefulIndex && usefulIndex <= 5) {
       bResult = isSymbolHealthStrong(usefulIndex, EasyTypeEnum.from);
     } else if (ROW_MONTH == usefulIndex) {
@@ -110,9 +110,9 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  String elementOfUsefulGod() {
+  String elementOfUsefulDeity() {
     String strUsefulElement = "";
-    int usefulIndex = usefulGodRow();
+    int usefulIndex = usefulDeityRow();
     if (usefulIndex == globalRowInvalid) {
       //没有指定用神
     } else if (usefulIndex < 6) {
@@ -135,7 +135,7 @@ class SABEasyLogicBusiness {
   String usefulEarth() {
     String stringSymbol = "";
 
-    int usefulIndex = usefulGodRow();
+    int usefulIndex = usefulDeityRow();
 
     if (0 <= usefulIndex && usefulIndex < 6) {
       stringSymbol = symbolAtFromRow(usefulIndex);
@@ -149,21 +149,21 @@ class SABEasyLogicBusiness {
     return earth;
   }
 
-  int usefulGodRow() {
-    if ("" != getUsefulGod()) {
-      if (globalRowInvalid == _usefulGodRow) {
-        _usefulGodRow = indexOfUseGodInEasy(EasyTypeEnum.from);
+  int usefulDeityRow() {
+    if ("" != getUsefulDeity()) {
+      if (globalRowInvalid == _usefulDeityRow) {
+        _usefulDeityRow = indexOfUseDeityInEasy(EasyTypeEnum.from);
       }
     } else
-      _usefulGodRow = globalRowInvalid;
+      _usefulDeityRow = globalRowInvalid;
 
-    _usefulGodRow = globalRowInvalid == _usefulGodRow ? 0 : _usefulGodRow;
+    _usefulDeityRow = globalRowInvalid == _usefulDeityRow ? 0 : _usefulDeityRow;
 
-    return _usefulGodRow;
+    return _usefulDeityRow;
   }
 
   void clearUsefulRow() {
-    _usefulGodRow = globalRowInvalid;
+    _usefulDeityRow = globalRowInvalid;
   }
 
   ///`用神元神忌神仇神章第九`//////////////////////////////////////////////////////
@@ -171,13 +171,13 @@ class SABEasyLogicBusiness {
     String strResult = "";
 
     if (enumEasyType == EasyTypeEnum.from) {
-      int usefulIndex = usefulGodRow();
+      int usefulIndex = usefulDeityRow();
       if (usefulIndex == intIndex) {
         strResult = "用神";
       } else if (usefulIndex - ROW_FLY_BEGIN == intIndex) {
         strResult = "飞神";
       } else {
-        String usefulElement = elementOfUsefulGod();
+        String usefulElement = elementOfUsefulDeity();
         String currentElement =
             branchBusiness().earthElement(earthAtFromRow(intIndex));
 
@@ -234,32 +234,32 @@ class SABEasyLogicBusiness {
   }
 
   ///`元神忌神衰旺章第十`//////////////////////////////////////////////////////
-  bool isGodValid(int intIndex) {
+  bool isDeityValid(int intIndex) {
     bool bResult = true;
-    List arrayBorns = bornGodIndexArray();
+    List arrayBorns = bornDeityIndexArray();
     if (-1 != arrayBorns.indexOf(intIndex)) {
-      if (isBornGodInValidAtRow(intIndex))
+      if (isBornDeityInValidAtRow(intIndex))
         bResult = false;
       else
-        bResult = isBornGodValidAtRow(intIndex);
+        bResult = isBornDeityValidAtRow(intIndex);
     }
     //else cont.
 
-    List arrayRestricts = restrictsGodIndexArray();
+    List arrayRestricts = restrictsDeityIndexArray();
     if (-1 != arrayRestricts.indexOf(intIndex)) {
-      if (isRestrictGodInvalidAtRow(intIndex))
+      if (isRestrictDeityInvalidAtRow(intIndex))
         bResult = false;
       else
-        bResult = isRestrictGodValidAtRow(intIndex);
+        bResult = isRestrictDeityValidAtRow(intIndex);
     }
     //else cont.
 
     return bResult;
   }
 
-  List bornGodIndexArray() {
+  List bornDeityIndexArray() {
     List arrayResult = List();
-    String usefulElement = elementOfUsefulGod();
+    String usefulElement = elementOfUsefulDeity();
     for (int intIndex = 0; intIndex < 6; intIndex++) {
       String currentElement =
           branchBusiness().earthElement(earthAtFromRow(intIndex));
@@ -276,10 +276,10 @@ class SABEasyLogicBusiness {
     return arrayResult;
   }
 
-  List restrictsGodIndexArray() {
+  List restrictsDeityIndexArray() {
     List arrayResult = List();
 
-    String usefulElement = elementOfUsefulGod();
+    String usefulElement = elementOfUsefulDeity();
     for (int intIndex = 0; intIndex < 6; intIndex++) {
       String currentElement =
           branchBusiness().earthElement(earthAtFromRow(intIndex));
@@ -296,10 +296,10 @@ class SABEasyLogicBusiness {
     return arrayResult;
   }
 
-  List enemyGodRowArray() {
+  List enemyDeityRowArray() {
     List arrayResult = List();
 
-    String usefulElement = elementOfUsefulGod();
+    String usefulElement = elementOfUsefulDeity();
     for (int intIndex = 0; intIndex < 6; intIndex++) {
       String currentElement =
           branchBusiness().earthElement(earthAtFromRow(intIndex));
@@ -315,7 +315,7 @@ class SABEasyLogicBusiness {
     return arrayResult;
   }
 
-  bool isRestrictGodValidAtRow(int intRow) {
+  bool isRestrictDeityValidAtRow(int intRow) {
     bool bResult = false;
 
     /*
@@ -356,16 +356,16 @@ class SABEasyLogicBusiness {
         } else {
           //忌神长生帝旺于日辰，四也。
           String stringEarthBase = symbolEarth(strSymbolBase);
-          String stringTewleveGod =
-              branchBusiness().earthTwelveGod(stringEarthBase, dayEarth());
-          if ("长生" == stringTewleveGod || "帝旺" == stringTewleveGod)
+          String stringTewleveDeity =
+              branchBusiness().earthTwelveDeity(stringEarthBase, dayEarth());
+          if ("长生" == stringTewleveDeity || "帝旺" == stringTewleveDeity)
             bResult = true;
           else {
             //忌神与仇神同动，五也。
             bool bMoving = isMovementAtRow(intRow);
             bool bEnemyMoving = false;
-            List listEnemyGodRow = enemyGodRowArray();
-            for (int intIndex in listEnemyGodRow) {
+            List listEnemyDeityRow = enemyDeityRowArray();
+            for (int intIndex in listEnemyDeityRow) {
               bEnemyMoving = isMovementAtRow(intIndex);
               if (bEnemyMoving) break;
               //else cont.
@@ -380,7 +380,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isBornGodValidAtRow(int intIndex) {
+  bool isBornDeityValidAtRow(int intIndex) {
     /*
      元神能生用神者有五：元神旺相或临日月或动爻生扶者，一也。
      元神动化回头生及化进神者，二也。
@@ -408,16 +408,16 @@ class SABEasyLogicBusiness {
       } else {
         //元神长生帝旺于日辰，三也。
         String stringEarthBase = symbolEarth(stringSymbolBase);
-        String stringTewleveGod =
-            branchBusiness().earthTwelveGod(stringEarthBase, dayEarth());
-        if ("长生" == stringTewleveGod || "帝旺" == stringTewleveGod)
+        String stringTewleveDeity =
+            branchBusiness().earthTwelveDeity(stringEarthBase, dayEarth());
+        if ("长生" == stringTewleveDeity || "帝旺" == stringTewleveDeity)
           bResult = true;
         else {
           //元神与忌神同动，四也。
           bool bMoving = isMovementAtRow(intIndex);
           bool bRestrictMoving = false;
-          List listRestrictsGodIndex = restrictsGodIndexArray();
-          for (int numIndex in listRestrictsGodIndex) {
+          List listRestrictsDeityIndex = restrictsDeityIndexArray();
+          for (int numIndex in listRestrictsDeityIndex) {
             bRestrictMoving = isMovementAtRow(numIndex);
             if (bRestrictMoving) break;
             //else cont.
@@ -474,7 +474,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isRestrictGodInvalidAtRow(int intRow) {
+  bool isRestrictDeityInvalidAtRow(int intRow) {
     bool bResult = false;
 
     EasyTypeEnum enumEasyType = EasyTypeEnum.from;
@@ -546,8 +546,8 @@ class SABEasyLogicBusiness {
               } else {
                 //忌神与元神同动，七也。
                 bool bBornMoving = false;
-                List listBornGodIndex = bornGodIndexArray();
-                for (int numIndex in listBornGodIndex) {
+                List listBornDeityIndex = bornDeityIndexArray();
+                for (int numIndex in listBornDeityIndex) {
                   bBornMoving = isMovementAtRow(numIndex);
                   if (bBornMoving) break;
                   //else cont.
@@ -566,7 +566,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isBornGodInValidAtRow(int intRow) {
+  bool isBornDeityInValidAtRow(int intRow) {
     bool bResult = true;
     EasyTypeEnum easyType = EasyTypeEnum.from;
     /*
@@ -652,10 +652,10 @@ class SABEasyLogicBusiness {
     String toEarth = earthAtFromRow(intRow);
 
     String monthTwelve =
-        branchBusiness().earthTwelveGod(fromEarth, monthEarth());
-    String dayTwelve = branchBusiness().earthTwelveGod(fromEarth, dayEarth());
+        branchBusiness().earthTwelveDeity(fromEarth, monthEarth());
+    String dayTwelve = branchBusiness().earthTwelveDeity(fromEarth, dayEarth());
 
-    String toTwelve = earthTwelveGod(fromEarth, toEarth);
+    String toTwelve = earthTwelveDeity(fromEarth, toEarth);
 
     int nValue = 0;
 
@@ -751,10 +751,10 @@ class SABEasyLogicBusiness {
     String toEarth = earthAtFromRow(intRow);
 
     String monthTwelve =
-        branchBusiness().earthTwelveGod(fromEarth, monthEarth());
-    String dayTwelve = branchBusiness().earthTwelveGod(fromEarth, dayEarth());
+        branchBusiness().earthTwelveDeity(fromEarth, monthEarth());
+    String dayTwelve = branchBusiness().earthTwelveDeity(fromEarth, dayEarth());
 
-    String toTwelve = earthTwelveGod(fromEarth, toEarth);
+    String toTwelve = earthTwelveDeity(fromEarth, toEarth);
 
     int nValue = 0;
 
@@ -1915,7 +1915,7 @@ class SABEasyLogicBusiness {
     bool bResult = false;
     String fromEarth = earthAtFromRow(intRow);
     String strTo = earthAtFromRow(intRow);
-    String strTwelve = earthTwelveGod(fromEarth, strTo);
+    String strTwelve = earthTwelveDeity(fromEarth, strTo);
     bResult = "墓" == strTwelve;
     return bResult;
   }
@@ -1973,10 +1973,10 @@ class SABEasyLogicBusiness {
   ///`飞伏章第二十八`//////////////////////////////////////////////////////
 
   bool isHideSymbolAtRow(int intIndex) {
-    return usefulGodRow() - ROW_FLY_BEGIN == intIndex;
+    return usefulDeityRow() - ROW_FLY_BEGIN == intIndex;
   }
 
-  bool isHideGodInvalidAtRow(int intRow) {
+  bool isHideDeityInvalidAtRow(int intRow) {
     bool bResult = false;
     /*
      又伏神终不得出者有五。
@@ -2023,10 +2023,10 @@ class SABEasyLogicBusiness {
             String fromEarth = symbolEarth(fromSymbol);
 
             String monthTwelve =
-                branchBusiness().earthTwelveGod(basicEarth, monthEarth());
+                branchBusiness().earthTwelveDeity(basicEarth, monthEarth());
             String dayTwelve =
-                branchBusiness().earthTwelveGod(basicEarth, dayEarth());
-            String fromTwelve = earthTwelveGod(basicEarth, fromEarth);
+                branchBusiness().earthTwelveDeity(basicEarth, dayEarth());
+            String fromTwelve = earthTwelveDeity(basicEarth, fromEarth);
             if (null != monthTwelve ||
                 null != dayTwelve ||
                 null != fromTwelve) {
@@ -2051,7 +2051,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isHideGodValidAtRow(int intRow) {
+  bool isHideDeityValidAtRow(int intRow) {
     bool bResult = false;
     /*
      伏神有用者有六；
@@ -2157,9 +2157,9 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  List usefulGodHideRowArray() {
+  List usefulDeityHideRowArray() {
     List usefulArray = [];
-    String usefulParent = getUsefulGod();
+    String usefulParent = getUsefulDeity();
 
     if (null != usefulParent) {
       usefulArray = arrayRowWithParent(usefulParent, EasyTypeEnum.hide);
@@ -2206,9 +2206,9 @@ class SABEasyLogicBusiness {
   }
 
   ///`两现章第三十二`//////////////////////////////////////////////////////
-  List usefulGodRowArray() {
+  List usefulDeityRowArray() {
     List usefulArray = [];
-    String usefulParent = getUsefulGod();
+    String usefulParent = getUsefulDeity();
 
     if (null != usefulParent) {
       usefulArray = arrayRowWithParent(usefulParent, EasyTypeEnum.from);
@@ -2218,10 +2218,10 @@ class SABEasyLogicBusiness {
     return usefulArray;
   }
 
-  int indexOfUseGodInEasy(EasyTypeEnum easyTypeEnum) {
+  int indexOfUseDeityInEasy(EasyTypeEnum easyTypeEnum) {
     int result = globalRowInvalid;
 
-    String usefulParent = getUsefulGod();
+    String usefulParent = getUsefulDeity();
 
     if (null != usefulParent) {
       List usefulArray = arrayRowWithParent(usefulParent, easyTypeEnum);
@@ -2229,9 +2229,9 @@ class SABEasyLogicBusiness {
       if (usefulArray.length == 1) {
         result = usefulArray[0];
       } else if (usefulArray.length == 0) {
-        result = noUsefulGod();
+        result = noUsefulDeity();
       } else {
-        result = multiUsefulGod(easyTypeEnum, usefulArray);
+        result = multiUsefulDeity(easyTypeEnum, usefulArray);
       } //endi
     }
     //else cont.
@@ -2239,10 +2239,10 @@ class SABEasyLogicBusiness {
     return result;
   }
 
-  int noUsefulGod() {
+  int noUsefulDeity() {
     int result = globalRowInvalid;
 
-    String usefulParent = getUsefulGod();
+    String usefulParent = getUsefulDeity();
 
     String strFromEasyName = fromEasyName();
 
@@ -2261,7 +2261,7 @@ class SABEasyLogicBusiness {
       if (dayParent == usefulParent) {
         result = ROW_DAY;
       } else {
-        result = ROW_FLY_BEGIN + indexOfUseGodInEasy(EasyTypeEnum.hide);
+        result = ROW_FLY_BEGIN + indexOfUseDeityInEasy(EasyTypeEnum.hide);
       } //endi
     } //endi
 
@@ -2276,51 +2276,51 @@ class SABEasyLogicBusiness {
  舍其被伤而用不伤。
  ****************************************************************/
 
-  int multiUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
+  int multiUsefulDeity(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     List listMonthBroken = monthBrokenArray(easyTypeEnum, usefulArray);
     if (0 == listMonthBroken.length) {
-      result = emptyUsefulGod(easyTypeEnum, usefulArray);
+      result = emptyUsefulDeity(easyTypeEnum, usefulArray);
     } else if (1 == listMonthBroken.length) {
       result = listMonthBroken[0];
     } else if (listMonthBroken.length > 1) {
-      result = emptyUsefulGod(easyTypeEnum, listMonthBroken);
+      result = emptyUsefulDeity(easyTypeEnum, listMonthBroken);
     }
     return result;
   }
 
-  int emptyUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
+  int emptyUsefulDeity(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     List listEmpty = emptyArray(easyTypeEnum, usefulArray);
 
     if (0 == listEmpty.length) {
-      result = movementUsefulGod(easyTypeEnum, usefulArray);
+      result = movementUsefulDeity(easyTypeEnum, usefulArray);
     } else if (1 == listEmpty.length) {
       result = listEmpty[0];
     } else if (listEmpty.length > 1) {
-      result = movementUsefulGod(easyTypeEnum, listEmpty);
+      result = movementUsefulDeity(easyTypeEnum, listEmpty);
     }
 
     return result;
   }
 
-  int movementUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
+  int movementUsefulDeity(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     List movementArray = movementArrayInArray(usefulArray);
     if (0 == movementArray.length) {
-      result = strongUsefulGod(easyTypeEnum, usefulArray);
+      result = strongUsefulDeity(easyTypeEnum, usefulArray);
     } else if (1 == movementArray.length) {
       result = movementArray[0];
     } else if (movementArray.length > 1) {
-      result = strongUsefulGod(easyTypeEnum, movementArray);
+      result = strongUsefulDeity(easyTypeEnum, movementArray);
     }
     return result;
   }
 
-  int strongUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
+  int strongUsefulDeity(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     //旺、相、余气, 依次选用,有旺用旺，如果有多个旺，通过动静区分；
@@ -2328,17 +2328,17 @@ class SABEasyLogicBusiness {
     List strongArray = strongUsefulArray(easyTypeEnum, usefulArray);
 
     if (0 == strongArray.length) {
-      result = lifeOrGoalUsefulGod(easyTypeEnum, usefulArray);
+      result = lifeOrGoalUsefulDeity(easyTypeEnum, usefulArray);
     } else if (1 == strongArray.length) {
       result = strongArray[0];
     } else if (strongArray.length > 1) {
-      result = lifeOrGoalUsefulGod(easyTypeEnum, strongArray);
+      result = lifeOrGoalUsefulDeity(easyTypeEnum, strongArray);
     }
 
     return result;
   }
 
-  int lifeOrGoalUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
+  int lifeOrGoalUsefulDeity(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     //世爻位置上的用神
@@ -2367,14 +2367,14 @@ class SABEasyLogicBusiness {
     //else cont.
 
     if (globalRowInvalid == result) {
-      result = unKnowUsefulGod(easyTypeEnum, usefulArray);
+      result = unKnowUsefulDeity(easyTypeEnum, usefulArray);
     }
     //else cont.
 
     return result;
   }
 
-  int unKnowUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
+  int unKnowUsefulDeity(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = usefulArray[0]; //globalRowInvalid;
 
     //TODO:丰富用神的选取规则：按旺相休囚死的顺序排列；或者按照强弱顺序排序。
@@ -2476,8 +2476,8 @@ class SABEasyLogicBusiness {
     return branchBusiness().isEarthRestricts(earth, basicEarth);
   }
 
-  String earthTwelveGod(String itemEarth, String atEarth) {
-    return branchBusiness().earthTwelveGod(itemEarth, atEarth);
+  String earthTwelveDeity(String itemEarth, String atEarth) {
+    return branchBusiness().earthTwelveDeity(itemEarth, atEarth);
   }
 
   bool isEarthConflict(String basicEarth, String otherEarth) {
@@ -2517,8 +2517,8 @@ class SABEasyLogicBusiness {
     return easyBusiness().toEasyKey();
   }
 
-  String getUsefulGod() {
-    return easyBusiness().getUsefulGod();
+  String getUsefulDeity() {
+    return easyBusiness().getUsefulDeity();
   }
 
   Map fromEasyDictionary() {

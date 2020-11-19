@@ -25,7 +25,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     List resultList = outputResultModel.resultList;
     if (theHealthModel.bValidEasy) {
       resultList[0]['value'] = inputEasyModel.getEasyGoal();
-      resultList[1]['value'] = this.resultUsefulGode();
+      resultList[1]['value'] = this.resultUsefulDeitye();
       resultList[2]['value'] = this.resultEasy();
       resultList[3]['value'] = this.resultRepeatedOrConflict();
       resultList[4]['value'] = this.resultSixPairOrConflict();
@@ -37,8 +37,8 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
   }
 
   ///`用神`//////////////////////////////////////////////////////
-  String resultUsefulGode() {
-    return "${this.logicBusiness().getUsefulGod()}，类像参见用神爻。";
+  String resultUsefulDeitye() {
+    return "${this.logicBusiness().getUsefulDeity()}，类像参见用神爻。";
   }
 
   ///`卦体`//////////////////////////////////////////////////////
@@ -272,7 +272,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     //既动则有祸福之基。目下虽破，出月则不破，今日虽破，实破之日则不破，逢合之日则不破。近应日时，远应年月。
 
     //今日虽破，实破之日则不破
-    int usefulIndex = _inputLogicBusiness.usefulGodRow();
+    int usefulIndex = _inputLogicBusiness.usefulDeityRow();
 
     String usefulSymbol = "";
 
@@ -300,7 +300,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
   String timeResult() {
     String strResult = "";
 
-    int usefulIndex = _inputLogicBusiness.usefulGodRow();
+    int usefulIndex = _inputLogicBusiness.usefulDeityRow();
 
     if (usefulIndex > globalRowInvalid) {
       String usefulSymbol = logicBusiness().symbolAtMergeRow(usefulIndex);
@@ -645,18 +645,18 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
   String repeatedEasyResult() {
     //伏吟之卦，用神旺相冲开之年月其志则神，用神休囚，冲开之年月忧郁而已。
     String result = "";
-    if (logicBusiness().isMovementAtRow(_inputLogicBusiness.usefulGodRow())) {
-      if (logicBusiness().isUsefulGodStrong()) {
-        String fromEarth =
-            logicBusiness().earthAtFromRow(_inputLogicBusiness.usefulGodRow());
+    if (logicBusiness().isMovementAtRow(_inputLogicBusiness.usefulDeityRow())) {
+      if (logicBusiness().isUsefulDeityStrong()) {
+        String fromEarth = logicBusiness()
+            .earthAtFromRow(_inputLogicBusiness.usefulDeityRow());
         String timeEarth = logicBusiness().getSixConflict(fromEarth);
 
         result =
             result + "伏吟之卦，用神旺相冲开之年月其志则神，预计 $timeEarth 年或者 $timeEarth 月冲开。";
-      } else if (logicBusiness().isUsefulGodChangeToRestricts() ||
-          logicBusiness().isUsefulGodChangeToConflict()) {
-        String fromEarth =
-            logicBusiness().earthAtFromRow(_inputLogicBusiness.usefulGodRow());
+      } else if (logicBusiness().isUsefulDeityChangeToRestricts() ||
+          logicBusiness().isUsefulDeityChangeToConflict()) {
+        String fromEarth = logicBusiness()
+            .earthAtFromRow(_inputLogicBusiness.usefulDeityRow());
         String timeEarth = logicBusiness().getSixConflict(fromEarth);
         result = result + "用神休囚，冲开之年月忧郁而已,预计 $timeEarth 年或者 $timeEarth 月冲开。";
       }
@@ -670,12 +670,12 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
   String restrictsEasyResult() {
     String result = "";
 
-    if (logicBusiness().isUsefulGodStrong() &&
-        !logicBusiness().isUsefulGodChangeToRestricts() &&
-        !logicBusiness().isUsefulGodChangeToConflict()) {
+    if (logicBusiness().isUsefulDeityStrong() &&
+        !logicBusiness().isUsefulDeityChangeToRestricts() &&
+        !logicBusiness().isUsefulDeityChangeToConflict()) {
       result = "用神旺相不变冲克者虽则反吟，事之必成。";
-    } else if (logicBusiness().isUsefulGodChangeToRestricts() ||
-        logicBusiness().isUsefulGodChangeToConflict()) {
+    } else if (logicBusiness().isUsefulDeityChangeToRestricts() ||
+        logicBusiness().isUsefulDeityChangeToConflict()) {
       result = "用神化回头冲克，卦变大凶之象。";
     }
 

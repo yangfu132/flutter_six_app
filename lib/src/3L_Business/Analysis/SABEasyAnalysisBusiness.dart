@@ -196,16 +196,16 @@ class SABEasyAnalysisBusiness {
         result = SACContext.appendToString(result, strForwardOrBack);
       //else cont.
 
-      String strTwelveGod =
-          _inputLogicBusiness.earthTwelveGod(fromEarth, toEarth);
-      if ("长生" == strTwelveGod ||
-          "帝旺" == strTwelveGod ||
-          "墓" == strTwelveGod ||
-          "绝" == strTwelveGod) {
+      String strTwelveDeity =
+          _inputLogicBusiness.earthTwelveDeity(fromEarth, toEarth);
+      if ("长生" == strTwelveDeity ||
+          "帝旺" == strTwelveDeity ||
+          "墓" == strTwelveDeity ||
+          "绝" == strTwelveDeity) {
         if ("" != result)
-          result = "\r\n化$strTwelveGod";
+          result = "\r\n化$strTwelveDeity";
         else
-          result = "化$strTwelveGod";
+          result = "化$strTwelveDeity";
       }
       //else cont.
 
@@ -244,10 +244,12 @@ class SABEasyAnalysisBusiness {
         strResult = SACContext.appendToString(strResult, strPair);
       //else cont.
 
-      String strTwelveGod =
-          _inputLogicBusiness.earthTwelveGod(strEarth, strMonth);
-      if ("长生" == strTwelveGod || "帝旺" == strTwelveGod || "绝" == strTwelveGod) {
-        String strMark = "[$strTwelveGod]";
+      String strTwelveDeity =
+          _inputLogicBusiness.earthTwelveDeity(strEarth, strMonth);
+      if ("长生" == strTwelveDeity ||
+          "帝旺" == strTwelveDeity ||
+          "绝" == strTwelveDeity) {
+        String strMark = "[$strTwelveDeity]";
         strResult = SACContext.appendToString(strResult, strMark);
       }
       //else cont.
@@ -269,8 +271,8 @@ class SABEasyAnalysisBusiness {
       String strEarth = _inputLogicBusiness.symbolEarth(stringSymbol);
       String strDay = _inputLogicBusiness.dayEarth();
 
-      String strTwelveGod =
-          _inputLogicBusiness.earthTwelveGod(strEarth, strDay);
+      String strTwelveDeity =
+          _inputLogicBusiness.earthTwelveDeity(strEarth, strDay);
 
       if (_inputLogicBusiness.isSymbolOnDay(stringSymbol))
         strResult = SACContext.appendToString(strResult, "[临]");
@@ -297,11 +299,11 @@ class SABEasyAnalysisBusiness {
         strResult = SACContext.appendToString(strResult, strEmpty);
       //else cont.
 
-      if ("长生" == strTwelveGod ||
-          "帝旺" == strTwelveGod ||
-          "墓" == strTwelveGod ||
-          "绝" == strTwelveGod) {
-        String strMark = "[$strTwelveGod]";
+      if ("长生" == strTwelveDeity ||
+          "帝旺" == strTwelveDeity ||
+          "墓" == strTwelveDeity ||
+          "绝" == strTwelveDeity) {
+        String strMark = "[$strTwelveDeity]";
         strResult = SACContext.appendToString(strResult, strMark);
       }
       //else cont.

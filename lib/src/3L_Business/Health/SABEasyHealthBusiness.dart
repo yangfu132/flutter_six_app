@@ -58,7 +58,7 @@ class SABEasyHealthBusiness {
 
   double usefulHealth() {
     double fResult = 0;
-    int usefulIndex = _inputLogicBusiness.usefulGodRow();
+    int usefulIndex = _inputLogicBusiness.usefulDeityRow();
 
     if (0 <= usefulIndex && usefulIndex < 6) {
       fResult = outHealthModel().getHealth(usefulIndex);

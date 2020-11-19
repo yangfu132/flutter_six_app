@@ -3,7 +3,7 @@ import 'dart:math';
 ///此Model仅代表占卜时所创造的数据；
 class SABEasyDigitModel {
   //构造函数
-  SABEasyDigitModel(this._strEasyGoal, this._strUsefulGod);
+  SABEasyDigitModel(this._strEasyGoal, this._strUsefulDeity);
 
   //属性：实例发生时间
   DateTime _nEasyTime;
@@ -15,7 +15,7 @@ class SABEasyDigitModel {
   String _strEasyGoal;
 
   //属性：实例的用神
-  String _strUsefulGod;
+  String _strUsefulDeity;
 
   DateTime getEasyTime() {
     return _nEasyTime;
@@ -27,8 +27,8 @@ class SABEasyDigitModel {
   }
 
   //函数：用神
-  String getUsefulGod() {
-    return _strUsefulGod;
+  String getUsefulDeity() {
+    return _strUsefulDeity;
   }
 
   ///利用随机数创造数据

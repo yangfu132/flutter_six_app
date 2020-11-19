@@ -92,10 +92,10 @@ class SABHealthOriginBusiness {
      */
     double maxSeason = earthHealthAtSeason("寅", "卯");
 
-    double maxTwelve = earthHealthAtTwelveGod("寅", "卯");
+    double maxTwelve = earthHealthAtTwelveDeity("寅", "卯");
 
     double maxMonthTwelve =
-        earthHealthAtTwelveGod("寅", "卯") * (maxSeason * 3 / 10 / maxTwelve);
+        earthHealthAtTwelveDeity("寅", "卯") * (maxSeason * 3 / 10 / maxTwelve);
 
     double fResult =
         maxTwelve + (maxSeason + maxMonthTwelve) + healthMonthPair();
@@ -144,10 +144,10 @@ class SABHealthOriginBusiness {
     return 100.0;
   }
 
-  double earthHealthAtTwelveGod(String basicEarth, String atEarth) {
+  double earthHealthAtTwelveDeity(String basicEarth, String atEarth) {
     double fResult = 1.0;
 
-    String twelve = _inputLogicBusiness.earthTwelveGod(basicEarth, atEarth);
+    String twelve = _inputLogicBusiness.earthTwelveDeity(basicEarth, atEarth);
 
     /*
      长生、冠带、临官、帝旺为四旺运
@@ -206,7 +206,7 @@ class SABHealthOriginBusiness {
   }
 
   double intervalSeason() {
-    double twelveMax = earthHealthAtTwelveGod("寅", "卯");
+    double twelveMax = earthHealthAtTwelveDeity("寅", "卯");
 
     //表达式原因参见healthAtMonth:
     double temp = (twelveMax - twelveMax * 0.1) * 3;
@@ -250,7 +250,7 @@ class SABHealthOriginBusiness {
     double fResult = earthHealthAtSeason(basicEarth, monthEarth);
 
     /*
-     日主最大值为十二神的帝旺（1.2），为什么是1.2见healthAtTwelveGod的论述；
+     日主最大值为十二神的帝旺（1.2），为什么是1.2见healthAtTwelveDeity的论述；
      《易冒》日主章第二十三
      “若以日月配爻象，用神投月将，则先论旺相休囚死，后论长生沐浴冠带临官帝旺衰病死墓绝胎养之法，如土爻用神，遇于巳月应相，其绝则轻，虽不可谓无绝，相与绝较，得相犹十之七，如遇申月其土则休，以生较休，得生犹十之七也。若日辰之生绝则独重，金遇巳而生者十之九，土遇巳而绝者十之九，唯以长生十二法而定衰旺。”
      
@@ -268,9 +268,9 @@ class SABHealthOriginBusiness {
 
     double maxSeason = earthHealthAtSeason("寅", "卯");
 
-    double maxTwelve = earthHealthAtTwelveGod("寅", "卯");
+    double maxTwelve = earthHealthAtTwelveDeity("寅", "卯");
 
-    fResult += earthHealthAtTwelveGod(basicEarth, monthEarth) *
+    fResult += earthHealthAtTwelveDeity(basicEarth, monthEarth) *
         (maxSeason * 3 / 10 / maxTwelve);
 
     if (_inputLogicBusiness.isEarthOnMonth(basicEarth, monthEarth)) {
@@ -293,7 +293,7 @@ class SABHealthOriginBusiness {
   }
 
   double earthHealthAtDayEarth(String basicEarth, String dayEarth) {
-    double fResult = earthHealthAtTwelveGod(basicEarth, dayEarth);
+    double fResult = earthHealthAtTwelveDeity(basicEarth, dayEarth);
     //日临
     if (_inputLogicBusiness.isEarthOnDay(basicEarth, dayEarth)) {
       fResult = healthDayOrMonthOn();
@@ -340,7 +340,7 @@ class SABHealthOriginBusiness {
   double healthCriticalValue() {
     double fResult = 0.0;
 
-    fResult = earthHealthAtTwelveGod("寅", "巳");
+    fResult = earthHealthAtTwelveDeity("寅", "巳");
     //TODO:月是有十二法与五法合算的，出入这个参数是否代表临界值；
     fResult += earthHealthAtMonthAndDay("寅", "巳", "巳");
 

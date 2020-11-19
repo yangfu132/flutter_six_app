@@ -375,8 +375,8 @@ class SABEasyBusiness {
     return _inputEasyModel.outGuaMovementArray();
   }
 
-  String getUsefulGod() {
-    return _inputEasyModel.getUsefulGod();
+  String getUsefulDeity() {
+    return _inputEasyModel.getUsefulDeity();
   }
 
   String fromEasyKey() {

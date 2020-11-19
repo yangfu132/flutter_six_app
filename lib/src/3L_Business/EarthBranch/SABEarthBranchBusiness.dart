@@ -36,7 +36,7 @@ class SABEarthBranchBusiness {
     return _branchModel.getSixConflict()[basicEarth];
   }
 
-  String earthTwelveGod(String itemEarth, String atEarth) {
+  String earthTwelveDeity(String itemEarth, String atEarth) {
     String strResult = "";
 
     Map oneData = _branchModel.twelveGold()[itemEarth];
