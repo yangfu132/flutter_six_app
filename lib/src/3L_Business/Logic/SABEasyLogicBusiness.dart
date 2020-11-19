@@ -34,11 +34,11 @@ class SABEasyLogicBusiness {
   List arrayRowWithParent(String parent, EasyTypeEnum easyTypeEnum) {
     List parrentArray = List();
 
-    for (int index = 0; index < 6; index++) {
+    for (int intRow = 0; intRow < 6; intRow++) {
       String stringSymbolParent =
-          outEasyWordsModel().getSmbolParent(easyTypeEnum, index);
+          outEasyWordsModel().getSmbolParent(intRow, easyTypeEnum);
       if (stringSymbolParent == parent) {
-        parrentArray.add(index);
+        parrentArray.add(intRow);
       }
       //else cont.
     } //endf
@@ -1924,7 +1924,7 @@ class SABEasyLogicBusiness {
   bool isSymbol_SuiGuiRuMu_AtRow(int intRow) {
     bool bResult = false;
     String strParent =
-        outEasyWordsModel().getSmbolParent(EasyTypeEnum.from, intRow);
+        outEasyWordsModel().getSmbolParent(intRow, EasyTypeEnum.from);
     bool bGui = "官鬼" == strParent;
     bool bRuMu = isSymbolChangeMuAtRow(intRow);
 
@@ -2417,7 +2417,7 @@ class SABEasyLogicBusiness {
     List listEmpty = List();
     for (int intRow in usefulArray) {
       String stringSymbol =
-          outEasyWordsModel().getSmbolName(easyTypeEnum, intRow);
+          outEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
       if (symbolBasicEmptyState(stringSymbol) != EmptyEnum.Empty_NO) {
         listEmpty.add(intRow);
       }
@@ -2445,7 +2445,7 @@ class SABEasyLogicBusiness {
     List listMonthBroken = List();
     for (int intRow in usefulArray) {
       String stringSymbol =
-          outEasyWordsModel().getSmbolName(easyTypeEnum, intRow);
+          outEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
       if (MonthBrokenEnum.Broken_NO != symbolMonthBrokenState(stringSymbol))
         listMonthBroken.add(intRow);
       //else cont.
@@ -2542,16 +2542,16 @@ class SABEasyLogicBusiness {
   }
 
   String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
-    return outEasyWordsModel().getSmbolName(enumEasyType, intRow);
+    return outEasyWordsModel().getSmbolName(intRow, enumEasyType);
   }
 
   String symbolAtFromRow(int intRow) {
-    return outEasyWordsModel().getSmbolName(EasyTypeEnum.from, intRow);
+    return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.from);
   }
 
   ///原名symbolAtChangeRow,更改为symbolAtToRow
   String symbolAtToRow(int intRow) {
-    return outEasyWordsModel().getSmbolName(EasyTypeEnum.to, intRow);
+    return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.to);
   }
 
   String symbolAtMergeRow(int intRow) {
@@ -2571,12 +2571,12 @@ class SABEasyLogicBusiness {
   }
 
   String earthAtFromRow(int intRow) {
-    return outEasyWordsModel().getSmbolEarth(EasyTypeEnum.from, intRow);
+    return outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
   }
 
   ///原名为earthAtChangeRow,更改为earthAtToRow
   String earthAtToRow(int intRow) {
-    return outEasyWordsModel().getSmbolEarth(EasyTypeEnum.to, intRow);
+    return outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.to);
   }
 
   bool isMovementAtRow(int intRow) {

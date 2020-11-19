@@ -28,11 +28,11 @@ class SABEasyWordsModel {
   String symbolAtMergeRow(int intRow) {
     String stringResult = "";
     if (0 <= intRow && intRow < 6) {
-      stringResult = getSmbolName(EasyTypeEnum.from, intRow);
+      stringResult = getSmbolName(intRow, EasyTypeEnum.from);
     } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
-      stringResult = getSmbolName(EasyTypeEnum.to, intRow - ROW_CHNAGE_BEGIN);
+      stringResult = getSmbolName(intRow - ROW_CHNAGE_BEGIN, EasyTypeEnum.to);
     } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
-      stringResult = getSmbolName(EasyTypeEnum.hide, intRow - ROW_FLY_BEGIN);
+      stringResult = getSmbolName(intRow - ROW_FLY_BEGIN, EasyTypeEnum.hide);
     }
     //else cont.
 
@@ -57,7 +57,7 @@ class SABEasyWordsModel {
     return _symbolsArray()[intRow].bMovement;
   }
 
-  String getSmbolName(EasyTypeEnum easyTypeEnum, int intRow) {
+  String getSmbolName(int intRow, EasyTypeEnum easyTypeEnum) {
     if (easyTypeEnum == EasyTypeEnum.from) {
       return _symbolsArray()[intRow].mapSymbolFrom['name'];
     } else if (easyTypeEnum == EasyTypeEnum.to) {
@@ -68,7 +68,7 @@ class SABEasyWordsModel {
       return 'easyTypeEnum:$easyTypeEnum';
   }
 
-  String getSmbolParent(EasyTypeEnum easyTypeEnum, int intRow) {
+  String getSmbolParent(int intRow, EasyTypeEnum easyTypeEnum) {
     if (easyTypeEnum == EasyTypeEnum.from) {
       return _symbolsArray()[intRow].mapSymbolFrom['parent'];
     } else if (easyTypeEnum == EasyTypeEnum.to) {
@@ -79,7 +79,7 @@ class SABEasyWordsModel {
       return 'easyTypeEnum:$easyTypeEnum';
   }
 
-  String getSmbolEarth(EasyTypeEnum easyTypeEnum, int intRow) {
+  String getSmbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {
     if (easyTypeEnum == EasyTypeEnum.from) {
       return _symbolsArray()[intRow].mapSymbolFrom['earth'];
     } else if (easyTypeEnum == EasyTypeEnum.to) {
