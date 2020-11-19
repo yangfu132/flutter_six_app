@@ -303,7 +303,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     int usefulIndex = _inputLogicBusiness.usefulDeityRow();
 
     if (usefulIndex > globalRowInvalid) {
-      String usefulSymbol = logicBusiness().symbolAtMergeRow(usefulIndex);
+      String usefulSymbol = logicBusiness().symbolNameAtMergeRow(usefulIndex);
 
       String strUseful = "";
       if (0 <= usefulIndex && usefulIndex < 6)

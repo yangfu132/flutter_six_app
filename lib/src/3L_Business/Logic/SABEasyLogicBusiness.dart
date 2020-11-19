@@ -21,7 +21,7 @@ class SABEasyLogicBusiness {
 
   ///`六亲歌章第五`//////////////////////////////////////////////////////
 
-  String symbolRelative(String theSymbol, String basicSymbol) {
+  String _symbolRelative(String theSymbol, String basicSymbol) {
     String theEarth = symbolEarth(theSymbol);
     String basicEarth = symbolEarth(basicSymbol);
     return branchBusiness().earthRelative(theEarth, basicEarth);
@@ -324,9 +324,9 @@ class SABEasyLogicBusiness {
     //忌神旺相或遇日月动爻生扶或临日月者，一也。
     String strSymbolBase = symbolAtRow(intRow, EasyTypeEnum.from);
     bool bStrong = isSymbolSeasonStrong(strSymbolBase);
-    bool bOnMonth = isSymbolOnMonth(strSymbolBase);
-    bool bOnDay = isSymbolOnDay(strSymbolBase);
-    bool bMonthBorn = isSymbolMoveBorn(strSymbolBase);
+    bool bOnMonth = _isSymbolOnMonth(strSymbolBase);
+    bool bOnDay = _isSymbolOnDay(strSymbolBase);
+    bool bMonthBorn = _isSymbolMoveBorn(strSymbolBase);
     bool bDayBorn = isSymbolDayBorn(strSymbolBase);
     bool bMoveBorn = isSymbolBornedByMoveAtRow(intRow, EasyTypeEnum.from);
     if (bStrong || bOnMonth || bOnDay || bMonthBorn || bDayBorn || bMoveBorn) {
@@ -386,8 +386,8 @@ class SABEasyLogicBusiness {
 
     //元神旺相或临日月或动爻生扶者，一也。
     bool bStrong = isSymbolSeasonStrong(stringSymbolBase);
-    bool bOnMonth = isSymbolOnMonth(stringSymbolBase);
-    bool bOnDay = isSymbolOnDay(stringSymbolBase);
+    bool bOnMonth = _isSymbolOnMonth(stringSymbolBase);
+    bool bOnDay = _isSymbolOnDay(stringSymbolBase);
     bool bMoveBorn = isSymbolBornedByMoveAtRow(intIndex, EasyTypeEnum.from);
     if (bStrong || bOnMonth || bOnDay || bMoveBorn) {
       bResult = true;
@@ -684,15 +684,15 @@ class SABEasyLogicBusiness {
       colog("error!");
 
     //
-    bool bBorn = isSymbolMoveBorn(stringSymbol);
+    bool bBorn = _isSymbolMoveBorn(stringSymbol);
 
     //月克日生或月生日克，是相敌。月破日生或月生日破是不敌等等。
     //还有月合日克或日合月克是可敌。
 
     bool bBalance = false;
 
-    bool bOnDay = isSymbolOnDay(stringSymbol);
-    bool bOnMonth = isSymbolOnMonth(stringSymbol);
+    bool bOnDay = _isSymbolOnDay(stringSymbol);
+    bool bOnMonth = _isSymbolOnMonth(stringSymbol);
 
     if (bOnDay || bOnMonth)
       bBalance = true;
@@ -838,14 +838,14 @@ class SABEasyLogicBusiness {
         stringSymbol = symbolAtHideRow(intIndex);
       //else cont.
 
-      bResult = isSymbolMoveBorn(stringSymbol);
+      bResult = _isSymbolMoveBorn(stringSymbol);
     }
     //else cont.
 
     return bResult;
   }
 
-  bool isSymbolBorn(String stringSymbol, String otherSymbol) {
+  bool _isSymbolBorn(String stringSymbol, String otherSymbol) {
     bool bResult = false;
 
     if ("" != stringSymbol && "" != otherSymbol) {
@@ -859,12 +859,12 @@ class SABEasyLogicBusiness {
   }
 
 //被动爻生
-  bool isSymbolMoveBorn(String stringSymbol) {
+  bool _isSymbolMoveBorn(String stringSymbol) {
     bool bResult = false;
     List arrayEffects = movementIndexArray();
     for (int numItem in arrayEffects) {
       String stringSymbolItem = symbolAtFromRow(numItem);
-      if (isSymbolBorn(stringSymbol, stringSymbolItem)) {
+      if (_isSymbolBorn(stringSymbol, stringSymbolItem)) {
         bResult = true;
         break;
       }
@@ -891,7 +891,7 @@ class SABEasyLogicBusiness {
 
       for (int numItem in arrayEffects) {
         String stringSymbolItem = symbolAtFromRow(numItem);
-        if (isSymbolBorn(stringSymbol, stringSymbolItem)) {
+        if (_isSymbolBorn(stringSymbol, stringSymbolItem)) {
           bResult = true;
           break;
         }
@@ -921,7 +921,7 @@ class SABEasyLogicBusiness {
     for (int numItem in arrayEffects) {
       String stringSymbolItem = symbolAtFromRow(numItem);
       if (isEffectableRow(numItem, EasyTypeEnum.from)) {
-        if (isSymbolRestrict(stringSymbol, stringSymbolItem)) {
+        if (_isSymbolRestrict(stringSymbol, stringSymbolItem)) {
           bResult = true;
           break;
         }
@@ -949,7 +949,7 @@ class SABEasyLogicBusiness {
 
         for (int numItem in arrayEffects) {
           String stringSymbolItem = symbolAtFromRow(numItem);
-          if (isSymbolRestrict(stringSymbol, stringSymbolItem)) {
+          if (_isSymbolRestrict(stringSymbol, stringSymbolItem)) {
             bResult = true;
             break;
           }
@@ -964,7 +964,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isSymbolRestrict(String stringSymbol, String otherSymbol) {
+  bool _isSymbolRestrict(String stringSymbol, String otherSymbol) {
     bool bResult = false;
 
     if ("" != stringSymbol && "" != otherSymbol) {
@@ -1016,7 +1016,7 @@ class SABEasyLogicBusiness {
   }
 
   ///`四时旺相章第又十五`//////////////////////////////////////////////////////
-  String symbolSeason(String stringSymbol) {
+  String _symbolSeason(String stringSymbol) {
     return branchBusiness()
         .seasonDescription(monthEarth(), symbolEarth(stringSymbol));
   }
@@ -1025,7 +1025,7 @@ class SABEasyLogicBusiness {
     bool bResult = false;
 
     if ("" != stringSymbol) {
-      String stringSeason = symbolSeason(stringSymbol);
+      String stringSeason = _symbolSeason(stringSymbol);
       bResult = "旺" == stringSeason;
       bResult = bResult || "相" == stringSeason;
       bResult = bResult || "余气" == stringSeason;
@@ -1049,7 +1049,7 @@ class SABEasyLogicBusiness {
     return earthElement(monthEarth());
   }
 
-  bool isSymbolOnMonth(String stringSymbol) {
+  bool _isSymbolOnMonth(String stringSymbol) {
     return monthEarth() == symbolEarth(stringSymbol);
   }
 
@@ -1105,7 +1105,7 @@ class SABEasyLogicBusiness {
 
     //1 临日建，日生。
     String strDay = dayEarth();
-    bool bOnDay = isSymbolOnDay(stringSymbol);
+    bool bOnDay = _isSymbolOnDay(stringSymbol);
     bool bBornByDay = isEarthBorn(strDay, strEarth);
 
     //2 动变回头生。
@@ -1121,7 +1121,7 @@ class SABEasyLogicBusiness {
     List arrayMovement = movementArrayInArray(arrayEffects);
     for (int numItem in arrayMovement) {
       String stringSymbol = symbolAtFromRow(numItem);
-      String season = symbolSeason(stringSymbol);
+      String season = _symbolSeason(stringSymbol);
       if ("旺" == season) {
         String moveEarth = earthAtFromRow(numItem);
         if (isEarthBorn(moveEarth, strEarth)) {
@@ -1273,7 +1273,7 @@ class SABEasyLogicBusiness {
     return nResult;
   }
 
-  bool isSymbolOnDay(String stringSymbol) {
+  bool _isSymbolOnDay(String stringSymbol) {
     return isEarthOnDay(symbolEarth(stringSymbol), dayEarth());
   }
 
@@ -1793,7 +1793,7 @@ class SABEasyLogicBusiness {
       bResult = true;
 
     //有气不动亦为空
-    String stringSymbolSeason = symbolSeason(stringSymbol);
+    String stringSymbolSeason = _symbolSeason(stringSymbol);
     bool bWang = ("旺" == stringSymbolSeason) || ("相" == stringSymbolSeason);
 
     bool bMove = isSymbolMovement(stringSymbol);
@@ -1803,12 +1803,12 @@ class SABEasyLogicBusiness {
     //伏而被克亦为空
     if (easyType == EasyTypeEnum.hide) {
       String fromSymbol = symbolAtFromRow(intRow);
-      isSymbolRestrict(stringSymbol, fromSymbol);
+      _isSymbolRestrict(stringSymbol, fromSymbol);
     }
     //else cont.
 
     //真空为空，真空者，春土夏金秋是木，三冬逢火是真空。
-    bool bRealEmpty = "死" == symbolSeason(stringSymbol);
+    bool bRealEmpty = "死" == _symbolSeason(stringSymbol);
     if (bRealEmpty) bResult = true;
     return bResult;
   }
@@ -1824,7 +1824,7 @@ class SABEasyLogicBusiness {
     bool bResult = false;
 
     String stringSymbol = symbolAtRow(intRow, easyType);
-    String strSeason = symbolSeason(stringSymbol);
+    String strSeason = _symbolSeason(stringSymbol);
 
     //旺不为空；
     bResult = bResult || "旺" == strSeason;
@@ -1842,7 +1842,7 @@ class SABEasyLogicBusiness {
 
     if (easyType == EasyTypeEnum.from || easyType == EasyTypeEnum.hide) {
       //有动爻生扶者，亦不为空；
-      bool bMoveBorn = isSymbolMoveBorn(stringSymbol);
+      bool bMoveBorn = _isSymbolMoveBorn(stringSymbol);
       bResult = bResult || bMoveBorn;
     }
     //else cont.
@@ -1935,7 +1935,7 @@ class SABEasyLogicBusiness {
         //唯静而不动，又无日辰动爻生助，实则到底而破矣。
         if (branchBusiness().isEarthBorn(dayEarth(), basicEarth)) {
           nResult = MonthBrokenEnum.Broken_DayBorn;
-        } else if (isSymbolMoveBorn(stringSymbol)) {
+        } else if (_isSymbolMoveBorn(stringSymbol)) {
           nResult = MonthBrokenEnum.Broken_MoveBorn;
         }
         //else cont.
@@ -1997,7 +1997,7 @@ class SABEasyLogicBusiness {
         } else {
           //伏神被旺相之飞神克害者，三也。
           String fromSymbol = symbolAtFromRow(intRow);
-          String strRelative = symbolRelative(fromSymbol, basicSymbol);
+          String strRelative = _symbolRelative(fromSymbol, basicSymbol);
           bool bFromStrong = isSymbolSeasonStrong(basicSymbol);
           if ("官鬼" == strRelative && bFromStrong) {
             bResult = true;
@@ -2050,8 +2050,8 @@ class SABEasyLogicBusiness {
     //伏神得日月者，一也。
     String basicSymbol = symbolAtHideRow(intRow);
     if (null != basicSymbol && "" != basicSymbol) {
-      bool bOnDay = isSymbolOnDay(basicSymbol);
-      bool bOnMonth = isSymbolOnMonth(basicSymbol);
+      bool bOnDay = _isSymbolOnDay(basicSymbol);
+      bool bOnMonth = _isSymbolOnMonth(basicSymbol);
       if (bOnDay || bOnMonth) {
         bResult = true;
       } else {
@@ -2063,12 +2063,12 @@ class SABEasyLogicBusiness {
         } else {
           //伏神得飞神生者，三也。
           String fromSymbol = symbolAtFromRow(intRow);
-          String strRelative = symbolRelative(fromSymbol, basicSymbol);
+          String strRelative = _symbolRelative(fromSymbol, basicSymbol);
           if ("父母" == strRelative) {
             bResult = true;
           } else {
             //伏神得动爻生者，四也。
-            if (isSymbolMoveBorn(basicSymbol)) {
+            if (_isSymbolMoveBorn(basicSymbol)) {
               bResult = true;
             } else {
               //伏神得遇日月动爻冲克飞神者，五也。
@@ -2539,8 +2539,8 @@ class SABEasyLogicBusiness {
     return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.hide);
   }
 
-  String symbolAtMergeRow(int intRow) {
-    return outEasyWordsModel().symbolAtMergeRow(intRow);
+  String symbolNameAtMergeRow(int intRow) {
+    return outEasyWordsModel().symbolNameAtMergeRow(intRow);
   }
 
   String monthEarth() {
@@ -2605,6 +2605,7 @@ class SABEasyLogicBusiness {
   SABEasyLogicModel logicModel() {
     if (null == _outLogicModel) {
       _outLogicModel = SABEasyLogicModel(outEasyWordsModel());
+
       _outLogicModel.isStaticEasy = isStaticEasy();
       List arrayMovement = [];
       List arrayFromSeasonStrong = [];
@@ -2626,7 +2627,27 @@ class SABEasyLogicBusiness {
         if (isSymbolSeasonStrong(symbolAtRow(intRow, EasyTypeEnum.hide))) {
           arrayHideSeasonStrong.add(intRow);
         }
+
+        _outLogicModel.setIsOnMonth(intRow, EasyTypeEnum.from,
+            _isSymbolOnMonth(symbolAtFromRow(intRow)));
+
+        _outLogicModel.setIsOnMonth(
+            intRow, EasyTypeEnum.to, _isSymbolOnMonth(symbolAtToRow(intRow)));
+
+        _outLogicModel.setIsOnMonth(intRow, EasyTypeEnum.hide,
+            _isSymbolOnMonth(symbolAtHideRow(intRow)));
+
+        _outLogicModel.setIsOnDay(
+            intRow, EasyTypeEnum.from, _isSymbolOnDay(symbolAtFromRow(intRow)));
+
+        _outLogicModel.setIsOnDay(
+            intRow, EasyTypeEnum.to, _isSymbolOnDay(symbolAtToRow(intRow)));
+
+        _outLogicModel.setIsOnDay(
+            intRow, EasyTypeEnum.hide, _isSymbolOnDay(symbolAtHideRow(intRow)));
       }
+
+      ///endf
       _outLogicModel.arrayRightMove = movementIndexArray();
       _outLogicModel.arrayFromSeasonStrong = staticSeasonStrong();
     }

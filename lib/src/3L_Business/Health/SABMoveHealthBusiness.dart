@@ -175,11 +175,9 @@ class SABMoveHealthBusiness {
   List effectingArrayAtLevel3Row(int nLevel3Row, EasyTypeEnum easyType) {
     List arrayEffects = [];
 
-    String basicSymbol = _inputLogicBusiness.symbolAtRow(nLevel3Row, easyType);
-
     ///TODO:为了找到分析的开头，假设日建或者月建是不收其他爻生克的;
-    if (_inputLogicBusiness.isSymbolOnDay(basicSymbol) ||
-        _inputLogicBusiness.isSymbolOnMonth(basicSymbol)) {
+    if (logicModel().isOnDay(nLevel3Row, easyType) ||
+        logicModel().isOnMonth(nLevel3Row, easyType)) {
       String basicEarth = logicModel().getSmbolEarth(nLevel3Row, easyType);
       List level3Array =
           originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);

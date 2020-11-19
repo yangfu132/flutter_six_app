@@ -231,7 +231,7 @@ class SABEasyAnalysisBusiness {
 
       String strMonth = _inputLogicBusiness.monthEarth();
 
-      if (_inputLogicBusiness.isSymbolOnMonth(stringSymbol))
+      if (logicModel().isOnMonth(nRow, easyType))
         strResult = SACContext.appendToString(strResult, "[临]");
       //else cont.
 
@@ -273,7 +273,7 @@ class SABEasyAnalysisBusiness {
       String strTwelveDeity =
           _inputLogicBusiness.earthTwelveDeity(strEarth, strDay);
 
-      if (_inputLogicBusiness.isSymbolOnDay(stringSymbol))
+      if (logicModel().isOnDay(nRow, easyType))
         strResult = SACContext.appendToString(strResult, "[临]");
       //else cont.
 

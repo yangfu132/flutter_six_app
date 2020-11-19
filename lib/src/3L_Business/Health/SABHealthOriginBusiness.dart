@@ -509,9 +509,9 @@ class SABHealthOriginBusiness {
     if (EasyTypeEnum.to != easyType) {
       String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
       if ("" != stringSymbol) {
-        if (_inputLogicBusiness.isSymbolOnMonth(stringSymbol))
+        if (logicModel().isOnMonth(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_inputLogicBusiness.isSymbolOnDay(stringSymbol))
+        else if (logicModel().isOnDay(nRow, easyType))
           bResult = MAX_DEFENSIVE;
         else if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
           bResult = MAX_DEFENSIVE;
