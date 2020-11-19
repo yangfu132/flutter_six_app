@@ -1,6 +1,7 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
+import '../Logic/SABEasyLogicModel.dart';
 import 'SABHealthOriginBusiness.dart';
 import 'SABMoveHealthBusiness.dart';
 import 'SABHealthModel.dart';
@@ -139,11 +140,8 @@ class SABStaticHealthBusiness {
   }
 
   List effectingArrayAtLevel4Row(int nRow, EasyTypeEnum easyType) {
-    String basicSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
-
     List arrayEffects = [];
-
-    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
+    String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
 
     List levelArray =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
@@ -194,6 +192,16 @@ class SABStaticHealthBusiness {
 
   ///`桥函数`//////////////////////////////////////////////////////
 
+  bool calculateHealthAtLevel3() {
+    return moveBusiness().calculateHealthAtLevel3();
+  }
+
+  void calculateHealthOfMove(int item, EasyTypeEnum easyType) {
+    return moveBusiness().calculateHealthOfMove(item, easyType);
+  }
+
+  ///`加载函数`//////////////////////////////////////////////////////
+  ///
   SABHealthOriginBusiness originBusiness() {
     return moveBusiness().originBusiness();
   }
@@ -206,11 +214,7 @@ class SABStaticHealthBusiness {
     return _moveBusiness;
   }
 
-  bool calculateHealthAtLevel3() {
-    return moveBusiness().calculateHealthAtLevel3();
-  }
-
-  void calculateHealthOfMove(int item, EasyTypeEnum easyType) {
-    return moveBusiness().calculateHealthOfMove(item, easyType);
+  SABEasyLogicModel logicModel() {
+    return _inputLogicBusiness.logicModel();
   }
 }

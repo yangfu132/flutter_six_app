@@ -3,6 +3,7 @@ import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 import 'SABHealthModel.dart';
+import '../Logic/SABEasyLogicModel.dart';
 
 ///动爻的强弱计算
 class SABMoveHealthBusiness {
@@ -73,16 +74,14 @@ class SABMoveHealthBusiness {
     double basicDefense =
         originBusiness().symbolDefensiveAtRow(basicRow, EasyTypeEnum.from);
 
-    String basicSymbol =
-        _inputLogicBusiness.symbolAtRow(basicRow, EasyTypeEnum.from);
-
-    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
+    String basicEarth = logicModel().getSmbolEarth(basicRow, EasyTypeEnum.from);
 
     String effectsSymbol =
         _inputLogicBusiness.symbolAtRow(effectsRow, effectsEasyType);
 
     if (null != effectsSymbol && "" != effectsSymbol) {
-      String effectsEarth = _inputLogicBusiness.symbolEarth(effectsSymbol);
+      String effectsEarth =
+          logicModel().getSmbolEarth(effectsRow, effectsEasyType);
 
       if (_inputLogicBusiness.isEarthBorn(effectsEarth, basicEarth)) {
         fHealth += symbolOutAtRow(effectsRow, effectsEasyType);
@@ -181,8 +180,7 @@ class SABMoveHealthBusiness {
     ///TODO:为了找到分析的开头，假设日建或者月建是不收其他爻生克的;
     if (_inputLogicBusiness.isSymbolOnDay(basicSymbol) ||
         _inputLogicBusiness.isSymbolOnMonth(basicSymbol)) {
-      String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
-
+      String basicEarth = logicModel().getSmbolEarth(nLevel3Row, easyType);
       List level3Array =
           originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
 
@@ -217,8 +215,7 @@ class SABMoveHealthBusiness {
   List effectingArrayAtLevel6Row(int nRow, EasyTypeEnum easyType) {
     List arrayEffects = [];
 
-    String basicSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
-    String basicEarth = _inputLogicBusiness.symbolEarth(basicSymbol);
+    String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
 
     List levelArray =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
@@ -292,5 +289,10 @@ class SABMoveHealthBusiness {
       bHasBegin = true;
 
     return bHasBegin;
+  }
+
+  ///`加载函数`//////////////////////////////////////////////////////
+  SABEasyLogicModel logicModel() {
+    return _inputLogicBusiness.logicModel();
   }
 }

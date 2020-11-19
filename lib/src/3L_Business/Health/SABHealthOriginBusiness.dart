@@ -1,6 +1,7 @@
 import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
+import '../Logic/SABEasyLogicModel.dart';
 
 /*
  
@@ -314,7 +315,7 @@ class SABHealthOriginBusiness {
     String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
 
     if ("" != stringSymbol) {
-      String basicEarth = _inputLogicBusiness.symbolEarth(stringSymbol);
+      String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
 
       //日
       if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
@@ -525,5 +526,10 @@ class SABHealthOriginBusiness {
       colog("error!");
 
     return bResult;
+  }
+
+  ///`加载函数`//////////////////////////////////////////////////////
+  SABEasyLogicModel logicModel() {
+    return _inputLogicBusiness.logicModel();
   }
 }

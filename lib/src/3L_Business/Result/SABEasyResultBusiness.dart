@@ -737,6 +737,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     return _healthBusiness;
   }
 
+  ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
     return logicBusiness().logicModel();
   }
