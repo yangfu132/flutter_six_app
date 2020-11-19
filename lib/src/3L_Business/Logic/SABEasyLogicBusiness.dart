@@ -995,7 +995,7 @@ class SABEasyLogicBusiness {
     bool bResult = false;
     if (isMovementAtRow(intIndex)) {
       String strFrom = earthAtFromRow(intIndex);
-      String strTo = earthAtChangeRow(intIndex);
+      String strTo = earthAtToRow(intIndex);
       bResult = isEarthBorn(strTo, strFrom);
     }
     //else cont.
@@ -1625,7 +1625,7 @@ class SABEasyLogicBusiness {
     bool bResult = true;
 
     for (int intIndex = 0; intIndex < 6; intIndex++) {
-      if (earthAtFromRow(intIndex) != earthAtChangeRow(intIndex)) {
+      if (earthAtFromRow(intIndex) != earthAtToRow(intIndex)) {
         bResult = false;
         break;
       }
@@ -1640,7 +1640,7 @@ class SABEasyLogicBusiness {
   bool isMovementSame(List movementArray) {
     bool bResult = true;
     for (int intIndex in movementArray) {
-      if (earthAtFromRow(intIndex) != earthAtChangeRow(intIndex)) {
+      if (earthAtFromRow(intIndex) != earthAtToRow(intIndex)) {
         bResult = false;
         break;
       }
@@ -1708,7 +1708,7 @@ class SABEasyLogicBusiness {
 //    {
 //        int  intIndex  = [numIndex integerValue];
 //        String fromEarth = earthAtFromRow(intIndex);
-//        String toEarth = earthAtChangeRow(intIndex ];
+//        String toEarth = earthAtToRow(intIndex ];
 //        if (![self isEarthConflict:fromEarth ,toEarth])
 //        {
 //            bResult = false;
@@ -2185,7 +2185,7 @@ class SABEasyLogicBusiness {
     bool bResult = false;
     if (isMovementAtRow(intIndex)) {
       String fromEarth = earthAtFromRow(intIndex);
-      String toEarth = earthAtChangeRow(intIndex);
+      String toEarth = earthAtToRow(intIndex);
       bResult = branchBusiness().isEarthForward(fromEarth, toEarth);
     }
     //else cont.
@@ -2197,7 +2197,7 @@ class SABEasyLogicBusiness {
     bool bResult = false;
     if (isMovementAtRow(intIndex)) {
       String fromEarth = earthAtFromRow(intIndex);
-      String toEarth = earthAtChangeRow(intIndex);
+      String toEarth = earthAtToRow(intIndex);
       bResult = branchBusiness().isEarthBack(fromEarth, toEarth);
     }
     //else cont.
@@ -2569,7 +2569,8 @@ class SABEasyLogicBusiness {
     return outEasyWordsModel().getSmbolEarth(EasyTypeEnum.from, intRow);
   }
 
-  String earthAtChangeRow(int intRow) {
+  ///原名为earthAtChangeRow,更改为earthAtToRow
+  String earthAtToRow(int intRow) {
     return outEasyWordsModel().getSmbolEarth(EasyTypeEnum.to, intRow);
   }
 

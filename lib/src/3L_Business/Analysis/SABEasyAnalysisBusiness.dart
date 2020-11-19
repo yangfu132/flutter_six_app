@@ -172,7 +172,7 @@ class SABEasyAnalysisBusiness {
     String result = "";
 
     String fromEarth = _inputLogicBusiness.earthAtFromRow(nRow);
-    String toEarth = _inputLogicBusiness.earthAtChangeRow(nRow);
+    String toEarth = _inputLogicBusiness.earthAtToRow(nRow);
     if ("" != toEarth) {
       if (_inputLogicBusiness.isSymbolChangeBornAtRow(nRow))
         result = SACContext.appendToString(result, "回头生");

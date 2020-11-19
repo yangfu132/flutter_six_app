@@ -19,18 +19,6 @@ class SABEasyBusiness {
 
   SABEasyWordsModel _outEasyWordsModel;
 
-  /// `此模块包含基础数据函数，提供给外部使用`////////////////////////////////////////
-
-  ///此函数包含十天干
-  String skyTrunkString() {
-    return "甲乙丙丁戊己庚辛壬癸";
-  }
-
-  ///此函数包含十二地支
-  String earthBranchString() {
-    return "子丑寅卯辰巳午未申酉戌亥";
-  }
-
   /// `此模块获取日期的数据`/////////////////////////////////////////////////////
 
   PWBCalendarBusiness businessCalendar() {
@@ -254,7 +242,7 @@ class SABEasyBusiness {
     return stringResult;
   }
 
-  String earthAtChangeRow(int intIndex) {
+  String earthAtToRow(int intIndex) {
     String stringResult = "";
     if (0 <= intIndex && intIndex < 6) {
       if (_inputEasyModel.isMovementAtRow(intIndex)) {
