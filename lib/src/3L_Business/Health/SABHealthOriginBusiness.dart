@@ -411,8 +411,8 @@ class SABHealthOriginBusiness {
     String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
     if (_inputLogicBusiness.symbolBasicEmptyState(stringSymbol) !=
         EmptyEnum.Empty_YES) {
-      bool bPaireDay = _inputLogicBusiness.isSymbolDayPair(stringSymbol);
-      bool bPaireMonth = _inputLogicBusiness.isSymbolMonthPair(stringSymbol);
+      bool bPaireDay = logicModel().isDayPair(nRow, easyType);
+      bool bPaireMonth = logicModel().isMonthPair(nRow, easyType);
       if (bPaireDay || bPaireMonth) {
         fResult = OutRightEnum.RIGHT_MOVE;
       } else {
@@ -515,9 +515,9 @@ class SABHealthOriginBusiness {
           bResult = MAX_DEFENSIVE;
         else if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_inputLogicBusiness.isSymbolMonthPair(stringSymbol))
+        else if (_inputLogicBusiness.logicModel().isMonthPair(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_inputLogicBusiness.isSymbolDayPair(stringSymbol))
+        else if (_inputLogicBusiness.logicModel().isDayPair(nRow, easyType))
           bResult = MAX_DEFENSIVE;
         //else cont.
       } else

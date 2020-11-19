@@ -705,9 +705,9 @@ class SABEasyLogicBusiness {
 
       //冲合
       bool bDayConflict = _isSymbolDayConflict(stringSymbol);
-      bool bDayPair = isSymbolDayPair(stringSymbol);
+      bool bDayPair = _isSymbolDayPair(stringSymbol);
       bool bMonthConflict = _isSymbolMonthConflict(stringSymbol);
-      bool bMonthPair = isSymbolMonthPair(stringSymbol);
+      bool bMonthPair = _isSymbolMonthPair(stringSymbol);
 
       if (bMonthRestrict) {
         bBalance = bDayBorn;
@@ -1352,13 +1352,13 @@ class SABEasyLogicBusiness {
  */
 
   ///`--爻的六合分析`//////////////////////////////////////////////////////
-  bool isSymbolDayPair(String stringSymbol) {
+  bool _isSymbolDayPair(String stringSymbol) {
     String strEarth = _symbolEarth(stringSymbol);
 
     return isEarthPairDay(strEarth, dayEarth());
   }
 
-  bool isSymbolMonthPair(String stringSymbol) {
+  bool _isSymbolMonthPair(String stringSymbol) {
     String strEarth = _symbolEarth(stringSymbol);
 
     bool bResult = isEarthPairMonth(strEarth, monthEarth());
@@ -2607,6 +2607,15 @@ class SABEasyLogicBusiness {
       _outLogicModel = SABEasyLogicModel(outEasyWordsModel());
 
       _outLogicModel.isStaticEasy = isStaticEasy();
+      _outLogicModel.setIsEasySixPair(
+          EasyTypeEnum.from, _isEasySixPair(fromEasyDictionary()));
+
+      _outLogicModel.setIsEasySixPair(
+          EasyTypeEnum.to, _isEasySixPair(toEasyDictionary()));
+
+      _outLogicModel.setIsEasySixPair(
+          EasyTypeEnum.hide, _isEasySixPair(easyBusiness().placeFirstEasy()));
+
       List arrayMovement = [];
       List arrayFromSeasonStrong = [];
       List arrayToSeasonStrong = [];
@@ -2645,20 +2654,29 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setIsOnDay(
             intRow, EasyTypeEnum.hide, _isSymbolOnDay(symbolAtHideRow(intRow)));
+
+        _outLogicModel.setIsMonthPair(intRow, EasyTypeEnum.from,
+            _isSymbolMonthPair(symbolAtFromRow(intRow)));
+
+        _outLogicModel.setIsMonthPair(
+            intRow, EasyTypeEnum.to, _isSymbolMonthPair(symbolAtToRow(intRow)));
+
+        _outLogicModel.setIsMonthPair(intRow, EasyTypeEnum.hide,
+            _isSymbolMonthPair(symbolAtHideRow(intRow)));
+
+        _outLogicModel.setIsDayPair(intRow, EasyTypeEnum.from,
+            _isSymbolDayPair(symbolAtFromRow(intRow)));
+
+        _outLogicModel.setIsDayPair(
+            intRow, EasyTypeEnum.to, _isSymbolDayPair(symbolAtToRow(intRow)));
+
+        _outLogicModel.setIsDayPair(intRow, EasyTypeEnum.hide,
+            _isSymbolDayPair(symbolAtHideRow(intRow)));
       }
 
       ///endf
       _outLogicModel.arrayRightMove = movementIndexArray();
       _outLogicModel.arrayFromSeasonStrong = staticSeasonStrong();
-
-      _outLogicModel.setIsEasySixPair(
-          EasyTypeEnum.from, _isEasySixPair(fromEasyDictionary()));
-
-      _outLogicModel.setIsEasySixPair(
-          EasyTypeEnum.to, _isEasySixPair(toEasyDictionary()));
-
-      _outLogicModel.setIsEasySixPair(
-          EasyTypeEnum.hide, _isEasySixPair(easyBusiness().placeFirstEasy()));
     }
     return _outLogicModel;
   }

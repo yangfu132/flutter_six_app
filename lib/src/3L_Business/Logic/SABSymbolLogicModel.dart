@@ -9,10 +9,37 @@ class SABSymbolLogicModel {
   ///{
   ///'isOnMonth'
   ///'isOnDay'
+  ///'isDayPair'
+  ///'isMonthPair'
   ///}
   Map mapSymbolFrom = {};
   Map mapSymbolTo = {};
   Map mapSymbolHide = {};
+
+  bool getIsMonthPair(EasyTypeEnum easyTypeEnum) {
+    bool bResultIsMonthPair = false;
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      bResultIsMonthPair = mapSymbolFrom['isMonthPair'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      bResultIsMonthPair = mapSymbolTo['isMonthPair'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      bResultIsMonthPair = mapSymbolHide['isMonthPair'];
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+
+    return bResultIsMonthPair;
+  }
+
+  void setIsMonthPair(EasyTypeEnum easyTypeEnum, bool isMonthPair) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['isMonthPair'] = isMonthPair;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['isMonthPair'] = isMonthPair;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['isMonthPair'] = isMonthPair;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
 
   bool getIsOnMonth(EasyTypeEnum easyTypeEnum) {
     bool bResultIsOnMonth = false;
@@ -35,6 +62,31 @@ class SABSymbolLogicModel {
       mapSymbolTo['isOnMonth'] = isOnMonth;
     } else if (easyTypeEnum == EasyTypeEnum.hide) {
       mapSymbolHide['isOnMonth'] = isOnMonth;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
+
+  bool getIsDayPair(EasyTypeEnum easyTypeEnum) {
+    bool bResultIsDayPair = false;
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      bResultIsDayPair = mapSymbolFrom['isDayPair'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      bResultIsDayPair = mapSymbolTo['isDayPair'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      bResultIsDayPair = mapSymbolHide['isDayPair'];
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+
+    return bResultIsDayPair;
+  }
+
+  void setIsDayPair(EasyTypeEnum easyTypeEnum, bool isDayPair) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['isDayPair'] = isDayPair;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['isDayPair'] = isDayPair;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['isDayPair'] = isDayPair;
     } else
       colog('easyTypeEnum:$easyTypeEnum');
   }

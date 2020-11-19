@@ -87,6 +87,22 @@ class SABEasyLogicModel {
     return symbolAtRow(intRow).getIsOnDay(easyTypeEnum);
   }
 
+  void setIsMonthPair(int intRow, EasyTypeEnum easyTypeEnum, bool isMonthPair) {
+    symbolAtRow(intRow).setIsMonthPair(easyTypeEnum, isMonthPair);
+  }
+
+  bool isMonthPair(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getIsMonthPair(easyTypeEnum);
+  }
+
+  void setIsDayPair(int intRow, EasyTypeEnum easyTypeEnum, bool isDayPair) {
+    symbolAtRow(intRow).setIsDayPair(easyTypeEnum, isDayPair);
+  }
+
+  bool isDayPair(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getIsDayPair(easyTypeEnum);
+  }
+
   /// `加载函数`/////////////////////////////////////////////////////////////////
 
   List _symbolsArray() {
