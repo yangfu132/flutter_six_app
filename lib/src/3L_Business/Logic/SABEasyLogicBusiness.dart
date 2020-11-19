@@ -2538,20 +2538,20 @@ class SABEasyLogicBusiness {
   }
 
   String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
-    return easyBusiness().symbolAtRow(intRow, enumEasyType);
+    return outEasyWordsModel().getSmbolName(enumEasyType, intRow);
   }
 
-  String symbolAtFromRow(int intIndex) {
-    return easyBusiness().symbolAtFromRow(intIndex);
+  String symbolAtFromRow(int intRow) {
+    return outEasyWordsModel().getSmbolName(EasyTypeEnum.from, intRow);
   }
 
   ///原名symbolAtChangeRow,更改为symbolAtToRow
-  String symbolAtToRow(int intIndex) {
-    return easyBusiness().symbolAtToRow(intIndex);
+  String symbolAtToRow(int intRow) {
+    return outEasyWordsModel().getSmbolName(EasyTypeEnum.to, intRow);
   }
 
   String symbolAtMergeRow(int intRow) {
-    return easyBusiness().symbolAtMergeRow(intRow);
+    return outEasyWordsModel().symbolAtMergeRow(intRow);
   }
 
   String monthEarth() {

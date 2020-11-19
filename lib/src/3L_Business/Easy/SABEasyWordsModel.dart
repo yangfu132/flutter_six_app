@@ -7,23 +7,29 @@ class SABEasyWordsModel {
   String stringDaySky;
   String stringMonthSky;
   String stringMonthEarth;
+  int intLife;
 
   List arrayMovement;
   List _listSymbols;
 
-  String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
-    String strSymbol = '';
-    SABSymbolWordsModel model = symbolsArray()[intRow];
-    if (enumEasyType == EasyTypeEnum.from) {
-      strSymbol = model.mapSymbolFrom['name'];
-    } else if (enumEasyType == EasyTypeEnum.to) {
-      strSymbol = model.mapSymbolTo['name'];
-    } else if (enumEasyType == EasyTypeEnum.hide) {
-      strSymbol = model.mapSymbolHide['name'];
-    } else {
-      colog("error!");
+  ///MergeRow的定义
+  ///from:0~6
+  ///Month:7
+  ///Day:8
+  ///Fly:10~16
+  ///To:20~26
+  String symbolAtMergeRow(int intRow) {
+    String stringResult = "";
+    if (0 <= intRow && intRow < 6) {
+      stringResult = getSmbolName(EasyTypeEnum.from, intRow);
+    } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
+      stringResult = getSmbolName(EasyTypeEnum.to, intRow - ROW_CHNAGE_BEGIN);
+    } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
+      stringResult = getSmbolName(EasyTypeEnum.hide, intRow - ROW_FLY_BEGIN);
     }
-    return strSymbol;
+    //else cont.
+
+    return stringResult;
   }
 
   List symbolsArray() {

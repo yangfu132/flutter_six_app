@@ -324,24 +324,9 @@ class SABEasyBusiness {
   String earthAtMergeRow(int intRow) {
     String stringResult = "";
 
-    String stringSymbol = symbolAtMergeRow(intRow);
+    String stringSymbol = outEasyWordsModel().symbolAtMergeRow(intRow);
 
     if ("" != stringSymbol) stringResult = symbolEarth(stringSymbol);
-    //else cont.
-
-    return stringResult;
-  }
-
-  String symbolAtMergeRow(int intRow) {
-    String stringResult = "";
-
-    if (0 <= intRow && intRow < 6) {
-      stringResult = symbolAtRow(intRow, EasyTypeEnum.from);
-    } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
-      stringResult = symbolAtRow(intRow - ROW_CHNAGE_BEGIN, EasyTypeEnum.to);
-    } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
-      stringResult = symbolAtRow(intRow - ROW_FLY_BEGIN, EasyTypeEnum.hide);
-    }
     //else cont.
 
     return stringResult;
