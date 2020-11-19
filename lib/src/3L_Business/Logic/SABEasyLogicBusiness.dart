@@ -1493,10 +1493,8 @@ class SABEasyLogicBusiness {
 
   ///`卦变生克墓绝章第二十四`/////////////////////////////////////////////////////
   String easyParent() {
-    String fromElement =
-        easyBusiness().eightDiagrams().elementOfEasy(fromEasyName());
-    String toElement =
-        easyBusiness().eightDiagrams().elementOfEasy(toEasyName());
+    String fromElement = outEasyWordsModel().stringFromElement;
+    String toElement = outEasyWordsModel().stringToElement;
     String strParent = SABElementModel.elementRelative(fromElement, toElement);
     return strParent;
   }
@@ -1563,10 +1561,8 @@ class SABEasyLogicBusiness {
       "兑": "震",
     };
 
-    String fromPlace =
-        easyBusiness().eightDiagrams().easyPlaceByName(fromEasyName());
-    String toPlace =
-        easyBusiness().eightDiagrams().easyPlaceByName(toEasyName());
+    String fromPlace = outEasyWordsModel().stringFromPlace;
+    String toPlace = outEasyWordsModel().stringToPlace;
     String strConflictPlace = dictGuaConflict[fromPlace];
     bResult = strConflictPlace == toPlace;
     return bResult;
@@ -2241,10 +2237,7 @@ class SABEasyLogicBusiness {
 
     String usefulParent = getUsefulDeity();
 
-    String strFromEasyName = fromEasyName();
-
-    String fromEasyElement =
-        easyBusiness().eightDiagrams().elementOfEasy(strFromEasyName);
+    String fromEasyElement = outEasyWordsModel().stringFromElement;
 
     String stringMonthElement = monthElement();
     String monthParent =

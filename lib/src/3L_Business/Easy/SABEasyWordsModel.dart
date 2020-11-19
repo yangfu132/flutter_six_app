@@ -10,10 +10,16 @@ class SABEasyWordsModel {
   String stringDaySky;
   String stringMonthSky;
   String stringMonthEarth;
-  String stringFromName;
-  String stringToName;
+
   int intLifeIndex;
   int intGoalIndex;
+
+  String stringFromName;
+  String stringFromElement;
+  String stringFromPlace;
+  String stringToName;
+  String stringToElement;
+  String stringToPlace;
 
   List arrayMovement;
   List _listSymbols;

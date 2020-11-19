@@ -368,6 +368,17 @@ class SABEasyBusiness {
       _outEasyWordsModel.intGoalIndex = _goalIndex();
       _outEasyWordsModel.stringFromName = fromEasyName();
       _outEasyWordsModel.stringToName = toEasyName();
+      _outEasyWordsModel.stringFromElement =
+          eightDiagrams().elementOfEasy(fromEasyName());
+      _outEasyWordsModel.stringToElement =
+          eightDiagrams().elementOfEasy(toEasyName());
+
+      _outEasyWordsModel.stringFromPlace =
+          eightDiagrams().easyPlaceByName(fromEasyName());
+
+      _outEasyWordsModel.stringToPlace =
+          eightDiagrams().easyPlaceByName(toEasyName());
+
       for (int intRow = 0; intRow < 6; intRow++) {
         _outEasyWordsModel.setDigit(
             intRow, _inputEasyModel.digitAtIndex(intRow));
