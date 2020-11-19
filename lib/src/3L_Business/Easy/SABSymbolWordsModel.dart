@@ -8,8 +8,13 @@
   /// String stringParent;
   /// String stringEarth;
   /// String stringElement;
-  ///
-  Map mapSymbolFrom;
-  Map mapSymbolTo;
-  Map mapSymbolHide;
+  ///{
+  ///'name':['','',''],
+  ///'parent':['','',''],
+  ///'earth':['','','']
+  ///'Element':['','','']
+  ///}
+  Map mapSymbolFrom = {};
+  Map mapSymbolTo = {};
+  Map mapSymbolHide = {};
 }

@@ -26,10 +26,6 @@ class SABEasyWordsModel {
     return strSymbol;
   }
 
-  bool isMovementAtRow(int nRow) {
-    return -1 != arrayMovement.indexOf(nRow);
-  }
-
   List symbolsArray() {
     if (null == _listSymbols) {
       _listSymbols = [];
@@ -47,9 +43,61 @@ class SABEasyWordsModel {
     model.intDigit = intDigit;
   }
 
+  int getDigit(int intRow) {
+    return symbolsArray()[intRow].intDigit;
+  }
+
   void setMovement(int intRow, bool bMovement) {
     SABSymbolWordsModel model = symbolsArray()[intRow];
     model.bMovement = bMovement;
+  }
+
+  bool isMovementAtRow(int intRow) {
+    return symbolsArray()[intRow].bMovement;
+  }
+
+  String getSmbolName(EasyTypeEnum easyTypeEnum, int intRow) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      return symbolsArray()[intRow].mapSymbolFrom['name'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      return symbolsArray()[intRow].mapSymbolTo['name'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      return symbolsArray()[intRow].mapSymbolHide['name'];
+    } else
+      return 'easyTypeEnum:$easyTypeEnum';
+  }
+
+  String getSmbolParent(EasyTypeEnum easyTypeEnum, int intRow) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      return symbolsArray()[intRow].mapSymbolFrom['parent'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      return symbolsArray()[intRow].mapSymbolTo['parent'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      return symbolsArray()[intRow].mapSymbolHide['parent'];
+    } else
+      return 'easyTypeEnum:$easyTypeEnum';
+  }
+
+  String getSmbolEarth(EasyTypeEnum easyTypeEnum, int intRow) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      return symbolsArray()[intRow].mapSymbolFrom['earth'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      return symbolsArray()[intRow].mapSymbolTo['earth'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      return symbolsArray()[intRow].mapSymbolHide['earth'];
+    } else
+      return 'easyTypeEnum:$easyTypeEnum';
+  }
+
+  String getSmbolElement(int intRow, EasyTypeEnum easyTypeEnum) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      return symbolsArray()[intRow].mapSymbolFrom['element'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      return symbolsArray()[intRow].mapSymbolTo['element'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      return symbolsArray()[intRow].mapSymbolHide['element'];
+    } else
+      return 'easyTypeEnum:$easyTypeEnum';
   }
 
   void setFromSymbol(int intRow, String stringSymbol) {

@@ -6,6 +6,7 @@ import '../Easy/SABElementModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
 import 'SABEasyLogicDelegate.dart';
 import 'SABEasyLogicModel.dart';
+import '../Easy/SABEasyWordsModel.dart';
 
 class SABEasyLogicBusiness {
   SABEasyLogicBusiness(this._inputEasyModel, this._inputDelegate);
@@ -27,15 +28,15 @@ class SABEasyLogicBusiness {
   }
 
   List arrayFromRowOfParent(String parent) {
-    return arrayRowWithParent(parent, fromEasyDictionary());
+    return arrayRowWithParent(parent, EasyTypeEnum.from);
   }
 
-  List arrayRowWithParent(String parent, Map easyDictionary) {
+  List arrayRowWithParent(String parent, EasyTypeEnum easyTypeEnum) {
     List parrentArray = List();
 
-    List easyEasy = easyDictionary["data"];
     for (int index = 0; index < 6; index++) {
-      String stringSymbolParent = easyBusiness().symbolParent(easyEasy[index]);
+      String stringSymbolParent =
+          outEasyWordsModel().getSmbolParent(easyTypeEnum, index);
       if (stringSymbolParent == parent) {
         parrentArray.add(index);
       }
@@ -151,7 +152,7 @@ class SABEasyLogicBusiness {
   int usefulGodRow() {
     if ("" != getUsefulGod()) {
       if (globalRowInvalid == _usefulGodRow) {
-        _usefulGodRow = indexOfUseGodInEasy(fromEasyDictionary());
+        _usefulGodRow = indexOfUseGodInEasy(EasyTypeEnum.from);
       }
     } else
       _usefulGodRow = globalRowInvalid;
@@ -1891,7 +1892,7 @@ class SABEasyLogicBusiness {
     String strDayTrunk = daySky();
     int indexTrunk = strSkyTrunk.indexOf(strDayTrunk);
 
-    String strEarthBranch = easyBusiness().earthBranchString();
+    String strEarthBranch = earthBranchString();
     String strDayBranch = dayEarth();
     int indexBranch = strEarthBranch.indexOf(strDayBranch);
 
@@ -1922,8 +1923,8 @@ class SABEasyLogicBusiness {
 //随鬼入墓
   bool isSymbol_SuiGuiRuMu_AtRow(int intRow) {
     bool bResult = false;
-    String strSymbol = symbolAtFromRow(intRow);
-    String strParent = easyBusiness().symbolParent(strSymbol);
+    String strParent =
+        outEasyWordsModel().getSmbolParent(EasyTypeEnum.from, intRow);
     bool bGui = "官鬼" == strParent;
     bool bRuMu = isSymbolChangeMuAtRow(intRow);
 
@@ -2161,8 +2162,7 @@ class SABEasyLogicBusiness {
     String usefulParent = getUsefulGod();
 
     if (null != usefulParent) {
-      usefulArray =
-          arrayRowWithParent(usefulParent, easyBusiness().placeFirstEasy());
+      usefulArray = arrayRowWithParent(usefulParent, EasyTypeEnum.hide);
     }
     //else cont.
 
@@ -2211,27 +2211,27 @@ class SABEasyLogicBusiness {
     String usefulParent = getUsefulGod();
 
     if (null != usefulParent) {
-      usefulArray = arrayRowWithParent(usefulParent, fromEasyDictionary());
+      usefulArray = arrayRowWithParent(usefulParent, EasyTypeEnum.from);
     }
     //else cont.
 
     return usefulArray;
   }
 
-  int indexOfUseGodInEasy(Map easyDictionary) {
+  int indexOfUseGodInEasy(EasyTypeEnum easyTypeEnum) {
     int result = globalRowInvalid;
 
     String usefulParent = getUsefulGod();
 
     if (null != usefulParent) {
-      List usefulArray = arrayRowWithParent(usefulParent, easyDictionary);
+      List usefulArray = arrayRowWithParent(usefulParent, easyTypeEnum);
 
       if (usefulArray.length == 1) {
         result = usefulArray[0];
       } else if (usefulArray.length == 0) {
         result = noUsefulGod();
       } else {
-        result = multiUsefulGod(easyDictionary, usefulArray);
+        result = multiUsefulGod(easyTypeEnum, usefulArray);
       } //endi
     }
     //else cont.
@@ -2261,8 +2261,7 @@ class SABEasyLogicBusiness {
       if (dayParent == usefulParent) {
         result = ROW_DAY;
       } else {
-        Map fristEasy = easyBusiness().placeFirstEasy();
-        result = ROW_FLY_BEGIN + indexOfUseGodInEasy(fristEasy);
+        result = ROW_FLY_BEGIN + indexOfUseGodInEasy(EasyTypeEnum.hide);
       } //endi
     } //endi
 
@@ -2277,79 +2276,69 @@ class SABEasyLogicBusiness {
  舍其被伤而用不伤。
  ****************************************************************/
 
-  int multiUsefulGod(Map easyDictionary, List usefulArray) {
+  int multiUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
-    List dataArray = easyDictionary["data"];
-
-    result = monthBrokenUsefulGod(dataArray, usefulArray);
-
-    return result;
-  }
-
-  int monthBrokenUsefulGod(List dataArray, List usefulArray) {
-    int result = globalRowInvalid;
-
-    List listMonthBroken = monthBrokenArray(dataArray, usefulArray);
+    List listMonthBroken = monthBrokenArray(easyTypeEnum, usefulArray);
     if (0 == listMonthBroken.length) {
-      result = emptyUsefulGod(dataArray, usefulArray);
+      result = emptyUsefulGod(easyTypeEnum, usefulArray);
     } else if (1 == listMonthBroken.length) {
       result = listMonthBroken[0];
     } else if (listMonthBroken.length > 1) {
-      result = emptyUsefulGod(dataArray, listMonthBroken);
+      result = emptyUsefulGod(easyTypeEnum, listMonthBroken);
     }
     return result;
   }
 
-  int emptyUsefulGod(List dataArray, List usefulArray) {
+  int emptyUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
-    List listEmpty = emptyArray(dataArray, usefulArray);
+    List listEmpty = emptyArray(easyTypeEnum, usefulArray);
 
     if (0 == listEmpty.length) {
-      result = movementUsefulGod(dataArray, usefulArray);
+      result = movementUsefulGod(easyTypeEnum, usefulArray);
     } else if (1 == listEmpty.length) {
       result = listEmpty[0];
     } else if (listEmpty.length > 1) {
-      result = movementUsefulGod(dataArray, listEmpty);
+      result = movementUsefulGod(easyTypeEnum, listEmpty);
     }
 
     return result;
   }
 
-  int movementUsefulGod(List dataArray, List usefulArray) {
+  int movementUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     List movementArray = movementArrayInArray(usefulArray);
     if (0 == movementArray.length) {
-      result = strongUsefulGod(dataArray, usefulArray);
+      result = strongUsefulGod(easyTypeEnum, usefulArray);
     } else if (1 == movementArray.length) {
       result = movementArray[0];
     } else if (movementArray.length > 1) {
-      result = strongUsefulGod(dataArray, movementArray);
+      result = strongUsefulGod(easyTypeEnum, movementArray);
     }
     return result;
   }
 
-  int strongUsefulGod(List dataArray, List usefulArray) {
+  int strongUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     //旺、相、余气, 依次选用,有旺用旺，如果有多个旺，通过动静区分；
 
-    List strongArray = strongUsefulArray(dataArray, usefulArray);
+    List strongArray = strongUsefulArray(easyTypeEnum, usefulArray);
 
     if (0 == strongArray.length) {
-      result = lifeOrGoalUsefulGod(dataArray, usefulArray);
+      result = lifeOrGoalUsefulGod(easyTypeEnum, usefulArray);
     } else if (1 == strongArray.length) {
       result = strongArray[0];
     } else if (strongArray.length > 1) {
-      result = lifeOrGoalUsefulGod(dataArray, strongArray);
+      result = lifeOrGoalUsefulGod(easyTypeEnum, strongArray);
     }
 
     return result;
   }
 
-  int lifeOrGoalUsefulGod(List dataArray, List usefulArray) {
+  int lifeOrGoalUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = globalRowInvalid;
 
     //世爻位置上的用神
@@ -2378,14 +2367,14 @@ class SABEasyLogicBusiness {
     //else cont.
 
     if (globalRowInvalid == result) {
-      result = unKnowUsefulGod(dataArray, usefulArray);
+      result = unKnowUsefulGod(easyTypeEnum, usefulArray);
     }
     //else cont.
 
     return result;
   }
 
-  int unKnowUsefulGod(List dataArray, List usefulArray) {
+  int unKnowUsefulGod(EasyTypeEnum easyTypeEnum, List usefulArray) {
     int result = usefulArray[0]; //globalRowInvalid;
 
     //TODO:丰富用神的选取规则：按旺相休囚死的顺序排列；或者按照强弱顺序排序。
@@ -2395,7 +2384,7 @@ class SABEasyLogicBusiness {
     return result;
   }
 
-  List strongUsefulArray(List dataArray, List usefulArray) {
+  List strongUsefulArray(EasyTypeEnum easyTypeEnum, List usefulArray) {
     //舍其休囚而用旺相；
     List strongArray = List();
 
@@ -2403,7 +2392,7 @@ class SABEasyLogicBusiness {
 
     for (int intItem in usefulArray) {
       double strongValue =
-          _inputDelegate.symbolHealthAtRow(intItem, EasyTypeEnum.from);
+          _inputDelegate.symbolHealthAtRow(intItem, easyTypeEnum);
       if (maxValue < strongValue) {
         maxValue = strongValue;
       }
@@ -2412,7 +2401,7 @@ class SABEasyLogicBusiness {
 
     for (int intItem in usefulArray) {
       double strongValue =
-          _inputDelegate.symbolHealthAtRow(intItem, EasyTypeEnum.from);
+          _inputDelegate.symbolHealthAtRow(intItem, easyTypeEnum);
       if (strongValue == maxValue) {
         strongArray.add(intItem);
       }
@@ -2423,18 +2412,19 @@ class SABEasyLogicBusiness {
     return strongArray;
   }
 
-  List emptyArray(List dataArray, List usefulArray) {
+  List emptyArray(EasyTypeEnum easyTypeEnum, List usefulArray) {
     //舍其旬空而用不空；          野鹤：舍其不空而用旬空；
-    List emptyArray = List();
-    for (int intItem in usefulArray) {
-      String stringSymbol = dataArray[intItem];
+    List listEmpty = List();
+    for (int intRow in usefulArray) {
+      String stringSymbol =
+          outEasyWordsModel().getSmbolName(easyTypeEnum, intRow);
       if (symbolBasicEmptyState(stringSymbol) != EmptyEnum.Empty_NO) {
-        emptyArray.add(intItem);
+        listEmpty.add(intRow);
       }
       //else cont.
     } //endf
 
-    return emptyArray;
+    return listEmpty;
   }
 
   List movementArrayInArray(List usefulArray) {
@@ -2450,18 +2440,19 @@ class SABEasyLogicBusiness {
     return movementArray;
   }
 
-  List monthBrokenArray(List dataArray, List usefulArray) {
+  List monthBrokenArray(EasyTypeEnum easyTypeEnum, List usefulArray) {
     //古法：舍其月破而用不破；     野鹤：舍其不破而用月破(采用)；
-    List monthBrokenArray = List();
-    for (int intItem in usefulArray) {
-      String stringSymbol = dataArray[intItem];
+    List listMonthBroken = List();
+    for (int intRow in usefulArray) {
+      String stringSymbol =
+          outEasyWordsModel().getSmbolName(easyTypeEnum, intRow);
       if (MonthBrokenEnum.Broken_NO != symbolMonthBrokenState(stringSymbol))
-        monthBrokenArray.add(intItem);
+        listMonthBroken.add(intRow);
       //else cont.
 
     } //endf
 
-    return monthBrokenArray;
+    return listMonthBroken;
   }
 
   ///`earthBranch 桥函数`//////////////////////////////////////////////////////
@@ -2502,6 +2493,14 @@ class SABEasyLogicBusiness {
   }
 
   ///`EasyBusiness 桥函数`//////////////////////////////////////////////////////
+  String symbolEarth(String stringSymbol) {
+    return easyBusiness().symbolEarth(stringSymbol);
+  }
+
+  bool isSymbolMovement(String stringSymbol) {
+    return easyBusiness().isSymbolMovement(stringSymbol);
+  }
+
   String fromEasyName() {
     return easyBusiness().fromEasyName();
   }
@@ -2554,48 +2553,51 @@ class SABEasyLogicBusiness {
     return easyBusiness().symbolAtMergeRow(intRow);
   }
 
-  String symbolEarth(String stringSymbol) {
-    return easyBusiness().symbolEarth(stringSymbol);
-  }
-
   String monthEarth() {
-    return easyBusiness().outEasyWordsModel().stringMonthEarth;
+    return outEasyWordsModel().stringMonthEarth;
   }
 
   String daySky() {
-    return easyBusiness().outEasyWordsModel().stringDaySky;
+    return outEasyWordsModel().stringDaySky;
   }
 
   String dayEarth() {
-    return easyBusiness().outEasyWordsModel().stringDayEarth;
+    return outEasyWordsModel().stringDayEarth;
   }
 
-  String earthAtFromRow(int intIndex) {
-    return easyBusiness().earthAtFromRow(intIndex);
+  String earthAtFromRow(int intRow) {
+    return outEasyWordsModel().getSmbolEarth(EasyTypeEnum.from, intRow);
   }
 
-  String earthAtChangeRow(int intIndex) {
-    return easyBusiness().earthAtChangeRow(intIndex);
+  String earthAtChangeRow(int intRow) {
+    return outEasyWordsModel().getSmbolEarth(EasyTypeEnum.to, intRow);
   }
 
-  bool isMovementAtRow(int nRow) {
-    return easyBusiness().isMovementAtRow(nRow);
-  }
-
-  bool isSymbolMovement(String stringSymbol) {
-    return easyBusiness().isSymbolMovement(stringSymbol);
-  }
-
-  String skyTrunkString() {
-    return easyBusiness().skyTrunkString();
+  bool isMovementAtRow(int intRow) {
+    return outEasyWordsModel().isMovementAtRow(intRow);
   }
 
   ///`加载函数`//////////////////////////////////////////////////////
+
+  ///此函数包含十天干
+  String skyTrunkString() {
+    return "甲乙丙丁戊己庚辛壬癸";
+  }
+
+  ///此函数包含十二地支
+  String earthBranchString() {
+    return "子丑寅卯辰巳午未申酉戌亥";
+  }
+
   SABEarthBranchBusiness branchBusiness() {
     if (null == _branchBusiness) {
       _branchBusiness = SABEarthBranchBusiness();
     } //else cont.
     return _branchBusiness;
+  }
+
+  SABEasyWordsModel outEasyWordsModel() {
+    return easyBusiness().outEasyWordsModel();
   }
 
   SABEasyBusiness easyBusiness() {
