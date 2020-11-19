@@ -1509,9 +1509,9 @@ class SABEasyLogicBusiness {
     //卦变者，内外动而反伏者同一卦也, 如乾卦变震卦是也。
     bool bResult = false;
 
-    List inMovementArray = easyBusiness().inGuaMovementArray();
+    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = easyBusiness().outGuaMovementArray();
+    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length > 0)
       bResult = isEasySame();
@@ -1524,9 +1524,9 @@ class SABEasyLogicBusiness {
     //内卦伏吟
     bool bResult = false;
 
-    List inMovementArray = easyBusiness().inGuaMovementArray();
+    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = easyBusiness().outGuaMovementArray();
+    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length == 0)
       bResult = isEasySame();
@@ -1539,9 +1539,9 @@ class SABEasyLogicBusiness {
     //外卦伏吟
     bool bResult = false;
 
-    List inMovementArray = easyBusiness().inGuaMovementArray();
+    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = easyBusiness().outGuaMovementArray();
+    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length == 0 && outMovementArray.length > 0)
       bResult = isEasySame();
@@ -1579,9 +1579,9 @@ class SABEasyLogicBusiness {
     //卦变者，内外动而反伏者同一卦也, 如乾卦变震卦是也。
     bool bResult = false;
 
-    List inMovementArray = easyBusiness().inGuaMovementArray();
+    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = easyBusiness().outGuaMovementArray();
+    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length > 0)
       bResult = isEasyRestricts();
@@ -1594,9 +1594,9 @@ class SABEasyLogicBusiness {
     //内卦伏吟
     bool bResult = false;
 
-    List inMovementArray = easyBusiness().inGuaMovementArray();
+    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = easyBusiness().outGuaMovementArray();
+    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length == 0)
       bResult = isEasyRestricts();
@@ -1609,9 +1609,9 @@ class SABEasyLogicBusiness {
     //外卦伏吟
     bool bResult = false;
 
-    List inMovementArray = easyBusiness().inGuaMovementArray();
+    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = easyBusiness().outGuaMovementArray();
+    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length == 0 && outMovementArray.length > 0)
       bResult = isEasyRestricts();

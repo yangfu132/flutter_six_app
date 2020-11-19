@@ -358,35 +358,6 @@ class SABEasyBusiness {
     return _businessCalendar.stringFromDate() + _inputEasyModel.getEasyGoal();
   }
 
-  /// `桥函数`/////////////////////////////////////////////////////////////////
-
-  ///此函数用于判断当前爻是否为动爻
-  bool isMovementAtRow(int nRow) {
-    return _inputEasyModel.isMovementAtRow(nRow);
-  }
-
-  ///此函数获取内卦变动的爻列表
-  List inGuaMovementArray() {
-    return _inputEasyModel.inGuaMovementArray();
-  }
-
-  ///此函数获取外卦变动的爻列表
-  List outGuaMovementArray() {
-    return _inputEasyModel.outGuaMovementArray();
-  }
-
-  String getUsefulDeity() {
-    return _inputEasyModel.getUsefulDeity();
-  }
-
-  String fromEasyKey() {
-    return _inputEasyModel.fromEasyKey();
-  }
-
-  String toEasyKey() {
-    return _inputEasyModel.toEasyKey();
-  }
-
   /// `加载函数`/////////////////////////////////////////////////////////////////
 
   ///此方法加载六十四卦信息

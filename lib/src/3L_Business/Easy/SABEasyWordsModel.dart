@@ -53,6 +53,7 @@ class SABEasyWordsModel {
     model.bMovement = bMovement;
   }
 
+  ///此函数用于判断当前爻是否为动爻
   bool isMovementAtRow(int intRow) {
     return _symbolsArray()[intRow].bMovement;
   }
@@ -161,5 +162,16 @@ class SABEasyWordsModel {
       }
     }
     return _listSymbols;
+  }
+
+  /// `桥函数`/////////////////////////////////////////////////////////////////
+  ///此函数获取内卦变动的爻列表
+  List inGuaMovementArray() {
+    return inputDigitModel.inGuaMovementArray();
+  }
+
+  ///此函数获取外卦变动的爻列表
+  List outGuaMovementArray() {
+    return inputDigitModel.outGuaMovementArray();
   }
 }
