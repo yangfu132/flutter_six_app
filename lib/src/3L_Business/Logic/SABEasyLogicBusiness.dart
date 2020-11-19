@@ -22,8 +22,8 @@ class SABEasyLogicBusiness {
   ///`六亲歌章第五`//////////////////////////////////////////////////////
 
   String _symbolRelative(String theSymbol, String basicSymbol) {
-    String theEarth = symbolEarth(theSymbol);
-    String basicEarth = symbolEarth(basicSymbol);
+    String theEarth = _symbolEarth(theSymbol);
+    String basicEarth = _symbolEarth(basicSymbol);
     return branchBusiness().earthRelative(theEarth, basicEarth);
   }
 
@@ -347,7 +347,7 @@ class SABEasyLogicBusiness {
           bResult = true;
         } else {
           //忌神长生帝旺于日辰，四也。
-          String stringEarthBase = symbolEarth(strSymbolBase);
+          String stringEarthBase = _symbolEarth(strSymbolBase);
           String stringTewleveDeity =
               branchBusiness().earthTwelveDeity(stringEarthBase, dayEarth());
           if ("长生" == stringTewleveDeity || "帝旺" == stringTewleveDeity)
@@ -399,7 +399,7 @@ class SABEasyLogicBusiness {
         bResult = true;
       } else {
         //元神长生帝旺于日辰，三也。
-        String stringEarthBase = symbolEarth(stringSymbolBase);
+        String stringEarthBase = _symbolEarth(stringSymbolBase);
         String stringTewleveDeity =
             branchBusiness().earthTwelveDeity(stringEarthBase, dayEarth());
         if ("长生" == stringTewleveDeity || "帝旺" == stringTewleveDeity)
@@ -849,8 +849,8 @@ class SABEasyLogicBusiness {
     bool bResult = false;
 
     if ("" != stringSymbol && "" != otherSymbol) {
-      String earth = symbolEarth(stringSymbol);
-      String earthOther = symbolEarth(otherSymbol);
+      String earth = _symbolEarth(stringSymbol);
+      String earthOther = _symbolEarth(otherSymbol);
       bResult = isEarthBorn(earthOther, earth);
     }
     //else cont.
@@ -968,8 +968,8 @@ class SABEasyLogicBusiness {
     bool bResult = false;
 
     if ("" != stringSymbol && "" != otherSymbol) {
-      String stringEarth = symbolEarth(stringSymbol);
-      String stringEarthOther = symbolEarth(otherSymbol);
+      String stringEarth = _symbolEarth(stringSymbol);
+      String stringEarthOther = _symbolEarth(otherSymbol);
       bResult = isEarthRestricts(stringEarthOther, stringEarth);
     }
     //else cont.
@@ -1018,7 +1018,7 @@ class SABEasyLogicBusiness {
   ///`四时旺相章第又十五`//////////////////////////////////////////////////////
   String _symbolSeason(String stringSymbol) {
     return branchBusiness()
-        .seasonDescription(monthEarth(), symbolEarth(stringSymbol));
+        .seasonDescription(monthEarth(), _symbolEarth(stringSymbol));
   }
 
   bool isSymbolSeasonStrong(String stringSymbol) {
@@ -1050,7 +1050,7 @@ class SABEasyLogicBusiness {
   }
 
   bool _isSymbolOnMonth(String stringSymbol) {
-    return monthEarth() == symbolEarth(stringSymbol);
+    return monthEarth() == _symbolEarth(stringSymbol);
   }
 
   bool isEarthPairMonth(String basicEarth, String monthEarth) {
@@ -1070,7 +1070,7 @@ class SABEasyLogicBusiness {
   bool isSymbolMonthBorn(String stringSymbol) {
     String strMonth = monthEarth();
 
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
 
     bool bBorn = isEarthBorn(strMonth, strEarth);
 
@@ -1080,7 +1080,7 @@ class SABEasyLogicBusiness {
   bool isSymbolMonthRestrict(String stringSymbol) {
     String strMonth = monthEarth();
 
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
     bool bRestricted = isEarthRestricts(strMonth, strEarth);
 
     return bRestricted;
@@ -1089,7 +1089,7 @@ class SABEasyLogicBusiness {
   bool isSymbolMonthConflict(String stringSymbol) {
     String strMonth = monthEarth();
 
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
 
     bool bConflicted = isEarthConflict(strMonth, strEarth);
 
@@ -1148,7 +1148,7 @@ class SABEasyLogicBusiness {
     bool bResult = false;
     String stringSymbol = symbolAtRow(intRow, easyType);
 
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
     String strMonth = monthEarth();
     bool bRestricted = isEarthRestricts(strMonth, strEarth);
     if (bRestricted) {
@@ -1199,7 +1199,7 @@ class SABEasyLogicBusiness {
   bool isSymbolDayBorn(String stringSymbol) {
     String strDayEarth = dayEarth();
 
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
 
     bool bBorn = isEarthBorn(strDayEarth, strEarth);
 
@@ -1209,7 +1209,7 @@ class SABEasyLogicBusiness {
   bool isSymbolDayRestrict(String stringSymbol) {
     String strDayEarth = dayEarth();
 
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
     bool bRestricted = isEarthRestricts(strDayEarth, strEarth);
 
     return bRestricted;
@@ -1218,7 +1218,7 @@ class SABEasyLogicBusiness {
   bool isSymbolDayConflict(String stringSymbol) {
     String strDayEarth = dayEarth();
 
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
 
     bool bConflicted = isEarthConflict(strDayEarth, strEarth);
 
@@ -1235,7 +1235,7 @@ class SABEasyLogicBusiness {
       if (!isSymbolHealthStrong(intRow, easyType)) {
         String strDay = dayEarth();
         if (!isSymbolMovement(stringSymbol)) {
-          result = isEarthConflict(strDay, symbolEarth(stringSymbol));
+          result = isEarthConflict(strDay, _symbolEarth(stringSymbol));
         }
         //else cont.
       }
@@ -1252,7 +1252,7 @@ class SABEasyLogicBusiness {
 
     String strDay = dayEarth();
     bool bConflict =
-        branchBusiness().isEarthConflict(strDay, symbolEarth(stringSymbol));
+        branchBusiness().isEarthConflict(strDay, _symbolEarth(stringSymbol));
     if (bConflict) {
       nResult = DayConflictEnum.Conflict_YES;
 
@@ -1274,7 +1274,7 @@ class SABEasyLogicBusiness {
   }
 
   bool _isSymbolOnDay(String stringSymbol) {
-    return isEarthOnDay(symbolEarth(stringSymbol), dayEarth());
+    return isEarthOnDay(_symbolEarth(stringSymbol), dayEarth());
   }
 
   ///`六合章第十九`//////////////////////////////////////////////////////
@@ -1288,10 +1288,10 @@ class SABEasyLogicBusiness {
     List dataArray = easyDictionary["data"];
 
     for (int index = 0; index < dataArray.length; index++) {
-      String basicEarth = symbolEarth(dataArray[index]);
+      String basicEarth = _symbolEarth(dataArray[index]);
       for (int indexOther = 0; indexOther < dataArray.length; indexOther++) {
         if (index != indexOther) {
-          String otherEarth = symbolEarth(dataArray[indexOther]);
+          String otherEarth = _symbolEarth(dataArray[indexOther]);
           String strPair =
               branchBusiness().sixPairDescription(basicEarth, otherEarth);
           if ("" != strPair) {
@@ -1353,13 +1353,13 @@ class SABEasyLogicBusiness {
 
   ///`--爻的六合分析`//////////////////////////////////////////////////////
   bool isSymbolDayPair(String stringSymbol) {
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
 
     return isEarthPairDay(strEarth, dayEarth());
   }
 
   bool isSymbolMonthPair(String stringSymbol) {
-    String strEarth = symbolEarth(stringSymbol);
+    String strEarth = _symbolEarth(stringSymbol);
 
     bool bResult = isEarthPairMonth(strEarth, monthEarth());
 
@@ -1447,10 +1447,10 @@ class SABEasyLogicBusiness {
 
     List dataArray = easyDictionary["data"];
     for (int index = 0; index < dataArray.length; index++) {
-      String basicEarth = symbolEarth(dataArray[index]);
+      String basicEarth = _symbolEarth(dataArray[index]);
       for (int indexOther = 0; indexOther < dataArray.length; indexOther++) {
         if (index != indexOther) {
-          String otherEarth = symbolEarth(dataArray[indexOther]);
+          String otherEarth = _symbolEarth(dataArray[indexOther]);
           if (isEarthConflict(basicEarth, otherEarth)) {
             conflictArray.add(index);
             break;
@@ -1712,7 +1712,7 @@ class SABEasyLogicBusiness {
   EmptyEnum symbolBasicEmptyState(String stringSymbol) {
     EmptyEnum nResult = EmptyEnum.Empty_False;
     if ("" != stringSymbol) {
-      String earth = symbolEarth(stringSymbol);
+      String earth = _symbolEarth(stringSymbol);
       if (-1 != emptyEarth().indexOf(earth)) {
         String strDay = dayEarth();
         if (isEarthConflict(strDay, earth)) {
@@ -1735,7 +1735,7 @@ class SABEasyLogicBusiness {
     String stringSymbol = symbolAtRow(intRow, easyType);
 
     if ("" != stringSymbol) {
-      String earth = symbolEarth(stringSymbol);
+      String earth = _symbolEarth(stringSymbol);
       if (-1 != emptyEarth().indexOf(earth)) {
         String strDay = dayEarth();
         if (isEarthConflict(strDay, earth)) {
@@ -1921,7 +1921,7 @@ class SABEasyLogicBusiness {
   MonthBrokenEnum symbolConflictStateOnMonth(
       String stringSymbol, String monthEarth) {
     MonthBrokenEnum nResult = MonthBrokenEnum.Broken_NO;
-    String basicEarth = symbolEarth(stringSymbol);
+    String basicEarth = _symbolEarth(stringSymbol);
     bool conflictMonth = isEarthConflict(basicEarth, monthEarth);
     if (conflictMonth) {
       nResult = MonthBrokenEnum.Broken_YES;
@@ -2003,8 +2003,8 @@ class SABEasyLogicBusiness {
             bResult = true;
           } else {
             //伏神墓绝于日月飞爻者，四也。
-            String basicEarth = symbolEarth(basicSymbol);
-            String fromEarth = symbolEarth(fromSymbol);
+            String basicEarth = _symbolEarth(basicSymbol);
+            String fromEarth = _symbolEarth(fromSymbol);
 
             String monthTwelve =
                 branchBusiness().earthTwelveDeity(basicEarth, monthEarth());
@@ -2130,7 +2130,7 @@ class SABEasyLogicBusiness {
       String stringSymbolItem = symbolAtFromRow(numItem);
       if (isEffectableRow(numItem, EasyTypeEnum.from)) {
         if (isEarthConflict(
-            symbolEarth(stringSymbol), symbolEarth(stringSymbolItem))) {
+            _symbolEarth(stringSymbol), _symbolEarth(stringSymbolItem))) {
           bResult = true;
           break;
         }
@@ -2474,7 +2474,7 @@ class SABEasyLogicBusiness {
   }
 
   ///`EasyBusiness 桥函数`//////////////////////////////////////////////////////
-  String symbolEarth(String stringSymbol) {
+  String _symbolEarth(String stringSymbol) {
     return easyBusiness().symbolEarth(stringSymbol);
   }
 
