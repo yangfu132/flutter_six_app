@@ -9,14 +9,14 @@ class SABEasyLogicModel {
 
   List _listSymbols;
 
-  bool isStaticEasy;
+  bool bStaticEasy;
 
-  bool _isFromEasySixPair;
-  bool _isToEasySixPair;
-  bool _isHideEasySixPair;
-  bool _isFromEasySixConflict;
-  bool _isToEasySixConflict;
-  bool _isHideEasySixConflict;
+  bool _bFromEasySixPair;
+  bool _bToEasySixPair;
+  bool _bHideEasySixPair;
+  bool _bFromEasySixConflict;
+  bool _bToEasySixConflict;
+  bool _bHideEasySixConflict;
 
   List arrayRightMove;
   List arrayFromSeasonStrong;
@@ -41,11 +41,11 @@ class SABEasyLogicModel {
   bool isEasySixPair(EasyTypeEnum enumEasyType) {
     bool bResult = false;
     if (enumEasyType == EasyTypeEnum.from) {
-      bResult = _isFromEasySixPair;
+      bResult = _bFromEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.to) {
-      bResult = _isToEasySixPair;
+      bResult = _bToEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.hide) {
-      bResult = _isHideEasySixPair;
+      bResult = _bHideEasySixPair;
     } else {
       colog("error!");
     }
@@ -54,11 +54,11 @@ class SABEasyLogicModel {
 
   void setIsEasySixPair(EasyTypeEnum enumEasyType, bool bEasySixPair) {
     if (enumEasyType == EasyTypeEnum.from) {
-      _isFromEasySixPair = bEasySixPair;
+      _bFromEasySixPair = bEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.to) {
-      _isToEasySixPair = bEasySixPair;
+      _bToEasySixPair = bEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.hide) {
-      _isHideEasySixPair = bEasySixPair;
+      _bHideEasySixPair = bEasySixPair;
     } else {
       colog("error!");
     }
@@ -67,11 +67,11 @@ class SABEasyLogicModel {
   bool isEasySixConflict(EasyTypeEnum enumEasyType) {
     bool bResult = false;
     if (enumEasyType == EasyTypeEnum.from) {
-      bResult = _isFromEasySixConflict;
+      bResult = _bFromEasySixConflict;
     } else if (enumEasyType == EasyTypeEnum.to) {
-      bResult = _isToEasySixConflict;
+      bResult = _bToEasySixConflict;
     } else if (enumEasyType == EasyTypeEnum.hide) {
-      bResult = _isHideEasySixConflict;
+      bResult = _bHideEasySixConflict;
     } else {
       colog("error!");
     }
@@ -80,11 +80,11 @@ class SABEasyLogicModel {
 
   void setIsEasySixConflict(EasyTypeEnum enumEasyType, bool bEasySixConflict) {
     if (enumEasyType == EasyTypeEnum.from) {
-      _isFromEasySixConflict = bEasySixConflict;
+      _bFromEasySixConflict = bEasySixConflict;
     } else if (enumEasyType == EasyTypeEnum.to) {
-      _isToEasySixConflict = bEasySixConflict;
+      _bToEasySixConflict = bEasySixConflict;
     } else if (enumEasyType == EasyTypeEnum.hide) {
-      _isHideEasySixConflict = bEasySixConflict;
+      _bHideEasySixConflict = bEasySixConflict;
     } else {
       colog("error!");
     }
@@ -100,32 +100,32 @@ class SABEasyLogicModel {
 
   /// `Get & Set`//////////////////////////////////////////////////////////////
 
-  void setIsOnMonth(int intRow, EasyTypeEnum easyTypeEnum, bool isOnMonth) {
-    symbolAtRow(intRow).setIsOnMonth(easyTypeEnum, isOnMonth);
+  void setIsOnMonth(int intRow, EasyTypeEnum easyTypeEnum, bool bOnMonth) {
+    symbolAtRow(intRow).setIsOnMonth(easyTypeEnum, bOnMonth);
   }
 
   bool isOnMonth(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsOnMonth(easyTypeEnum);
   }
 
-  void setIsOnDay(int intRow, EasyTypeEnum easyTypeEnum, bool isOnMonth) {
-    symbolAtRow(intRow).setIsOnDay(easyTypeEnum, isOnMonth);
+  void setIsOnDay(int intRow, EasyTypeEnum easyTypeEnum, bool bOnMonth) {
+    symbolAtRow(intRow).setIsOnDay(easyTypeEnum, bOnMonth);
   }
 
   bool isOnDay(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsOnDay(easyTypeEnum);
   }
 
-  void setIsMonthPair(int intRow, EasyTypeEnum easyTypeEnum, bool isMonthPair) {
-    symbolAtRow(intRow).setIsMonthPair(easyTypeEnum, isMonthPair);
+  void setIsMonthPair(int intRow, EasyTypeEnum easyTypeEnum, bool bMonthPair) {
+    symbolAtRow(intRow).setIsMonthPair(easyTypeEnum, bMonthPair);
   }
 
   bool isMonthPair(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsMonthPair(easyTypeEnum);
   }
 
-  void setIsDayPair(int intRow, EasyTypeEnum easyTypeEnum, bool isDayPair) {
-    symbolAtRow(intRow).setIsDayPair(easyTypeEnum, isDayPair);
+  void setIsDayPair(int intRow, EasyTypeEnum easyTypeEnum, bool bDayPair) {
+    symbolAtRow(intRow).setIsDayPair(easyTypeEnum, bDayPair);
   }
 
   bool isDayPair(int intRow, EasyTypeEnum easyTypeEnum) {

@@ -2606,7 +2606,7 @@ class SABEasyLogicBusiness {
     if (null == _outLogicModel) {
       _outLogicModel = SABEasyLogicModel(outEasyWordsModel());
 
-      _outLogicModel.isStaticEasy = isStaticEasy();
+      _outLogicModel.bStaticEasy = isStaticEasy();
 
       _outLogicModel.setIsEasySixPair(
           EasyTypeEnum.from, _isEasySixPair(fromEasyDictionary()));

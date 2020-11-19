@@ -30,13 +30,13 @@ class SABSymbolLogicModel {
     return bResultIsMonthPair;
   }
 
-  void setIsMonthPair(EasyTypeEnum easyTypeEnum, bool isMonthPair) {
+  void setIsMonthPair(EasyTypeEnum easyTypeEnum, bool bMonthPair) {
     if (easyTypeEnum == EasyTypeEnum.from) {
-      mapSymbolFrom['isMonthPair'] = isMonthPair;
+      mapSymbolFrom['isMonthPair'] = bMonthPair;
     } else if (easyTypeEnum == EasyTypeEnum.to) {
-      mapSymbolTo['isMonthPair'] = isMonthPair;
+      mapSymbolTo['isMonthPair'] = bMonthPair;
     } else if (easyTypeEnum == EasyTypeEnum.hide) {
-      mapSymbolHide['isMonthPair'] = isMonthPair;
+      mapSymbolHide['isMonthPair'] = bMonthPair;
     } else
       colog('easyTypeEnum:$easyTypeEnum');
   }
@@ -55,13 +55,13 @@ class SABSymbolLogicModel {
     return bResultIsOnMonth;
   }
 
-  void setIsOnMonth(EasyTypeEnum easyTypeEnum, bool isOnMonth) {
+  void setIsOnMonth(EasyTypeEnum easyTypeEnum, bool bOnMonth) {
     if (easyTypeEnum == EasyTypeEnum.from) {
-      mapSymbolFrom['isOnMonth'] = isOnMonth;
+      mapSymbolFrom['isOnMonth'] = bOnMonth;
     } else if (easyTypeEnum == EasyTypeEnum.to) {
-      mapSymbolTo['isOnMonth'] = isOnMonth;
+      mapSymbolTo['isOnMonth'] = bOnMonth;
     } else if (easyTypeEnum == EasyTypeEnum.hide) {
-      mapSymbolHide['isOnMonth'] = isOnMonth;
+      mapSymbolHide['isOnMonth'] = bOnMonth;
     } else
       colog('easyTypeEnum:$easyTypeEnum');
   }
@@ -80,13 +80,13 @@ class SABSymbolLogicModel {
     return bResultIsDayPair;
   }
 
-  void setIsDayPair(EasyTypeEnum easyTypeEnum, bool isDayPair) {
+  void setIsDayPair(EasyTypeEnum easyTypeEnum, bool bDayPair) {
     if (easyTypeEnum == EasyTypeEnum.from) {
-      mapSymbolFrom['isDayPair'] = isDayPair;
+      mapSymbolFrom['isDayPair'] = bDayPair;
     } else if (easyTypeEnum == EasyTypeEnum.to) {
-      mapSymbolTo['isDayPair'] = isDayPair;
+      mapSymbolTo['isDayPair'] = bDayPair;
     } else if (easyTypeEnum == EasyTypeEnum.hide) {
-      mapSymbolHide['isDayPair'] = isDayPair;
+      mapSymbolHide['isDayPair'] = bDayPair;
     } else
       colog('easyTypeEnum:$easyTypeEnum');
   }
@@ -105,13 +105,13 @@ class SABSymbolLogicModel {
     return bResultIsOnDay;
   }
 
-  void setIsOnDay(EasyTypeEnum easyTypeEnum, bool isOnDay) {
+  void setIsOnDay(EasyTypeEnum easyTypeEnum, bool bOnDay) {
     if (easyTypeEnum == EasyTypeEnum.from) {
-      mapSymbolFrom['isOnDay'] = isOnDay;
+      mapSymbolFrom['isOnDay'] = bOnDay;
     } else if (easyTypeEnum == EasyTypeEnum.to) {
-      mapSymbolTo['isOnDay'] = isOnDay;
+      mapSymbolTo['isOnDay'] = bOnDay;
     } else if (easyTypeEnum == EasyTypeEnum.hide) {
-      mapSymbolHide['isOnDay'] = isOnDay;
+      mapSymbolHide['isOnDay'] = bOnDay;
     } else
       colog('easyTypeEnum:$easyTypeEnum');
   }
