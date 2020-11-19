@@ -1,3 +1,5 @@
+import 'package:flutter_six_app/src/3L_Business/Logic/SABEasyLogicModel.dart';
+
 ///输出Easy的结果文案
 
 import '../../1L_Context/SACGlobal.dart';
@@ -274,16 +276,14 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     //今日虽破，实破之日则不破
     int usefulIndex = _inputLogicBusiness.usefulDeityRow();
 
-    String usefulSymbol = "";
+    String usefulEarth = "";
 
     if (0 <= usefulIndex && usefulIndex < 6)
-      usefulSymbol =
-          logicBusiness().symbolAtRow(usefulIndex, EasyTypeEnum.from);
+      usefulEarth = logicModel().getSmbolEarth(usefulIndex, EasyTypeEnum.from);
     else
-      usefulSymbol = logicBusiness()
-          .symbolAtRow(usefulIndex - ROW_FLY_BEGIN, EasyTypeEnum.hide);
+      usefulEarth = logicModel()
+          .getSmbolEarth(usefulIndex - ROW_FLY_BEGIN, EasyTypeEnum.hide);
 
-    String usefulEarth = logicBusiness().symbolEarth(usefulSymbol);
     String onResult = "用神月破：实破之 $usefulEarth (日、月、年)则不破";
     result = SACContext.appendToString(result, onResult);
 
@@ -700,6 +700,20 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     return strResult;
   }
 
+  ///`SABEasyHealthDelegate`
+
+  double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
+    return healthBusiness().symbolHealthAtRow(nRow, easyType);
+  }
+
+  double healthCriticalValue() {
+    return healthBusiness().healthCriticalValue();
+  }
+
+  List rowArrayAtOutRightLevel(OutRightEnum level) {
+    return healthBusiness().rowArrayAtOutRightLevel(level);
+  }
+
   ///`加载函数`
 
   SABEasyAnalysisBusiness analysisBusiness() {
@@ -723,17 +737,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     return _healthBusiness;
   }
 
-  ///`SABEasyHealthDelegate`
-
-  double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
-    return healthBusiness().symbolHealthAtRow(nRow, easyType);
-  }
-
-  double healthCriticalValue() {
-    return healthBusiness().healthCriticalValue();
-  }
-
-  List rowArrayAtOutRightLevel(OutRightEnum level) {
-    return healthBusiness().rowArrayAtOutRightLevel(level);
+  SABEasyLogicModel logicModel() {
+    return logicBusiness().logicModel();
   }
 }

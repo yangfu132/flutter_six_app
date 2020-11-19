@@ -26,4 +26,9 @@ class SABEasyLogicModel {
     }
     return bResult;
   }
+
+  /// `桥函数`/////////////////////////////////////////////////////////////////
+  String getSmbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {
+    return inputWordsModel.getSmbolEarth(intRow, easyTypeEnum);
+  }
 }
