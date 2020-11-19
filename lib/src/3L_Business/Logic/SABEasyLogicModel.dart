@@ -11,9 +11,12 @@ class SABEasyLogicModel {
 
   bool isStaticEasy;
 
-  bool isFromEasySixPair;
-  bool isToEasySixPair;
-  bool isHideEasySixPair;
+  bool _isFromEasySixPair;
+  bool _isToEasySixPair;
+  bool _isHideEasySixPair;
+  bool _isFromEasySixConflict;
+  bool _isToEasySixConflict;
+  bool _isHideEasySixConflict;
 
   List arrayRightMove;
   List arrayFromSeasonStrong;
@@ -38,24 +41,50 @@ class SABEasyLogicModel {
   bool isEasySixPair(EasyTypeEnum enumEasyType) {
     bool bResult = false;
     if (enumEasyType == EasyTypeEnum.from) {
-      bResult = isFromEasySixPair;
+      bResult = _isFromEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.to) {
-      bResult = isToEasySixPair;
+      bResult = _isToEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.hide) {
-      bResult = isHideEasySixPair;
+      bResult = _isHideEasySixPair;
     } else {
       colog("error!");
     }
     return bResult;
   }
 
-  void setIsEasySixPair(EasyTypeEnum enumEasyType, bool isEasySixPair) {
+  void setIsEasySixPair(EasyTypeEnum enumEasyType, bool bEasySixPair) {
     if (enumEasyType == EasyTypeEnum.from) {
-      isFromEasySixPair = isEasySixPair;
+      _isFromEasySixPair = bEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.to) {
-      isToEasySixPair = isEasySixPair;
+      _isToEasySixPair = bEasySixPair;
     } else if (enumEasyType == EasyTypeEnum.hide) {
-      isHideEasySixPair = isEasySixPair;
+      _isHideEasySixPair = bEasySixPair;
+    } else {
+      colog("error!");
+    }
+  }
+
+  bool isEasySixConflict(EasyTypeEnum enumEasyType) {
+    bool bResult = false;
+    if (enumEasyType == EasyTypeEnum.from) {
+      bResult = _isFromEasySixConflict;
+    } else if (enumEasyType == EasyTypeEnum.to) {
+      bResult = _isToEasySixConflict;
+    } else if (enumEasyType == EasyTypeEnum.hide) {
+      bResult = _isHideEasySixConflict;
+    } else {
+      colog("error!");
+    }
+    return bResult;
+  }
+
+  void setIsEasySixConflict(EasyTypeEnum enumEasyType, bool bEasySixConflict) {
+    if (enumEasyType == EasyTypeEnum.from) {
+      _isFromEasySixConflict = bEasySixConflict;
+    } else if (enumEasyType == EasyTypeEnum.to) {
+      _isToEasySixConflict = bEasySixConflict;
+    } else if (enumEasyType == EasyTypeEnum.hide) {
+      _isHideEasySixConflict = bEasySixConflict;
     } else {
       colog("error!");
     }

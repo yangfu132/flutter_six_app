@@ -188,13 +188,11 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
       bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
-    bool bFromConflict = _inputLogicBusiness
-        .isEasySixConflict(logicBusiness().fromEasyDictionary());
+    bool bFromConflict = logicModel().isEasySixConflict(EasyTypeEnum.from);
 
     bool bToConflict = false;
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToConflict = _inputLogicBusiness
-          .isEasySixConflict(logicBusiness().toEasyDictionary());
+      bToConflict = logicModel().isEasySixConflict(EasyTypeEnum.to);
     //else cont. 是静卦
 
     if (bFromSixPair && !bToConflict && !bToSixPair) {
@@ -423,13 +421,11 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
       bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
-    bool bFromConflict = _inputLogicBusiness
-        .isEasySixConflict(logicBusiness().fromEasyDictionary());
+    bool bFromConflict = logicModel().isEasySixConflict(EasyTypeEnum.from);
 
     bool bToConflict = false;
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToConflict = _inputLogicBusiness
-          .isEasySixConflict(logicBusiness().toEasyDictionary());
+      bToConflict = logicModel().isEasySixConflict(EasyTypeEnum.to);
     //else cont. 是静卦
 
     if (bFromSixPair && !bToConflict && !bToSixPair) {
@@ -471,13 +467,11 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
       bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
-    bool bFromConflict = _inputLogicBusiness
-        .isEasySixConflict(logicBusiness().fromEasyDictionary());
+    bool bFromConflict = logicModel().isEasySixConflict(EasyTypeEnum.from);
 
     bool bToConflict = false;
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToConflict = _inputLogicBusiness
-          .isEasySixConflict(logicBusiness().toEasyDictionary());
+      bToConflict = logicModel().isEasySixConflict(EasyTypeEnum.to);
     //else cont. 是静卦
 
     if (bFromConflict && !bToConflict && !bToSixPair) {
@@ -520,13 +514,11 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
       bToSixPair = logicModel().isEasySixPair(EasyTypeEnum.to);
     //else cont. 是静卦
 
-    bool bFromConflict = _inputLogicBusiness
-        .isEasySixConflict(logicBusiness().fromEasyDictionary());
+    bool bFromConflict = logicModel().isEasySixConflict(EasyTypeEnum.from);
 
     bool bToConflict = false;
     if (logicBusiness().fromEasyKey() != logicBusiness().toEasyKey())
-      bToConflict = _inputLogicBusiness
-          .isEasySixConflict(logicBusiness().toEasyDictionary());
+      bToConflict = logicModel().isEasySixConflict(EasyTypeEnum.to);
     //else cont. 是静卦
 
     if (bFromSixPair && !bToConflict && !bToSixPair) {

@@ -1440,7 +1440,7 @@ class SABEasyLogicBusiness {
   }
 
   ///`六冲章第二十`//////////////////////////////////////////////////////
-  bool isEasySixConflict(Map easyDictionary) {
+  bool _isEasySixConflict(Map easyDictionary) {
     bool bResult = false;
 
     List conflictArray = [];
@@ -2607,6 +2607,7 @@ class SABEasyLogicBusiness {
       _outLogicModel = SABEasyLogicModel(outEasyWordsModel());
 
       _outLogicModel.isStaticEasy = isStaticEasy();
+
       _outLogicModel.setIsEasySixPair(
           EasyTypeEnum.from, _isEasySixPair(fromEasyDictionary()));
 
@@ -2615,6 +2616,15 @@ class SABEasyLogicBusiness {
 
       _outLogicModel.setIsEasySixPair(
           EasyTypeEnum.hide, _isEasySixPair(easyBusiness().placeFirstEasy()));
+
+      _outLogicModel.setIsEasySixConflict(
+          EasyTypeEnum.from, _isEasySixConflict(fromEasyDictionary()));
+
+      _outLogicModel.setIsEasySixConflict(
+          EasyTypeEnum.to, _isEasySixConflict(toEasyDictionary()));
+
+      _outLogicModel.setIsEasySixConflict(EasyTypeEnum.hide,
+          _isEasySixConflict(easyBusiness().placeFirstEasy()));
 
       List arrayMovement = [];
       List arrayFromSeasonStrong = [];
