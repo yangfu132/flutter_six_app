@@ -529,7 +529,7 @@ class SABEasyAnalysisBusiness {
   String changePairDescriptionAtRow(int nRow) {
     String result = "";
     String fromSymbol = _inputLogicBusiness.symbolAtFromRow(nRow);
-    String toSymbol = _inputLogicBusiness.symbolAtChangeRow(nRow);
+    String toSymbol = _inputLogicBusiness.symbolAtToRow(nRow);
     if ("" != fromSymbol && "" != toSymbol)
       result = symbolPairedDescription(fromSymbol, toSymbol);
     //else cont.

@@ -533,7 +533,7 @@ class SABEasyLogicBusiness {
               //化破
               bool bToDayBroken = false;
               bool bToMonthBroken = false;
-              String toSymbol = symbolAtChangeRow(intRow);
+              String toSymbol = symbolAtToRow(intRow);
               if (toSymbol != "") {
                 bToDayBroken = isSymbolDayBrokenAtRow(intRow, enumEasyType);
                 bToMonthBroken = (MonthBrokenEnum.Broken_YES ==
@@ -612,7 +612,7 @@ class SABEasyLogicBusiness {
               //化破
               bool bToDayBroken = false;
               bool bToMonthBroken = false;
-              String toSymbol = symbolAtChangeRow(intRow);
+              String toSymbol = symbolAtToRow(intRow);
               if ("" != toSymbol) {
                 bToDayBroken = isSymbolDayBrokenAtRow(intRow, easyType);
                 bToMonthBroken = (MonthBrokenEnum.Broken_YES ==
@@ -2545,8 +2545,9 @@ class SABEasyLogicBusiness {
     return easyBusiness().symbolAtFromRow(intIndex);
   }
 
-  String symbolAtChangeRow(int intIndex) {
-    return easyBusiness().symbolAtChangeRow(intIndex);
+  ///原名symbolAtChangeRow,更改为symbolAtToRow
+  String symbolAtToRow(int intIndex) {
+    return easyBusiness().symbolAtToRow(intIndex);
   }
 
   String symbolAtMergeRow(int intRow) {
@@ -2625,7 +2626,7 @@ class SABEasyLogicBusiness {
           arrayFromSeasonStrong.add(intRow);
         }
 
-        if (isSymbolSeasonStrong(symbolAtChangeRow(intRow))) {
+        if (isSymbolSeasonStrong(symbolAtToRow(intRow))) {
           arrayToSeasonStrong.add(intRow);
         }
 

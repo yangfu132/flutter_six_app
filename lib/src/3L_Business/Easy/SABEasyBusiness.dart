@@ -130,7 +130,7 @@ class SABEasyBusiness {
     if (enumEasyType == EasyTypeEnum.from) {
       strSymbol = symbolAtFromRow(intRow);
     } else if (enumEasyType == EasyTypeEnum.to) {
-      strSymbol = symbolAtChangeRow(intRow);
+      strSymbol = symbolAtToRow(intRow);
     } else if (enumEasyType == EasyTypeEnum.hide) {
       strSymbol = symbolAtHideRow(intRow);
     } else
@@ -176,7 +176,7 @@ class SABEasyBusiness {
     return result;
   }
 
-  String symbolAtChangeRow(int intIndex) {
+  String symbolAtToRow(int intIndex) {
     String stringResult;
     if (0 <= intIndex && intIndex <= 5) {
       if (_inputEasyModel.isMovementAtRow(intIndex)) {
@@ -246,7 +246,7 @@ class SABEasyBusiness {
     String stringResult = "";
     if (0 <= intIndex && intIndex < 6) {
       if (_inputEasyModel.isMovementAtRow(intIndex)) {
-        String stringSymbol = symbolAtChangeRow(intIndex);
+        String stringSymbol = symbolAtToRow(intIndex);
         stringResult = symbolEarth(stringSymbol);
       }
       //else cont.
@@ -431,7 +431,7 @@ class SABEasyBusiness {
         _outEasyWordsModel.setFromEarth(intRow, symbolEarth(symbolFrom));
         _outEasyWordsModel.setFromElement(intRow, symbolElement(symbolFrom));
 
-        _outEasyWordsModel.setToSymbol(intRow, symbolAtChangeRow(intRow));
+        _outEasyWordsModel.setToSymbol(intRow, symbolAtToRow(intRow));
         _outEasyWordsModel.setToParent(intRow, symbolParent(symbolFrom));
         _outEasyWordsModel.setToEarth(intRow, symbolEarth(symbolFrom));
         _outEasyWordsModel.setToElement(intRow, symbolElement(symbolFrom));
