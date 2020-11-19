@@ -67,7 +67,7 @@ class SABEasyLogicBusiness {
   bool isSymbolChangeGuiAtRow(int intRow) {
     bool bResult = false;
     String fromEarth = earthAtFromRow(intRow);
-    String strTo = earthAtFromRow(intRow);
+    String strTo = earthAtToRow(intRow);
     if (null != strTo) {
       String fromElement = earthElement(fromEarth);
       String toElement = earthElement(strTo);
@@ -132,20 +132,15 @@ class SABEasyLogicBusiness {
   }
 
   String usefulEarth() {
-    String stringSymbol = "";
-
+    String stringEarth = "";
     int usefulIndex = usefulDeityRow();
-
     if (0 <= usefulIndex && usefulIndex < 6) {
-      stringSymbol = symbolAtFromRow(usefulIndex);
+      stringEarth = earthAtFromRow(usefulIndex);
     } else {
-      usefulIndex = usefulIndex - ROW_FLY_BEGIN;
-      stringSymbol = symbolAtHideRow(usefulIndex);
+      stringEarth = earthAtHideRow(usefulIndex - ROW_FLY_BEGIN);
     } //endi
 
-    String earth = symbolEarth(stringSymbol);
-
-    return earth;
+    return stringEarth;
   }
 
   int usefulDeityRow() {
@@ -520,7 +515,7 @@ class SABEasyLogicBusiness {
               //忌神动化绝化克化破化散，六也。
               bool bRestrict = false;
               String fromEarth = earthAtFromRow(intRow);
-              String toEarth = earthAtFromRow(intRow);
+              String toEarth = earthAtToRow(intRow);
 
               //化克
               if ("" != toEarth)
@@ -601,7 +596,7 @@ class SABEasyLogicBusiness {
               //元神休囚动而化绝化克化破化散，六也。
               bool bRestrict = false;
               String fromEarth = earthAtFromRow(intRow);
-              String toEarth = earthAtFromRow(intRow);
+              String toEarth = earthAtToRow(intRow);
               if ("" != toEarth)
                 bRestrict = isEarthRestricts(toEarth, fromEarth);
               //else cont.
@@ -639,42 +634,40 @@ class SABEasyLogicBusiness {
     bool bResult = false;
     //个人猜测应该是日月动三者合力的结果
     //墓与生相对，看此爻在三者上差额
-    String stringSymbol = "";
-    if (easyType == EasyTypeEnum.from)
-      stringSymbol = symbolAtFromRow(intRow);
-    else
+    if (easyType == EasyTypeEnum.from) {
+      String fromEarth = earthAtFromRow(intRow);
+      String toEarth = earthAtToRow(intRow);
+
+      String monthTwelve =
+          branchBusiness().earthTwelveDeity(fromEarth, monthEarth());
+      String dayTwelve =
+          branchBusiness().earthTwelveDeity(fromEarth, dayEarth());
+
+      String toTwelve = earthTwelveDeity(fromEarth, toEarth);
+
+      int nValue = 0;
+
+      if ("长生" == monthTwelve) nValue++;
+      //else cont.
+
+      if ("长生" == dayTwelve) nValue++;
+      //else cont.
+
+      if ("长生" == toTwelve) nValue++;
+      //else cont.
+
+      if ("墓" == monthTwelve) nValue--;
+      //else cont.
+
+      if ("墓" == dayTwelve) nValue--;
+      //else cont.
+
+      if ("墓" == toTwelve) nValue--;
+      //else cont.
+
+      bResult = nValue < 0;
+    } else
       colog("error!");
-
-    String fromEarth = symbolEarth(stringSymbol);
-    String toEarth = earthAtFromRow(intRow);
-
-    String monthTwelve =
-        branchBusiness().earthTwelveDeity(fromEarth, monthEarth());
-    String dayTwelve = branchBusiness().earthTwelveDeity(fromEarth, dayEarth());
-
-    String toTwelve = earthTwelveDeity(fromEarth, toEarth);
-
-    int nValue = 0;
-
-    if ("长生" == monthTwelve) nValue++;
-    //else cont.
-
-    if ("长生" == dayTwelve) nValue++;
-    //else cont.
-
-    if ("长生" == toTwelve) nValue++;
-    //else cont.
-
-    if ("墓" == monthTwelve) nValue--;
-    //else cont.
-
-    if ("墓" == dayTwelve) nValue--;
-    //else cont.
-
-    if ("墓" == toTwelve) nValue--;
-    //else cont.
-
-    bResult = nValue < 0;
 
     return bResult;
   }
@@ -738,42 +731,40 @@ class SABEasyLogicBusiness {
     bool bResult = false;
     //个人猜测应该是日月动三者合力的结果
     //绝与帝旺相对，看此爻在三者上的绝与帝旺的差额：如果绝大于帝旺的个数
-    String stringSymbol = "";
-    if (easyType == EasyTypeEnum.from)
-      stringSymbol = symbolAtFromRow(intRow);
-    else
+    if (easyType == EasyTypeEnum.from) {
+      String fromEarth = earthAtFromRow(intRow);
+      String toEarth = earthAtToRow(intRow);
+
+      String monthTwelve =
+          branchBusiness().earthTwelveDeity(fromEarth, monthEarth());
+      String dayTwelve =
+          branchBusiness().earthTwelveDeity(fromEarth, dayEarth());
+
+      String toTwelve = earthTwelveDeity(fromEarth, toEarth);
+
+      int nValue = 0;
+
+      if ("帝旺" == monthTwelve) nValue++;
+      //else cont.
+
+      if ("帝旺" == dayTwelve) nValue++;
+      //else cont.
+
+      if ("帝旺" == toTwelve) nValue++;
+      //else cont.
+
+      if ("绝" == monthTwelve) nValue--;
+      //else cont.
+
+      if ("绝" == dayTwelve) nValue--;
+      //else cont.
+
+      if ("绝" == toTwelve) nValue--;
+      //else cont.
+
+      bResult = nValue < 0;
+    } else
       colog("error!");
-
-    String fromEarth = symbolEarth(stringSymbol);
-    String toEarth = earthAtFromRow(intRow);
-
-    String monthTwelve =
-        branchBusiness().earthTwelveDeity(fromEarth, monthEarth());
-    String dayTwelve = branchBusiness().earthTwelveDeity(fromEarth, dayEarth());
-
-    String toTwelve = earthTwelveDeity(fromEarth, toEarth);
-
-    int nValue = 0;
-
-    if ("帝旺" == monthTwelve) nValue++;
-    //else cont.
-
-    if ("帝旺" == dayTwelve) nValue++;
-    //else cont.
-
-    if ("帝旺" == toTwelve) nValue++;
-    //else cont.
-
-    if ("绝" == monthTwelve) nValue--;
-    //else cont.
-
-    if ("绝" == dayTwelve) nValue--;
-    //else cont.
-
-    if ("绝" == toTwelve) nValue--;
-    //else cont.
-
-    bResult = nValue < 0;
 
     return bResult;
   }
@@ -1005,7 +996,7 @@ class SABEasyLogicBusiness {
 
     if (0 <= intRow && intRow <= 5) {
       String fromEarth = earthAtFromRow(intRow);
-      String strTo = earthAtFromRow(intRow);
+      String strTo = earthAtToRow(intRow);
       if (null != strTo) bResult = isEarthRestricts(strTo, fromEarth);
       //else cont.
     } else
@@ -1017,7 +1008,7 @@ class SABEasyLogicBusiness {
   bool isSymbolChangeConflictAtRow(int intRow) {
     bool bResult = false;
     String fromEarth = earthAtFromRow(intRow);
-    String strTo = earthAtFromRow(intRow);
+    String strTo = earthAtToRow(intRow);
     if (null != strTo) bResult = isEarthConflict(fromEarth, strTo);
     //else cont.
 
@@ -1907,7 +1898,7 @@ class SABEasyLogicBusiness {
   bool isSymbolChangeMuAtRow(int intRow) {
     bool bResult = false;
     String fromEarth = earthAtFromRow(intRow);
-    String strTo = earthAtFromRow(intRow);
+    String strTo = earthAtToRow(intRow);
     String strTwelve = earthTwelveDeity(fromEarth, strTo);
     bResult = "墓" == strTwelve;
     return bResult;
@@ -2571,6 +2562,10 @@ class SABEasyLogicBusiness {
   ///原名为earthAtChangeRow,更改为earthAtToRow
   String earthAtToRow(int intRow) {
     return outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.to);
+  }
+
+  String earthAtHideRow(int intRow) {
+    return outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.hide);
   }
 
   bool isMovementAtRow(int intRow) {
