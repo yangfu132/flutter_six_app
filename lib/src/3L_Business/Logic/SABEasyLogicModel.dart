@@ -31,4 +31,8 @@ class SABEasyLogicModel {
   String getSmbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {
     return inputWordsModel.getSmbolEarth(intRow, easyTypeEnum);
   }
+
+  bool isMovementAtRow(int intRow) {
+    return inputWordsModel.isMovementAtRow(intRow);
+  }
 }
