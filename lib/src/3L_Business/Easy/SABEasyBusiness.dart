@@ -321,17 +321,6 @@ class SABEasyBusiness {
     return stringResult;
   }
 
-  String earthAtMergeRow(int intRow) {
-    String stringResult = "";
-
-    String stringSymbol = outEasyWordsModel().symbolAtMergeRow(intRow);
-
-    if ("" != stringSymbol) stringResult = symbolEarth(stringSymbol);
-    //else cont.
-
-    return stringResult;
-  }
-
   bool isSymbolMovement(String stringSymbol) {
     bool bResult = false;
     if (null != stringSymbol && "" != stringSymbol) {

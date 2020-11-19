@@ -123,9 +123,8 @@ class SABEasyLogicBusiness {
     } else if (usefulIndex == ROW_DAY) {
       strUsefulElement = dayElement();
     } else if (usefulIndex >= ROW_FLY_BEGIN) {
-      String hideSymbol =
-          easyBusiness().symbolAtHideRow(usefulIndex - ROW_FLY_BEGIN);
-      strUsefulElement = easyBusiness().symbolElement(hideSymbol);
+      strUsefulElement = outEasyWordsModel()
+          .getSmbolElement(usefulIndex - ROW_FLY_BEGIN, EasyTypeEnum.hide);
     } else
       colog("error!");
 
@@ -141,7 +140,7 @@ class SABEasyLogicBusiness {
       stringSymbol = symbolAtFromRow(usefulIndex);
     } else {
       usefulIndex = usefulIndex - ROW_FLY_BEGIN;
-      stringSymbol = easyBusiness().symbolAtHideRow(usefulIndex);
+      stringSymbol = symbolAtHideRow(usefulIndex);
     } //endi
 
     String earth = symbolEarth(stringSymbol);
@@ -202,16 +201,14 @@ class SABEasyLogicBusiness {
 
   ///`--生世克世`//////////////////////////////////////////////////////
   List lifeBornArray() {
-    String lifeSymbol =
-        easyBusiness().symbolAtRow(getLifeIndex(), EasyTypeEnum.from);
-    String lifeElement = easyBusiness().symbolElement(lifeSymbol);
+    String lifeElement =
+        outEasyWordsModel().getSmbolElement(getLifeIndex(), EasyTypeEnum.from);
     return arrayParent("父母", lifeElement);
   }
 
   List lifeEnemyArray() {
-    String lifeSymbol =
-        easyBusiness().symbolAtRow(getLifeIndex(), EasyTypeEnum.from);
-    String lifeElement = easyBusiness().symbolElement(lifeSymbol);
+    String lifeElement =
+        outEasyWordsModel().getSmbolElement(getLifeIndex(), EasyTypeEnum.from);
     return arrayParent("官鬼", lifeElement);
   }
 
@@ -847,7 +844,7 @@ class SABEasyLogicBusiness {
       if (easyType == EasyTypeEnum.from)
         stringSymbol = symbolAtFromRow(intIndex);
       else if (easyType == EasyTypeEnum.hide)
-        stringSymbol = easyBusiness().symbolAtHideRow(intIndex);
+        stringSymbol = symbolAtHideRow(intIndex);
       //else cont.
 
       bResult = isSymbolMoveBorn(stringSymbol);
@@ -894,7 +891,7 @@ class SABEasyLogicBusiness {
       if (!isMovementAtRow(intIndex)) stringSymbol = symbolAtFromRow(intIndex);
       //else cont.
     } else if (easyType == EasyTypeEnum.hide)
-      stringSymbol = easyBusiness().symbolAtHideRow(intIndex);
+      stringSymbol = symbolAtHideRow(intIndex);
     else
       colog("error!");
 
@@ -926,7 +923,7 @@ class SABEasyLogicBusiness {
     if (easyType == EasyTypeEnum.from)
       stringSymbol = symbolAtFromRow(intIndex);
     else if (easyType == EasyTypeEnum.hide)
-      stringSymbol = easyBusiness().symbolAtHideRow(intIndex);
+      stringSymbol = symbolAtHideRow(intIndex);
     else
       colog("error!");
 
@@ -953,7 +950,7 @@ class SABEasyLogicBusiness {
       if (easyType == EasyTypeEnum.from)
         stringSymbol = symbolAtFromRow(intIndex);
       else if (easyType == EasyTypeEnum.hide)
-        stringSymbol = easyBusiness().symbolAtHideRow(intIndex);
+        stringSymbol = symbolAtHideRow(intIndex);
       //else cont.
 
       if (!isSymbolSeasonStrong(stringSymbol)) {
@@ -1384,7 +1381,7 @@ class SABEasyLogicBusiness {
     List arrayEarth = [];
 
     for (int intItem in arrayRow) {
-      arrayEarth.add(easyBusiness().earthAtMergeRow(intItem));
+      arrayEarth.add(outEasyWordsModel().earthAtMergeRow(intItem));
     } //endf
 
     return arrayEarth;
@@ -1881,7 +1878,7 @@ class SABEasyLogicBusiness {
   }
 
   bool isHideSymbolSeasonStrong(int intRow) {
-    String stringSymbol = easyBusiness().symbolAtHideRow(intRow);
+    String stringSymbol = symbolAtHideRow(intRow);
     return isSymbolSeasonStrong(stringSymbol);
   }
 
@@ -1989,7 +1986,7 @@ class SABEasyLogicBusiness {
      
      */
 
-    String basicSymbol = easyBusiness().symbolAtHideRow(intRow);
+    String basicSymbol = symbolAtHideRow(intRow);
     if (null != basicSymbol && "" != basicSymbol) {
       //伏神休囚无气者，一也。
       bool bStrong = isSymbolHealthStrong(
@@ -2064,7 +2061,7 @@ class SABEasyLogicBusiness {
      */
 
     //伏神得日月者，一也。
-    String basicSymbol = easyBusiness().symbolAtHideRow(intRow);
+    String basicSymbol = symbolAtHideRow(intRow);
     if (null != basicSymbol && "" != basicSymbol) {
       bool bOnDay = isSymbolOnDay(basicSymbol);
       bool bOnMonth = isSymbolOnMonth(basicSymbol);
@@ -2554,6 +2551,10 @@ class SABEasyLogicBusiness {
     return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.to);
   }
 
+  String symbolAtHideRow(int intRow) {
+    return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.hide);
+  }
+
   String symbolAtMergeRow(int intRow) {
     return outEasyWordsModel().symbolAtMergeRow(intRow);
   }
@@ -2634,7 +2635,7 @@ class SABEasyLogicBusiness {
           arrayToSeasonStrong.add(intRow);
         }
 
-        if (isSymbolSeasonStrong(easyBusiness().symbolAtHideRow(intRow))) {
+        if (isSymbolSeasonStrong(symbolAtRow(intRow, EasyTypeEnum.hide))) {
           arrayHideSeasonStrong.add(intRow);
         }
       }

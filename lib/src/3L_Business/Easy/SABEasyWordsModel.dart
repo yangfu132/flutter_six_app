@@ -18,7 +18,7 @@ class SABEasyWordsModel {
   List arrayMovement;
   List _listSymbols;
 
-  /// `Get & Set函数`///////////////////////////////////////////////////////////
+  /// `MergeRow函数`///////////////////////////////////////////////////////////
   ///MergeRow的定义
   ///from:0~6
   ///Month:7
@@ -38,6 +38,22 @@ class SABEasyWordsModel {
 
     return stringResult;
   }
+
+  String earthAtMergeRow(int intRow) {
+    String stringResult = "";
+    if (0 <= intRow && intRow < 6) {
+      stringResult = getSmbolEarth(intRow, EasyTypeEnum.from);
+    } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
+      stringResult = getSmbolEarth(intRow - ROW_CHNAGE_BEGIN, EasyTypeEnum.to);
+    } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
+      stringResult = getSmbolEarth(intRow - ROW_FLY_BEGIN, EasyTypeEnum.hide);
+    }
+    //else cont.
+
+    return stringResult;
+  }
+
+  /// `Get & Set函数`///////////////////////////////////////////////////////////
 
   void setDigit(int intRow, int intDigit) {
     SABSymbolWordsModel model = _symbolsArray()[intRow];
