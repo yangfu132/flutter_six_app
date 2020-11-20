@@ -417,7 +417,7 @@ class SABHealthOriginBusiness {
       } else {
         bool bConflictDay = _inputLogicBusiness.isSymbolConflictDayAtRow(
             nRow, EasyTypeEnum.from);
-        bool bMove = _inputLogicBusiness.isSymbolMovement(stringSymbol);
+        bool bMove = logicModel().inputWordsModel.isMovementAtRow(nRow);
         if (bMove)
           fResult = OutRightEnum.RIGHT_MOVE;
         else if (bConflictDay)
@@ -454,8 +454,7 @@ class SABHealthOriginBusiness {
       //if (_inputLogicBusiness.movementIndexArray().length > 0) {
       if (rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE).length > 0) {
         //动卦中静爻的作用没有那么大
-        String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
-        if (!_inputLogicBusiness.isSymbolMovement(stringSymbol)) {
+        if (!logicModel().inputWordsModel.isMovementAtRow(nRow)) {
           fResult = 0.5;
         }
         //else cont.

@@ -492,7 +492,7 @@ class SABEasyLogicBusiness {
       bool bEmpty = isEmptyAtRow(intRow, EasyTypeEnum.from);
       bool bBroken = MonthConflictEnum.Conflict_Broken ==
           symbolMonthBrokenState(basicSymbol);
-      bool bMoving = isSymbolMovement(basicSymbol);
+      bool bMoving = _isSymbolMovement(basicSymbol);
       if ((!bMoving && bEmpty && bBroken))
         bResult = true;
       else {
@@ -1234,7 +1234,7 @@ class SABEasyLogicBusiness {
     if ("" != stringSymbol) {
       if (!isSymbolHealthStrong(intRow, easyType)) {
         String strDay = dayEarth();
-        if (!isSymbolMovement(stringSymbol)) {
+        if (!_isSymbolMovement(stringSymbol)) {
           result = isEarthConflict(strDay, _symbolEarth(stringSymbol));
         }
         //else cont.
@@ -1256,7 +1256,7 @@ class SABEasyLogicBusiness {
     if (bConflict) {
       nResult = DayConflictEnum.Conflict_YES;
 
-      if (isSymbolMovement(stringSymbol)) {
+      if (_isSymbolMovement(stringSymbol)) {
         if (isSymbolSeasonStrong(stringSymbol))
           nResult = DayConflictEnum.Conflict_SAN;
         else
@@ -1796,7 +1796,7 @@ class SABEasyLogicBusiness {
     String stringSymbolSeason = _symbolSeason(stringSymbol);
     bool bWang = ("旺" == stringSymbolSeason) || ("相" == stringSymbolSeason);
 
-    bool bMove = isSymbolMovement(stringSymbol);
+    bool bMove = _isSymbolMovement(stringSymbol);
     if (!bMove && !bWang) bResult = true;
     //else cont.
 
@@ -1830,7 +1830,7 @@ class SABEasyLogicBusiness {
     bResult = bResult || "旺" == strSeason;
 
     if (easyType == EasyTypeEnum.from) {
-      bool bMove = isSymbolMovement(stringSymbol);
+      bool bMove = _isSymbolMovement(stringSymbol);
       //动不为空；
       bResult = bResult || bMove;
     }
@@ -1929,7 +1929,7 @@ class SABEasyLogicBusiness {
       String strDayEarth = dayEarth();
       if (strDayEarth == basicEarth)
         nResult = MonthConflictEnum.Conflict_OnDay;
-      else if (isSymbolMovement(stringSymbol)) {
+      else if (_isSymbolMovement(stringSymbol)) {
         nResult = MonthConflictEnum.Conflict_Move;
       } else {
         //唯静而不动，又无日辰动爻生助，实则到底而破矣。
@@ -2478,7 +2478,7 @@ class SABEasyLogicBusiness {
     return easyBusiness().symbolEarth(stringSymbol);
   }
 
-  bool isSymbolMovement(String stringSymbol) {
+  bool _isSymbolMovement(String stringSymbol) {
     return easyBusiness().isSymbolMovement(stringSymbol);
   }
 
