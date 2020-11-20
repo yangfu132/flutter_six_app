@@ -492,7 +492,7 @@ class SABEasyLogicBusiness {
       bool bEmpty = isEmptyAtRow(intRow, EasyTypeEnum.from);
       bool bBroken = MonthConflictEnum.Conflict_Broken ==
           symbolMonthBrokenState(basicSymbol);
-      bool bMoving = _isSymbolMovement(basicSymbol);
+      bool bMoving = logicModel().inputWordsModel.isMovementAtRow(intRow);
       if ((!bMoving && bEmpty && bBroken))
         bResult = true;
       else {
@@ -1229,19 +1229,15 @@ class SABEasyLogicBusiness {
   bool isSymbolDayBrokenAtRow(int intRow, EasyTypeEnum easyType) {
     bool result = false;
 
-    String stringSymbol = symbolAtRow(intRow, easyType);
-
-    if ("" != stringSymbol) {
-      if (!isSymbolHealthStrong(intRow, easyType)) {
-        String strDay = dayEarth();
-        if (!_isSymbolMovement(stringSymbol)) {
-          result = isEarthConflict(strDay, _symbolEarth(stringSymbol));
-        }
-        //else cont.
+    if (!isSymbolHealthStrong(intRow, easyType)) {
+      String strDay = dayEarth();
+      if (!logicModel().inputWordsModel.isMovementAtRow(intRow)) {
+        result = isEarthConflict(strDay,
+            logicModel().inputWordsModel.getSmbolEarth(intRow, easyType));
       }
       //else cont.
-    } else
-      colog("error!");
+    }
+    //else cont.
 
     return result;
   }
@@ -1796,7 +1792,7 @@ class SABEasyLogicBusiness {
     String stringSymbolSeason = _symbolSeason(stringSymbol);
     bool bWang = ("旺" == stringSymbolSeason) || ("相" == stringSymbolSeason);
 
-    bool bMove = _isSymbolMovement(stringSymbol);
+    bool bMove = logicModel().inputWordsModel.isMovementAtRow(intRow);
     if (!bMove && !bWang) bResult = true;
     //else cont.
 
@@ -1830,7 +1826,8 @@ class SABEasyLogicBusiness {
     bResult = bResult || "旺" == strSeason;
 
     if (easyType == EasyTypeEnum.from) {
-      bool bMove = _isSymbolMovement(stringSymbol);
+      bool bMove = logicModel().inputWordsModel.isMovementAtRow(intRow);
+
       //动不为空；
       bResult = bResult || bMove;
     }
