@@ -2076,7 +2076,7 @@ class SABEasyLogicBusiness {
                   _symbolDayConflictState(fromSymbol);
               bool bFromMonthConflict = MonthConflictEnum.Conflict_NO !=
                   symbolMonthBrokenState(fromSymbol);
-              bool bFromMoveConflict = isSymbolMoveConflict(fromSymbol);
+              bool bFromMoveConflict = _isSymbolMoveConflict(fromSymbol);
               bool bFromMonthRestrict = _isSymbolMonthRestrict(fromSymbol);
               bool bFromDayRestrict = _isSymbolDayRestrict(fromSymbol);
               bool bFromMoveRestrict =
@@ -2121,7 +2121,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isSymbolMoveConflict(String stringSymbol) {
+  bool _isSymbolMoveConflict(String stringSymbol) {
     bool bResult = false;
 
     List arrayEffects = movementIndexArray();
