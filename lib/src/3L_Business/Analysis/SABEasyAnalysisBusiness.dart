@@ -758,7 +758,7 @@ class SABEasyAnalysisBusiness {
       case MonthConflictEnum.Conflict_Move:
         monthBroken = "[冲动不破]";
         break;
-      case MonthConflictEnum.Broken_DayBorn:
+      case MonthConflictEnum.Conflict_DayBorn:
         monthBroken = "[冲日生不破]";
         break;
       case MonthConflictEnum.Conflict_MoveBorn:

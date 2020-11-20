@@ -347,7 +347,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
           _inputLogicBusiness.symbolMonthBrokenState(usefulSymbol);
       if (MonthConflictEnum.Conflict_OnDay == monthBrokenState ||
           MonthConflictEnum.Conflict_Move == monthBrokenState ||
-          MonthConflictEnum.Broken_DayBorn == monthBrokenState) {
+          MonthConflictEnum.Conflict_DayBorn == monthBrokenState) {
         strResult = SACContext.appendToString(strResult, monthBrokenResult());
       }
       //else cont.

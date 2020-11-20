@@ -53,7 +53,7 @@ enum MonthConflictEnum {
   Conflict_Broken, //月破
   Conflict_OnDay, //临日柱，不破
   Conflict_Move, //动爻，不破
-  Broken_DayBorn, //日生，不破
+  Conflict_DayBorn, //日生，不破
   Conflict_MoveBorn, //动生，不破
 }
 

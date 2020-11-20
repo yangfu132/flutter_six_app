@@ -1934,7 +1934,7 @@ class SABEasyLogicBusiness {
       } else {
         //唯静而不动，又无日辰动爻生助，实则到底而破矣。
         if (branchBusiness().isEarthBorn(dayEarth(), basicEarth)) {
-          nResult = MonthConflictEnum.Broken_DayBorn;
+          nResult = MonthConflictEnum.Conflict_DayBorn;
         } else if (_isSymbolMoveBorn(stringSymbol)) {
           nResult = MonthConflictEnum.Conflict_MoveBorn;
         }
