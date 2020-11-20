@@ -3,7 +3,9 @@
 
 import 'package:flutter/material.dart';
 
-void colog(String strMsg) {}
+void colog(String strMsg) {
+  print(strMsg);
+}
 
 class SACContext {
   static double screenWidth(context) {

@@ -1,4 +1,6 @@
-﻿import '../../1L_Context/SACGlobal.dart';
+﻿import 'package:flutter_six_app/src/1L_Context/SACContext.dart';
+
+import '../../1L_Context/SACGlobal.dart';
 import 'SABSymbolWordsModel.dart';
 import 'SABEasyDigitModel.dart';
 
@@ -131,52 +133,88 @@ class SABEasyWordsModel {
     return symbolAtRow(intRow).getSmbolElement(easyTypeEnum);
   }
 
-  void setFromSymbol(int intRow, String stringSymbol) {
-    symbolAtRow(intRow).mapSymbolFrom['name'] = stringSymbol;
+  void setFromSymbolName(int intRow, String stringSymbol) {
+    if (null != stringSymbol) {
+      symbolAtRow(intRow).mapSymbolFrom['name'] = stringSymbol;
+    } else
+      colog('error');
   }
 
   void setFromParent(int intRow, String stringParnet) {
-    symbolAtRow(intRow).mapSymbolFrom['parent'] = stringParnet;
+    if (null != stringParnet) {
+      symbolAtRow(intRow).mapSymbolFrom['parent'] = stringParnet;
+    } else
+      colog('error');
   }
 
   void setFromEarth(int intRow, String stringEarth) {
-    symbolAtRow(intRow).mapSymbolFrom['earth'] = stringEarth;
+    if (null != stringEarth) {
+      symbolAtRow(intRow).mapSymbolFrom['earth'] = stringEarth;
+    } else
+      colog('error');
   }
 
   void setFromElement(int intRow, String stringElement) {
-    symbolAtRow(intRow).mapSymbolFrom['element'] = stringElement;
+    if (null != stringElement) {
+      symbolAtRow(intRow).mapSymbolFrom['element'] = stringElement;
+    } else
+      colog('error');
   }
 
-  void setToSymbol(int intRow, String stringSymbol) {
-    symbolAtRow(intRow).mapSymbolTo['name'] = stringSymbol;
+  void setToSymbolName(int intRow, String stringSymbol) {
+    if (null != stringSymbol) {
+      symbolAtRow(intRow).mapSymbolTo['name'] = stringSymbol;
+    } else
+      colog('error');
   }
 
   void setToParent(int intRow, String stringParnet) {
-    symbolAtRow(intRow).mapSymbolTo['parent'] = stringParnet;
+    if (null != stringParnet) {
+      symbolAtRow(intRow).mapSymbolTo['parent'] = stringParnet;
+    } else
+      colog('error');
   }
 
   void setToEarth(int intRow, String stringEarth) {
-    symbolAtRow(intRow).mapSymbolTo['earth'] = stringEarth;
+    if (null != stringEarth) {
+      symbolAtRow(intRow).mapSymbolTo['earth'] = stringEarth;
+    } else
+      colog('error');
   }
 
   void setToElement(int intRow, String stringElement) {
-    symbolAtRow(intRow).mapSymbolTo['element'] = stringElement;
+    if (null != stringElement) {
+      symbolAtRow(intRow).mapSymbolTo['element'] = stringElement;
+    } else
+      colog('error');
   }
 
-  void setHideSymbol(int intRow, String stringSymbol) {
-    symbolAtRow(intRow).mapSymbolHide['name'] = stringSymbol;
+  void setHideSymbolName(int intRow, String stringSymbol) {
+    if (null != stringSymbol) {
+      symbolAtRow(intRow).mapSymbolHide['name'] = stringSymbol;
+    } else
+      colog('error');
   }
 
   void setHideParent(int intRow, String stringParnet) {
-    symbolAtRow(intRow).mapSymbolHide['parent'] = stringParnet;
+    if (null != stringParnet) {
+      symbolAtRow(intRow).mapSymbolHide['parent'] = stringParnet;
+    } else
+      colog('error');
   }
 
   void setHideEarth(int intRow, String stringEarth) {
-    symbolAtRow(intRow).mapSymbolHide['earth'] = stringEarth;
+    if (null != stringEarth) {
+      symbolAtRow(intRow).mapSymbolHide['earth'] = stringEarth;
+    } else
+      colog('error');
   }
 
   void setHideElement(int intRow, String stringElement) {
-    symbolAtRow(intRow).mapSymbolHide['element'] = stringElement;
+    if (null != stringElement) {
+      symbolAtRow(intRow).mapSymbolHide['element'] = stringElement;
+    } else
+      colog('error');
   }
 
   /// `加载函数`/////////////////////////////////////////////////////////////////

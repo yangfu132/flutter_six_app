@@ -44,6 +44,7 @@ class SABEasyDigitModel {
       _listEasyData.add(randomNum);
     } //endf
     //return _listEasyData;
+    print('_listEasyData:$_listEasyData');
     return _listEasyData = [8, 8, 0, 8, 0, 0];
   }
 

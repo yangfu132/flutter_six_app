@@ -179,19 +179,15 @@ class SABEasyBusiness {
   String symbolAtToRow(int intIndex) {
     String stringResult;
     if (0 <= intIndex && intIndex <= 5) {
-      if (_inputEasyModel.isMovementAtRow(intIndex)) {
-        String fromEasyElement = eightDiagrams().elementOfEasy(fromEasyName());
-        Map toDict = toEasyDictionary();
-        if (null != toDict) {
-          String symbol = symbolStringAtRow(intIndex, toDict);
+      String fromEasyElement = eightDiagrams().elementOfEasy(fromEasyName());
+      Map toDict = toEasyDictionary();
+      if (null != toDict) {
+        String toSymbol = symbolStringAtRow(intIndex, toDict);
+        String toElement = symbolElement(toSymbol);
 
-          String toElement = symbolElement(symbol);
-
-          String strValue =
-              SABElementModel.elementRelative(fromEasyElement, toElement);
-          stringResult = symbol.replaceRange(symbol.length - 4, 2, strValue);
-        }
-        //else cont.
+        String strValue =
+            SABElementModel.elementRelative(fromEasyElement, toElement);
+        stringResult = toSymbol.replaceRange(toSymbol.length - 4, 2, strValue);
       }
       //else cont.
     }
@@ -230,32 +226,6 @@ class SABEasyBusiness {
   }
 
   /// `此模块包含提取爻信息的方法`///////////////////////////////////////////////////
-
-  String earthAtFromRow(int intIndex) {
-    String stringResult = "";
-    if (0 <= intIndex && intIndex < 6) {
-      String stringSymbol = symbolAtRow(intIndex, EasyTypeEnum.from);
-      stringResult = symbolEarth(stringSymbol);
-    }
-    //else cont.
-
-    return stringResult;
-  }
-
-  String earthAtToRow(int intIndex) {
-    String stringResult = "";
-    if (0 <= intIndex && intIndex < 6) {
-      if (_inputEasyModel.isMovementAtRow(intIndex)) {
-        String stringSymbol = symbolAtToRow(intIndex);
-        stringResult = symbolEarth(stringSymbol);
-      }
-      //else cont.
-    }
-    //else cont.
-
-    return stringResult;
-  }
-
   String animalAtRow(int intIndex) {
     String stringResult = "";
     String dayName = daySky();
@@ -396,17 +366,17 @@ class SABEasyBusiness {
         _outEasyWordsModel.setMovement(
             intRow, _inputEasyModel.isMovementAtRow(intRow));
         String symbolFrom = symbolAtFromRow(intRow);
-        _outEasyWordsModel.setFromSymbol(intRow, symbolAtFromRow(intRow));
+        _outEasyWordsModel.setFromSymbolName(intRow, symbolAtFromRow(intRow));
         _outEasyWordsModel.setFromParent(intRow, symbolParent(symbolFrom));
         _outEasyWordsModel.setFromEarth(intRow, symbolEarth(symbolFrom));
         _outEasyWordsModel.setFromElement(intRow, symbolElement(symbolFrom));
 
-        _outEasyWordsModel.setToSymbol(intRow, symbolAtToRow(intRow));
+        _outEasyWordsModel.setToSymbolName(intRow, symbolAtToRow(intRow));
         _outEasyWordsModel.setToParent(intRow, symbolParent(symbolFrom));
         _outEasyWordsModel.setToEarth(intRow, symbolEarth(symbolFrom));
         _outEasyWordsModel.setToElement(intRow, symbolElement(symbolFrom));
 
-        _outEasyWordsModel.setHideSymbol(intRow, symbolAtHideRow(intRow));
+        _outEasyWordsModel.setHideSymbolName(intRow, symbolAtHideRow(intRow));
         _outEasyWordsModel.setHideParent(intRow, symbolParent(symbolFrom));
         _outEasyWordsModel.setHideEarth(intRow, symbolEarth(symbolFrom));
         _outEasyWordsModel.setHideElement(intRow, symbolElement(symbolFrom));

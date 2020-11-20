@@ -18,7 +18,6 @@ class SABEasyLogicModel {
   bool _bToEasySixConflict;
   bool _bHideEasySixConflict;
 
-  List arrayRightMove;
   List arrayFromSeasonStrong;
   List arrayToSeasonStrong;
   List arrayHideSeasonStrong;

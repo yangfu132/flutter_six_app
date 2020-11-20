@@ -1022,13 +1022,13 @@ class SABEasyLogicBusiness {
   bool isSymbolSeasonStrong(String stringSymbol) {
     bool bResult = false;
 
-    if ("" != stringSymbol) {
+    if (null != stringSymbol && "" != stringSymbol) {
       String stringSeason = _symbolSeason(stringSymbol);
       bResult = "旺" == stringSeason;
       bResult = bResult || "相" == stringSeason;
       bResult = bResult || "余气" == stringSeason;
-    }
-    //else cont.
+    } else
+      colog('error');
 
     return bResult;
   }
@@ -2467,10 +2467,6 @@ class SABEasyLogicBusiness {
     return easyBusiness().symbolEarth(stringSymbol);
   }
 
-  bool _isSymbolMovement(String stringSymbol) {
-    return easyBusiness().isSymbolMovement(stringSymbol);
-  }
-
   Map _fromEasyDictionary() {
     return outEasyWordsModel().mapFromEasy;
   }
@@ -2611,27 +2607,8 @@ class SABEasyLogicBusiness {
       _outLogicModel.setIsEasySixConflict(EasyTypeEnum.hide,
           _isEasySixConflict(easyBusiness().placeFirstEasy()));
 
-      List arrayMovement = [];
-      List arrayFromSeasonStrong = [];
-      List arrayToSeasonStrong = [];
-      List arrayHideSeasonStrong = [];
+      ///爻的基础信息
       for (int intRow = 0; intRow < 6; intRow++) {
-        if (isMovementAtRow(intRow)) {
-          arrayMovement.add(intRow);
-        }
-
-        if (isSymbolSeasonStrong(symbolAtFromRow(intRow))) {
-          arrayFromSeasonStrong.add(intRow);
-        }
-
-        if (isSymbolSeasonStrong(symbolAtToRow(intRow))) {
-          arrayToSeasonStrong.add(intRow);
-        }
-
-        if (isSymbolSeasonStrong(symbolAtRow(intRow, EasyTypeEnum.hide))) {
-          arrayHideSeasonStrong.add(intRow);
-        }
-
         ///IsOnMonth
         _outLogicModel.setIsOnMonth(intRow, EasyTypeEnum.from,
             _isSymbolOnMonth(symbolAtFromRow(intRow)));
@@ -2671,7 +2648,28 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setIsDayPair(intRow, EasyTypeEnum.hide,
             _isSymbolDayPair(symbolAtHideRow(intRow)));
+      }
 
+      List arrayFromSeasonStrong = [];
+      List arrayToSeasonStrong = [];
+      List arrayHideSeasonStrong = [];
+      for (int intRow = 0; intRow < 6; intRow++) {
+        if (isSymbolSeasonStrong(symbolAtFromRow(intRow))) {
+          arrayFromSeasonStrong.add(intRow);
+        }
+
+        if (isSymbolSeasonStrong(symbolAtToRow(intRow))) {
+          arrayToSeasonStrong.add(intRow);
+        }
+
+        if (isSymbolSeasonStrong(symbolAtRow(intRow, EasyTypeEnum.hide))) {
+          arrayHideSeasonStrong.add(intRow);
+        }
+      }
+
+      _outLogicModel.arrayFromSeasonStrong = arrayToSeasonStrong;
+
+      for (int intRow = 0; intRow < 6; intRow++) {
         ///BasicEmptyState
         _outLogicModel.setBasicEmptyState(intRow, EasyTypeEnum.from,
             _symbolBasicEmptyState(symbolAtFromRow(intRow)));
@@ -2694,8 +2692,7 @@ class SABEasyLogicBusiness {
       }
 
       ///endf
-      _outLogicModel.arrayRightMove = movementIndexArray();
-      _outLogicModel.arrayFromSeasonStrong = staticSeasonStrong();
+
     }
     return _outLogicModel;
   }
