@@ -326,8 +326,7 @@ class SABHealthOriginBusiness {
 
       //月
       if (MonthBrokenEnum.Broken_NO !=
-          _inputLogicBusiness.symbolConflictStateOnMonth(
-              stringSymbol, _inputLogicBusiness.monthEarth()))
+          logicModel().getConflictOnMonthState(nRow, easyType))
         fResult += 0;
       else
         fResult += earthHealthAtMonthAndDay(basicEarth,

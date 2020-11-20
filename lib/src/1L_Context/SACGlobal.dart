@@ -48,6 +48,7 @@ enum EmptyEnum {
 }
 
 enum MonthBrokenEnum {
+  Broken_Null,
   Broken_NO, //非月破
   Broken_YES, //月破
   Broken_OnDay, //临日柱，不破

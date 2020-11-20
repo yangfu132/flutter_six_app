@@ -1918,7 +1918,7 @@ class SABEasyLogicBusiness {
   }
 
   ///`月破章第二十七`//////////////////////////////////////////////////////
-  MonthBrokenEnum symbolConflictStateOnMonth(
+  MonthBrokenEnum _symbolConflictStateOnMonth(
       String stringSymbol, String monthEarth) {
     MonthBrokenEnum nResult = MonthBrokenEnum.Broken_NO;
     String basicEarth = _symbolEarth(stringSymbol);
@@ -1949,7 +1949,7 @@ class SABEasyLogicBusiness {
   MonthBrokenEnum symbolMonthBrokenState(String stringSymbol) {
     MonthBrokenEnum nResult = MonthBrokenEnum.Broken_NO;
 
-    nResult = symbolConflictStateOnMonth(stringSymbol, monthEarth());
+    nResult = _symbolConflictStateOnMonth(stringSymbol, monthEarth());
 
     return nResult;
   }
@@ -2696,6 +2696,16 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setBasicEmptyState(intRow, EasyTypeEnum.hide,
             _symbolBasicEmptyState(symbolAtHideRow(intRow)));
+
+        ///ConflictOnMonth
+        _outLogicModel.setConflictOnMonthState(intRow, EasyTypeEnum.from,
+            _symbolConflictStateOnMonth(symbolAtFromRow(intRow), monthEarth()));
+
+        _outLogicModel.setConflictOnMonthState(intRow, EasyTypeEnum.to,
+            _symbolConflictStateOnMonth(symbolAtToRow(intRow), monthEarth()));
+
+        _outLogicModel.setConflictOnMonthState(intRow, EasyTypeEnum.hide,
+            _symbolConflictStateOnMonth(symbolAtHideRow(intRow), monthEarth()));
       }
 
       ///endf

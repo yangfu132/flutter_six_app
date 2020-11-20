@@ -100,45 +100,56 @@ class SABEasyLogicModel {
 
   /// `Get & Set`//////////////////////////////////////////////////////////////
 
-  void setBasicEmptyState(
-      int intRow, EasyTypeEnum easyTypeEnum, EmptyEnum enumResultEmpty) {
-    symbolAtRow(intRow).setBasicEmptyState(easyTypeEnum, enumResultEmpty);
+  MonthBrokenEnum getConflictOnMonthState(
+      int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getConflictOnMonthState(easyTypeEnum);
+  }
+
+  void setConflictOnMonthState(int intRow, EasyTypeEnum easyTypeEnum,
+      MonthBrokenEnum enumResultConflict) {
+    symbolAtRow(intRow)
+        .setConflictOnMonthState(easyTypeEnum, enumResultConflict);
   }
 
   EmptyEnum getBasicEmptyState(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getBasicEmptyState(easyTypeEnum);
   }
 
-  void setIsOnMonth(int intRow, EasyTypeEnum easyTypeEnum, bool bOnMonth) {
-    symbolAtRow(intRow).setIsOnMonth(easyTypeEnum, bOnMonth);
+  void setBasicEmptyState(
+      int intRow, EasyTypeEnum easyTypeEnum, EmptyEnum enumResultEmpty) {
+    symbolAtRow(intRow).setBasicEmptyState(easyTypeEnum, enumResultEmpty);
   }
 
   bool isOnMonth(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsOnMonth(easyTypeEnum);
   }
 
-  void setIsOnDay(int intRow, EasyTypeEnum easyTypeEnum, bool bOnMonth) {
-    symbolAtRow(intRow).setIsOnDay(easyTypeEnum, bOnMonth);
+  void setIsOnMonth(int intRow, EasyTypeEnum easyTypeEnum, bool bOnMonth) {
+    symbolAtRow(intRow).setIsOnMonth(easyTypeEnum, bOnMonth);
   }
 
   bool isOnDay(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsOnDay(easyTypeEnum);
   }
 
-  void setIsMonthPair(int intRow, EasyTypeEnum easyTypeEnum, bool bMonthPair) {
-    symbolAtRow(intRow).setIsMonthPair(easyTypeEnum, bMonthPair);
+  void setIsOnDay(int intRow, EasyTypeEnum easyTypeEnum, bool bOnMonth) {
+    symbolAtRow(intRow).setIsOnDay(easyTypeEnum, bOnMonth);
   }
 
   bool isMonthPair(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsMonthPair(easyTypeEnum);
   }
 
-  void setIsDayPair(int intRow, EasyTypeEnum easyTypeEnum, bool bDayPair) {
-    symbolAtRow(intRow).setIsDayPair(easyTypeEnum, bDayPair);
+  void setIsMonthPair(int intRow, EasyTypeEnum easyTypeEnum, bool bMonthPair) {
+    symbolAtRow(intRow).setIsMonthPair(easyTypeEnum, bMonthPair);
   }
 
   bool isDayPair(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsDayPair(easyTypeEnum);
+  }
+
+  void setIsDayPair(int intRow, EasyTypeEnum easyTypeEnum, bool bDayPair) {
+    symbolAtRow(intRow).setIsDayPair(easyTypeEnum, bDayPair);
   }
 
   /// `加载函数`/////////////////////////////////////////////////////////////////

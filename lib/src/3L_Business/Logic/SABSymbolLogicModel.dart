@@ -12,10 +12,37 @@ class SABSymbolLogicModel {
   ///'isDayPair'
   ///'isMonthPair'
   ///'basicEmptyState'
+  ///'conflictOnMonthState'
   ///}
   Map mapSymbolFrom = {};
   Map mapSymbolTo = {};
   Map mapSymbolHide = {};
+
+  MonthBrokenEnum getConflictOnMonthState(EasyTypeEnum easyTypeEnum) {
+    MonthBrokenEnum enumResultConflict = MonthBrokenEnum.Broken_Null;
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      enumResultConflict = mapSymbolFrom['conflictOnMonthState'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      enumResultConflict = mapSymbolTo['conflictOnMonthState'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      enumResultConflict = mapSymbolHide['conflictOnMonthState'];
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+
+    return enumResultConflict;
+  }
+
+  void setConflictOnMonthState(
+      EasyTypeEnum easyTypeEnum, MonthBrokenEnum enumResultConflict) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['conflictOnMonthState'] = enumResultConflict;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['conflictOnMonthState'] = enumResultConflict;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['conflictOnMonthState'] = enumResultConflict;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
 
   EmptyEnum getBasicEmptyState(EasyTypeEnum easyTypeEnum) {
     EmptyEnum enumResultEmpty = EmptyEnum.Empty_Null;
