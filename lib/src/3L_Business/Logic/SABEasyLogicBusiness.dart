@@ -1928,7 +1928,7 @@ class SABEasyLogicBusiness {
 
       String strDayEarth = dayEarth();
       if (strDayEarth == basicEarth)
-        nResult = MonthConflictEnum.Broken_OnDay;
+        nResult = MonthConflictEnum.Conflict_OnDay;
       else if (isSymbolMovement(stringSymbol)) {
         nResult = MonthConflictEnum.Broken_Move;
       } else {
