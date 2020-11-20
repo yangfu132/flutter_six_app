@@ -23,19 +23,6 @@ class SABEasyLogicModel {
   List arrayHideSeasonStrong;
 
   /// `Public`//////////////////////////////////////////////////////////////
-  bool isSymbolSeasonStrong(int intRow, EasyTypeEnum enumEasyType) {
-    bool bResult = false;
-    if (enumEasyType == EasyTypeEnum.from) {
-      bResult = -1 != arrayFromSeasonStrong.indexOf(intRow);
-    } else if (enumEasyType == EasyTypeEnum.to) {
-      bResult = -1 != arrayFromSeasonStrong.indexOf(intRow);
-    } else if (enumEasyType == EasyTypeEnum.hide) {
-      bResult = -1 != arrayFromSeasonStrong.indexOf(intRow);
-    } else {
-      colog("error!");
-    }
-    return bResult;
-  }
 
   bool isEasySixPair(EasyTypeEnum enumEasyType) {
     bool bResult = false;
@@ -98,6 +85,14 @@ class SABEasyLogicModel {
   }
 
   /// `Get & Set`//////////////////////////////////////////////////////////////
+  bool isSeasonStrong(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getIsSeasonStrong(easyTypeEnum);
+  }
+
+  void setIsSeasonStrong(
+      int intRow, EasyTypeEnum easyTypeEnum, bool bSeasonStrong) {
+    symbolAtRow(intRow).setIsSeasonStrong(easyTypeEnum, bSeasonStrong);
+  }
 
   MonthConflictEnum getConflictOnMonthState(
       int intRow, EasyTypeEnum easyTypeEnum) {

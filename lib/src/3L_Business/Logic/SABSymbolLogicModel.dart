@@ -13,10 +13,36 @@ class SABSymbolLogicModel {
   ///'isMonthPair'
   ///'basicEmptyState'
   ///'conflictOnMonthState'
+  ///'isSeasonStrong'
   ///}
   Map mapSymbolFrom = {};
   Map mapSymbolTo = {};
   Map mapSymbolHide = {};
+
+  bool getIsSeasonStrong(EasyTypeEnum easyTypeEnum) {
+    bool bResultStrong = false;
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      bResultStrong = mapSymbolFrom['isSeasonStrong'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      bResultStrong = mapSymbolTo['isSeasonStrong'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      bResultStrong = mapSymbolHide['isSeasonStrong'];
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+
+    return bResultStrong;
+  }
+
+  void setIsSeasonStrong(EasyTypeEnum easyTypeEnum, bool bSeasonStrong) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['isSeasonStrong'] = bSeasonStrong;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['isSeasonStrong'] = bSeasonStrong;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['isSeasonStrong'] = bSeasonStrong;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
 
   MonthConflictEnum getConflictOnMonthState(EasyTypeEnum easyTypeEnum) {
     MonthConflictEnum enumResultConflict = MonthConflictEnum.Conflict_Null;
