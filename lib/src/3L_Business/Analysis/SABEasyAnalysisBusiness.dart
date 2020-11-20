@@ -747,21 +747,21 @@ class SABEasyAnalysisBusiness {
     String monthBroken = "";
     String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
     switch (_inputLogicBusiness.symbolMonthBrokenState(stringSymbol)) {
-      case MonthBrokenEnum.Broken_NO:
+      case MonthConflictEnum.Conflict_NO:
         break;
-      case MonthBrokenEnum.Broken_YES:
+      case MonthConflictEnum.Conflict_Broken:
         monthBroken = "[月破]";
         break;
-      case MonthBrokenEnum.Broken_OnDay:
+      case MonthConflictEnum.Broken_OnDay:
         monthBroken = "[冲日建不破]";
         break;
-      case MonthBrokenEnum.Broken_Move:
+      case MonthConflictEnum.Broken_Move:
         monthBroken = "[冲动不破]";
         break;
-      case MonthBrokenEnum.Broken_DayBorn:
+      case MonthConflictEnum.Broken_DayBorn:
         monthBroken = "[冲日生不破]";
         break;
-      case MonthBrokenEnum.Broken_MoveBorn:
+      case MonthConflictEnum.Broken_MoveBorn:
         monthBroken = "[冲动生不破]";
         break;
       default:

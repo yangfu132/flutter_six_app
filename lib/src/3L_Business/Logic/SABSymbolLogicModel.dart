@@ -18,8 +18,8 @@ class SABSymbolLogicModel {
   Map mapSymbolTo = {};
   Map mapSymbolHide = {};
 
-  MonthBrokenEnum getConflictOnMonthState(EasyTypeEnum easyTypeEnum) {
-    MonthBrokenEnum enumResultConflict = MonthBrokenEnum.Broken_Null;
+  MonthConflictEnum getConflictOnMonthState(EasyTypeEnum easyTypeEnum) {
+    MonthConflictEnum enumResultConflict = MonthConflictEnum.Conflict_Null;
     if (easyTypeEnum == EasyTypeEnum.from) {
       enumResultConflict = mapSymbolFrom['conflictOnMonthState'];
     } else if (easyTypeEnum == EasyTypeEnum.to) {
@@ -33,7 +33,7 @@ class SABSymbolLogicModel {
   }
 
   void setConflictOnMonthState(
-      EasyTypeEnum easyTypeEnum, MonthBrokenEnum enumResultConflict) {
+      EasyTypeEnum easyTypeEnum, MonthConflictEnum enumResultConflict) {
     if (easyTypeEnum == EasyTypeEnum.from) {
       mapSymbolFrom['conflictOnMonthState'] = enumResultConflict;
     } else if (easyTypeEnum == EasyTypeEnum.to) {

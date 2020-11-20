@@ -100,13 +100,13 @@ class SABEasyLogicModel {
 
   /// `Get & Set`//////////////////////////////////////////////////////////////
 
-  MonthBrokenEnum getConflictOnMonthState(
+  MonthConflictEnum getConflictOnMonthState(
       int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getConflictOnMonthState(easyTypeEnum);
   }
 
   void setConflictOnMonthState(int intRow, EasyTypeEnum easyTypeEnum,
-      MonthBrokenEnum enumResultConflict) {
+      MonthConflictEnum enumResultConflict) {
     symbolAtRow(intRow)
         .setConflictOnMonthState(easyTypeEnum, enumResultConflict);
   }

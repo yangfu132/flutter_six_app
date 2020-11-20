@@ -47,10 +47,10 @@ enum EmptyEnum {
   Empty_NoUseful, //用神未现
 }
 
-enum MonthBrokenEnum {
-  Broken_Null,
-  Broken_NO, //非月破
-  Broken_YES, //月破
+enum MonthConflictEnum {
+  Conflict_Null,
+  Conflict_NO, //非月破
+  Conflict_Broken, //月破
   Broken_OnDay, //临日柱，不破
   Broken_Move, //动爻，不破
   Broken_DayBorn, //日生，不破
