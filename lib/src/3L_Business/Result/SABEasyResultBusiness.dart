@@ -68,10 +68,8 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
     //因为增删卜易中只出现六纯卦，所以也要求是六纯卦；
 
-    if (logicBusiness().lifeIndexAtEasy(logicBusiness().fromEasyDictionary()) ==
-            0 &&
-        logicBusiness().lifeIndexAtEasy(logicBusiness().toEasyDictionary()) ==
-            0) {
+    if (logicModel().inputWordsModel.bFromPureEasy &&
+        logicModel().inputWordsModel.bToPureEasy) {
       //本卦与变卦之间的生克关系
       String strParent = logicBusiness().easyParent();
 

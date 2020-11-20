@@ -16,11 +16,17 @@ class SABEasyWordsModel {
   int intGoalIndex;
 
   String stringFromName;
-  String stringFromElement;
   String stringFromPlace;
+  String stringFromElement;
   String stringToName;
-  String stringToElement;
   String stringToPlace;
+  String stringToElement;
+
+  ///纯卦
+  bool bFromPureEasy;
+  bool bToPureEasy;
+
+  ///纯卦
 
   List arrayMovement;
 

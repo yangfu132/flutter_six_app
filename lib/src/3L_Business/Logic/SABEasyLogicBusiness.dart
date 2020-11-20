@@ -50,15 +50,11 @@ class SABEasyLogicBusiness {
 
   String roleDescriptionAtRow(int intIndex) {
     String strResult = "";
-    Map fromDict = fromEasyDictionary();
-    if (null != fromDict) {
-      if (intIndex == getLifeIndex()) {
-        strResult = "世";
-      } else if (intIndex == getGoalIndex()) {
-        strResult = "应";
-      }
+    if (intIndex == getLifeIndex()) {
+      strResult = "世";
+    } else if (intIndex == getGoalIndex()) {
+      strResult = "应";
     }
-    //else cont.
 
     return strResult;
   }
@@ -2479,15 +2475,11 @@ class SABEasyLogicBusiness {
     return easyBusiness().isSymbolMovement(stringSymbol);
   }
 
-  int lifeIndexAtEasy(Map easyDict) {
-    return easyBusiness().lifeIndexAtEasy(easyDict);
-  }
-
-  Map fromEasyDictionary() {
+  Map _fromEasyDictionary() {
     return easyBusiness().fromEasyDictionary();
   }
 
-  Map toEasyDictionary() {
+  Map _toEasyDictionary() {
     return easyBusiness().toEasyDictionary();
   }
 
@@ -2606,19 +2598,19 @@ class SABEasyLogicBusiness {
       _outLogicModel.bStaticEasy = isStaticEasy();
 
       _outLogicModel.setIsEasySixPair(
-          EasyTypeEnum.from, _isEasySixPair(fromEasyDictionary()));
+          EasyTypeEnum.from, _isEasySixPair(_fromEasyDictionary()));
 
       _outLogicModel.setIsEasySixPair(
-          EasyTypeEnum.to, _isEasySixPair(toEasyDictionary()));
+          EasyTypeEnum.to, _isEasySixPair(_toEasyDictionary()));
 
       _outLogicModel.setIsEasySixPair(
           EasyTypeEnum.hide, _isEasySixPair(easyBusiness().placeFirstEasy()));
 
       _outLogicModel.setIsEasySixConflict(
-          EasyTypeEnum.from, _isEasySixConflict(fromEasyDictionary()));
+          EasyTypeEnum.from, _isEasySixConflict(_fromEasyDictionary()));
 
       _outLogicModel.setIsEasySixConflict(
-          EasyTypeEnum.to, _isEasySixConflict(toEasyDictionary()));
+          EasyTypeEnum.to, _isEasySixConflict(_toEasyDictionary()));
 
       _outLogicModel.setIsEasySixConflict(EasyTypeEnum.hide,
           _isEasySixConflict(easyBusiness().placeFirstEasy()));

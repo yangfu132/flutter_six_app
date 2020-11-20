@@ -379,6 +379,11 @@ class SABEasyBusiness {
       _outEasyWordsModel.stringToPlace =
           eightDiagrams().easyPlaceByName(toEasyName());
 
+      _outEasyWordsModel.bFromPureEasy =
+          0 == lifeIndexAtEasy(fromEasyDictionary());
+
+      _outEasyWordsModel.bToPureEasy = 0 == lifeIndexAtEasy(toEasyDictionary());
+
       for (int intRow = 0; intRow < 6; intRow++) {
         _outEasyWordsModel.setDigit(
             intRow, _inputEasyModel.digitAtIndex(intRow));
