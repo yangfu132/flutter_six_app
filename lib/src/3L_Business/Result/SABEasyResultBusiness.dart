@@ -341,8 +341,9 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
       String usefulSymbol = logicBusiness().symbolNameAtMergeRow(usefulIndex);
       //月破
-      MonthConflictEnum monthBrokenState =
-          _inputLogicBusiness.symbolMonthBrokenState(usefulSymbol);
+      MonthConflictEnum monthBrokenState = logicModel().getConflictOnMonthState(
+          logicModel().inputWordsModel.rowOfMergeRow(usefulIndex),
+          logicModel().inputWordsModel.easyTypeOfMergeRow(usefulIndex));
       if (MonthConflictEnum.Conflict_OnDay == monthBrokenState ||
           MonthConflictEnum.Conflict_Move == monthBrokenState ||
           MonthConflictEnum.Conflict_DayBorn == monthBrokenState) {

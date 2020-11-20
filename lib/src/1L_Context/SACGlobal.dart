@@ -6,6 +6,7 @@
 ///EightDiagrams：八卦
 
 enum EasyTypeEnum {
+  type_null,
   from, //本卦
   to, //变卦
   hide, //伏卦

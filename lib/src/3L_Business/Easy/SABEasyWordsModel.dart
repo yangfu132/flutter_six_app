@@ -54,6 +54,34 @@ class SABEasyWordsModel {
     return stringResult;
   }
 
+  EasyTypeEnum easyTypeOfMergeRow(int intRow) {
+    EasyTypeEnum enumResultType = EasyTypeEnum.type_null;
+    if (0 <= intRow && intRow < 6) {
+      enumResultType = EasyTypeEnum.from;
+    } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
+      enumResultType = EasyTypeEnum.to;
+    } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
+      enumResultType = EasyTypeEnum.hide;
+    }
+    //else cont.
+
+    return enumResultType;
+  }
+
+  int rowOfMergeRow(int intRow) {
+    int intResultRow = -1;
+    if (0 <= intRow && intRow < 6) {
+      intResultRow = intRow;
+    } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
+      intResultRow = intRow - ROW_CHNAGE_BEGIN;
+    } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
+      intResultRow = intRow - ROW_FLY_BEGIN;
+    }
+    //else cont.
+
+    return intResultRow;
+  }
+
   String earthAtMergeRow(int intRow) {
     String stringResult = "";
     if (0 <= intRow && intRow < 6) {

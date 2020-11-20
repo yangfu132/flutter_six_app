@@ -745,8 +745,7 @@ class SABEasyAnalysisBusiness {
 
   String monthBrokenDescriptionAtRow(int nRow, EasyTypeEnum easyType) {
     String monthBroken = "";
-    String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
-    switch (_inputLogicBusiness.symbolMonthBrokenState(stringSymbol)) {
+    switch (logicModel().getConflictOnMonthState(nRow, easyType)) {
       case MonthConflictEnum.Conflict_NO:
         break;
       case MonthConflictEnum.Conflict_Broken:
