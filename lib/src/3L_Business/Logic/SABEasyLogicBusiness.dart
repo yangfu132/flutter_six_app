@@ -1787,8 +1787,8 @@ class SABEasyLogicBusiness {
     MonthConflictEnum stateEmpty = symbolMonthBrokenState(stringSymbol);
 
     if (MonthConflictEnum.Conflict_NO == stateEmpty ||
-        MonthConflictEnum.Broken_Move == stateEmpty ||
-        MonthConflictEnum.Broken_MoveBorn == stateEmpty) {
+        MonthConflictEnum.Conflict_Move == stateEmpty ||
+        MonthConflictEnum.Conflict_MoveBorn == stateEmpty) {
     } else
       bResult = true;
 
@@ -1930,13 +1930,13 @@ class SABEasyLogicBusiness {
       if (strDayEarth == basicEarth)
         nResult = MonthConflictEnum.Conflict_OnDay;
       else if (isSymbolMovement(stringSymbol)) {
-        nResult = MonthConflictEnum.Broken_Move;
+        nResult = MonthConflictEnum.Conflict_Move;
       } else {
         //唯静而不动，又无日辰动爻生助，实则到底而破矣。
         if (branchBusiness().isEarthBorn(dayEarth(), basicEarth)) {
           nResult = MonthConflictEnum.Broken_DayBorn;
         } else if (_isSymbolMoveBorn(stringSymbol)) {
-          nResult = MonthConflictEnum.Broken_MoveBorn;
+          nResult = MonthConflictEnum.Conflict_MoveBorn;
         }
         //else cont.
       } //endi
