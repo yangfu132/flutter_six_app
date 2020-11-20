@@ -2476,11 +2476,11 @@ class SABEasyLogicBusiness {
   }
 
   Map _fromEasyDictionary() {
-    return easyBusiness().fromEasyDictionary();
+    return outEasyWordsModel().mapFromEasy;
   }
 
   Map _toEasyDictionary() {
-    return easyBusiness().toEasyDictionary();
+    return outEasyWordsModel().mapToEasy;
   }
 
   String fromEasyName() {

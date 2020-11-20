@@ -14,13 +14,16 @@ class SABEasyWordsModel {
 
   int intLifeIndex;
   int intGoalIndex;
-
   String stringFromName;
   String stringFromPlace;
   String stringFromElement;
   String stringToName;
   String stringToPlace;
   String stringToElement;
+
+  Map mapFromEasy;
+  Map mapToEasy;
+  Map mapHideEasy;
 
   ///纯卦
   bool bFromPureEasy;

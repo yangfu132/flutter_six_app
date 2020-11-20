@@ -360,10 +360,16 @@ class SABEasyBusiness {
   SABEasyWordsModel outEasyWordsModel() {
     if (null == _outEasyWordsModel) {
       _outEasyWordsModel = SABEasyWordsModel(_inputEasyModel);
+
       _outEasyWordsModel.stringDayEarth = dayEarth();
       _outEasyWordsModel.stringMonthEarth = monthEarth();
       _outEasyWordsModel.stringDaySky = daySky();
       _outEasyWordsModel.stringMonthSky = monthSky();
+
+      _outEasyWordsModel.mapFromEasy = fromEasyDictionary();
+      _outEasyWordsModel.mapToEasy = toEasyDictionary();
+      _outEasyWordsModel.mapHideEasy = placeFirstEasy();
+
       _outEasyWordsModel.intLifeIndex = getLifeIndex();
       _outEasyWordsModel.intGoalIndex = _goalIndex();
       _outEasyWordsModel.stringFromName = fromEasyName();
