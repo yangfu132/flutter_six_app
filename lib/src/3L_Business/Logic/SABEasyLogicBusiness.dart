@@ -1709,7 +1709,7 @@ class SABEasyLogicBusiness {
 
   /// `--旬空章第二十六`///////////////////////////////////////////////////////////
 
-  EmptyEnum symbolBasicEmptyState(String stringSymbol) {
+  EmptyEnum _symbolBasicEmptyState(String stringSymbol) {
     EmptyEnum nResult = EmptyEnum.Empty_False;
     if ("" != stringSymbol) {
       String earth = _symbolEarth(stringSymbol);
@@ -1758,7 +1758,7 @@ class SABEasyLogicBusiness {
 
   bool isEmptyAtRow(int intRow, EasyTypeEnum easyType) {
     String stringSymbol = symbolAtRow(intRow, easyType);
-    bool bResult = symbolBasicEmptyState(stringSymbol) == EmptyEnum.Empty_YES;
+    bool bResult = _symbolBasicEmptyState(stringSymbol) == EmptyEnum.Empty_YES;
 
     return bResult;
   }
@@ -2399,7 +2399,7 @@ class SABEasyLogicBusiness {
     for (int intRow in usefulArray) {
       String stringSymbol =
           outEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
-      if (symbolBasicEmptyState(stringSymbol) != EmptyEnum.Empty_NO) {
+      if (_symbolBasicEmptyState(stringSymbol) != EmptyEnum.Empty_NO) {
         listEmpty.add(intRow);
       }
       //else cont.
@@ -2647,6 +2647,7 @@ class SABEasyLogicBusiness {
           arrayHideSeasonStrong.add(intRow);
         }
 
+        ///IsOnMonth
         _outLogicModel.setIsOnMonth(intRow, EasyTypeEnum.from,
             _isSymbolOnMonth(symbolAtFromRow(intRow)));
 
@@ -2656,6 +2657,7 @@ class SABEasyLogicBusiness {
         _outLogicModel.setIsOnMonth(intRow, EasyTypeEnum.hide,
             _isSymbolOnMonth(symbolAtHideRow(intRow)));
 
+        ///IsOnDay
         _outLogicModel.setIsOnDay(
             intRow, EasyTypeEnum.from, _isSymbolOnDay(symbolAtFromRow(intRow)));
 
@@ -2665,6 +2667,7 @@ class SABEasyLogicBusiness {
         _outLogicModel.setIsOnDay(
             intRow, EasyTypeEnum.hide, _isSymbolOnDay(symbolAtHideRow(intRow)));
 
+        ///IsMonthPair
         _outLogicModel.setIsMonthPair(intRow, EasyTypeEnum.from,
             _isSymbolMonthPair(symbolAtFromRow(intRow)));
 
@@ -2674,6 +2677,7 @@ class SABEasyLogicBusiness {
         _outLogicModel.setIsMonthPair(intRow, EasyTypeEnum.hide,
             _isSymbolMonthPair(symbolAtHideRow(intRow)));
 
+        ///IsDayPair
         _outLogicModel.setIsDayPair(intRow, EasyTypeEnum.from,
             _isSymbolDayPair(symbolAtFromRow(intRow)));
 
@@ -2682,6 +2686,16 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setIsDayPair(intRow, EasyTypeEnum.hide,
             _isSymbolDayPair(symbolAtHideRow(intRow)));
+
+        ///BasicEmptyState
+        _outLogicModel.setBasicEmptyState(intRow, EasyTypeEnum.from,
+            _symbolBasicEmptyState(symbolAtFromRow(intRow)));
+
+        _outLogicModel.setBasicEmptyState(intRow, EasyTypeEnum.to,
+            _symbolBasicEmptyState(symbolAtToRow(intRow)));
+
+        _outLogicModel.setBasicEmptyState(intRow, EasyTypeEnum.hide,
+            _symbolBasicEmptyState(symbolAtHideRow(intRow)));
       }
 
       ///endf

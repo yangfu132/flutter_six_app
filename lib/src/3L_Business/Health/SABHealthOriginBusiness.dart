@@ -409,7 +409,7 @@ class SABHealthOriginBusiness {
 
     OutRightEnum fResult = OutRightEnum.RIGHT_NULL;
     String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
-    if (_inputLogicBusiness.symbolBasicEmptyState(stringSymbol) !=
+    if (logicModel().getBasicEmptyState(nRow, easyType) !=
         EmptyEnum.Empty_YES) {
       bool bPaireDay = logicModel().isDayPair(nRow, easyType);
       bool bPaireMonth = logicModel().isMonthPair(nRow, easyType);

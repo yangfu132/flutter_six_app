@@ -100,6 +100,15 @@ class SABEasyLogicModel {
 
   /// `Get & Set`//////////////////////////////////////////////////////////////
 
+  void setBasicEmptyState(
+      int intRow, EasyTypeEnum easyTypeEnum, EmptyEnum enumResultEmpty) {
+    symbolAtRow(intRow).setBasicEmptyState(easyTypeEnum, enumResultEmpty);
+  }
+
+  EmptyEnum getBasicEmptyState(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getBasicEmptyState(easyTypeEnum);
+  }
+
   void setIsOnMonth(int intRow, EasyTypeEnum easyTypeEnum, bool bOnMonth) {
     symbolAtRow(intRow).setIsOnMonth(easyTypeEnum, bOnMonth);
   }

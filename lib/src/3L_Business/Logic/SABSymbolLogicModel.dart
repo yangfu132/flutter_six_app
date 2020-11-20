@@ -11,10 +11,37 @@ class SABSymbolLogicModel {
   ///'isOnDay'
   ///'isDayPair'
   ///'isMonthPair'
+  ///'basicEmptyState'
   ///}
   Map mapSymbolFrom = {};
   Map mapSymbolTo = {};
   Map mapSymbolHide = {};
+
+  EmptyEnum getBasicEmptyState(EasyTypeEnum easyTypeEnum) {
+    EmptyEnum enumResultEmpty = EmptyEnum.Empty_Null;
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      enumResultEmpty = mapSymbolFrom['basicEmptyState'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      enumResultEmpty = mapSymbolTo['basicEmptyState'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      enumResultEmpty = mapSymbolHide['basicEmptyState'];
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+
+    return enumResultEmpty;
+  }
+
+  void setBasicEmptyState(
+      EasyTypeEnum easyTypeEnum, EmptyEnum enumResultEmpty) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['basicEmptyState'] = enumResultEmpty;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['basicEmptyState'] = enumResultEmpty;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['basicEmptyState'] = enumResultEmpty;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
 
   bool getIsMonthPair(EasyTypeEnum easyTypeEnum) {
     bool bResultIsMonthPair = false;

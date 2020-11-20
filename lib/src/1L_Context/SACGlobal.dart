@@ -38,6 +38,7 @@ final int ROW_CHNAGE_END = 26;
 final double MAX_DEFENSIVE = 1.0;
 
 enum EmptyEnum {
+  Empty_Null,
   Empty_NO, //非空
   Empty_YES, //空
   Empty_Conflict, //冲空不空

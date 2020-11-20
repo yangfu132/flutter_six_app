@@ -298,15 +298,15 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
     int usefulIndex = _inputLogicBusiness.usefulDeityRow();
 
+    EmptyEnum emptyState = EmptyEnum.Empty_Null;
     if (usefulIndex > globalRowInvalid) {
-      String usefulSymbol = logicBusiness().symbolNameAtMergeRow(usefulIndex);
-
       String strUseful = "";
-      if (0 <= usefulIndex && usefulIndex < 6)
+      if (0 <= usefulIndex && usefulIndex < 6) {
         strUseful = analysisBusiness()
             .resultSymbolEmpty(usefulIndex, EasyTypeEnum.from);
-      else if (ROW_MONTH == usefulIndex) {
-        //TODO:当用神是日 或者 月 的时候
+        emptyState =
+            logicModel().getBasicEmptyState(usefulIndex, EasyTypeEnum.from);
+      } else if (ROW_MONTH == usefulIndex) {
         strUseful = "月为用神";
       } else if (ROW_DAY == usefulIndex) {
         strUseful = "日为用神";
@@ -314,10 +314,10 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
         usefulIndex = usefulIndex - ROW_FLY_BEGIN;
         strUseful = analysisBusiness()
             .resultSymbolEmpty(usefulIndex, EasyTypeEnum.hide);
+        emptyState =
+            logicModel().getBasicEmptyState(usefulIndex, EasyTypeEnum.hide);
       } //endi
 
-      EmptyEnum emptyState =
-          _inputLogicBusiness.symbolBasicEmptyState(usefulSymbol);
       if (EmptyEnum.Empty_NoUseful == emptyState) {
         //用神没有出现
         strUseful = strUseful + "卦中用神未现";
@@ -341,6 +341,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
       }
       //else cont.
 
+      String usefulSymbol = logicBusiness().symbolNameAtMergeRow(usefulIndex);
       //月破
       MonthBrokenEnum monthBrokenState =
           _inputLogicBusiness.symbolMonthBrokenState(usefulSymbol);
