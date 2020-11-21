@@ -47,7 +47,9 @@ class SABEasyDigitModel {
     print('_listEasyData:$_listEasyData');
     //[0, 8, 0, 1, 1, 1]
     //[8, 8, 0, 8, 0, 0]
-    return _listEasyData = [0, 8, 0, 1, 1, 1];
+    //[0, 1, 1, 8, 8, 1]
+
+    return _listEasyData;
   }
 
   bool isMovementAtRow(int nRow) {

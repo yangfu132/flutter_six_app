@@ -365,21 +365,24 @@ class SABEasyBusiness {
             intRow, _inputEasyModel.digitAtIndex(intRow));
         _outEasyWordsModel.setMovement(
             intRow, _inputEasyModel.isMovementAtRow(intRow));
+
         String symbolFrom = symbolAtFromRow(intRow);
-        _outEasyWordsModel.setFromSymbolName(intRow, symbolAtFromRow(intRow));
+        _outEasyWordsModel.setFromSymbolName(intRow, symbolFrom);
         _outEasyWordsModel.setFromParent(intRow, symbolParent(symbolFrom));
         _outEasyWordsModel.setFromEarth(intRow, symbolEarth(symbolFrom));
         _outEasyWordsModel.setFromElement(intRow, symbolElement(symbolFrom));
 
-        _outEasyWordsModel.setToSymbolName(intRow, symbolAtToRow(intRow));
-        _outEasyWordsModel.setToParent(intRow, symbolParent(symbolFrom));
-        _outEasyWordsModel.setToEarth(intRow, symbolEarth(symbolFrom));
-        _outEasyWordsModel.setToElement(intRow, symbolElement(symbolFrom));
+        String symbolTo = symbolAtToRow(intRow);
+        _outEasyWordsModel.setToSymbolName(intRow, symbolTo);
+        _outEasyWordsModel.setToParent(intRow, symbolParent(symbolTo));
+        _outEasyWordsModel.setToEarth(intRow, symbolEarth(symbolTo));
+        _outEasyWordsModel.setToElement(intRow, symbolElement(symbolTo));
 
-        _outEasyWordsModel.setHideSymbolName(intRow, symbolAtHideRow(intRow));
-        _outEasyWordsModel.setHideParent(intRow, symbolParent(symbolFrom));
-        _outEasyWordsModel.setHideEarth(intRow, symbolEarth(symbolFrom));
-        _outEasyWordsModel.setHideElement(intRow, symbolElement(symbolFrom));
+        String symbolHide = symbolAtHideRow(intRow);
+        _outEasyWordsModel.setHideSymbolName(intRow, symbolHide);
+        _outEasyWordsModel.setHideParent(intRow, symbolParent(symbolHide));
+        _outEasyWordsModel.setHideEarth(intRow, symbolEarth(symbolHide));
+        _outEasyWordsModel.setHideElement(intRow, symbolElement(symbolHide));
       }
     }
     return _outEasyWordsModel;

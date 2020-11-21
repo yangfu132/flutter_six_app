@@ -31,10 +31,6 @@ class SABEasyWordsModel {
   bool bFromPureEasy;
   bool bToPureEasy;
 
-  ///纯卦
-
-  List arrayMovement;
-
   /// `MergeRow函数`///////////////////////////////////////////////////////////
   ///MergeRow的定义
   ///from:0~6
@@ -114,7 +110,7 @@ class SABEasyWordsModel {
 
   ///此函数用于判断当前爻是否为动爻
   bool isMovementAtRow(int intRow) {
-    return symbolAtRow(intRow).bMovement;
+    return symbolAtRow(rowOfMergeRow(intRow)).bMovement;
   }
 
   String getSmbolName(int intRow, EasyTypeEnum easyTypeEnum) {

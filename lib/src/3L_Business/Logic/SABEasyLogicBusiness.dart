@@ -813,7 +813,8 @@ class SABEasyLogicBusiness {
         _inputDelegate.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     for (int intRow in arrayLevel) {
       if (!isMovementAtRow(intRow)) {
-        if (isSymbolHealthStrong(intRow, EasyTypeEnum.from))
+        //静爻旺相，日辰冲之暗动。
+        if (isSymbolBackMoveAtRow(intRow, EasyTypeEnum.from))
           movementArray.add(intRow);
         //else cont.
       } else
@@ -1037,7 +1038,10 @@ class SABEasyLogicBusiness {
     bool bResult = false;
 
     double fHealth = _inputDelegate.symbolHealthAtRow(intRow, easyType);
-    bResult = fHealth > _inputDelegate.healthCriticalValue();
+    if (null != fHealth)
+      bResult = fHealth > _inputDelegate.healthCriticalValue();
+    else
+      colog('error');
 
     return bResult;
   }
@@ -1465,8 +1469,8 @@ class SABEasyLogicBusiness {
   bool isSymbolBackMoveAtRow(int intRow, EasyTypeEnum easyType) {
     bool result = false;
     if (!isMovementAtRow(intRow)) {
-      if (isSymbolHealthStrong(intRow, easyType)) {
-        result = isSymbolConflictDayAtRow(intRow, easyType);
+      if (isSymbolConflictDayAtRow(intRow, easyType)) {
+        result = isSymbolHealthStrong(intRow, easyType);
       }
       //else cont.
     }
