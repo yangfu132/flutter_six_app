@@ -2668,7 +2668,10 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setBasicEmptyState(intRow, EasyTypeEnum.hide,
             _symbolBasicEmptyState(symbolAtHideRow(intRow)));
+      }
 
+      //此信息依赖爻的基础信息
+      for (int intRow = 0; intRow < 6; intRow++) {
         ///ConflictOnMonth
         _outLogicModel.setConflictOnMonthState(intRow, EasyTypeEnum.from,
             _symbolConflictStateOnMonth(intRow, EasyTypeEnum.from));

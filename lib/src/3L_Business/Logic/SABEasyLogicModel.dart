@@ -18,10 +18,6 @@ class SABEasyLogicModel {
   bool _bToEasySixConflict;
   bool _bHideEasySixConflict;
 
-  List arrayFromSeasonStrong;
-  List arrayToSeasonStrong;
-  List arrayHideSeasonStrong;
-
   /// `Public`//////////////////////////////////////////////////////////////
 
   bool isEasySixPair(EasyTypeEnum enumEasyType) {
