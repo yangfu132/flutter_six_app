@@ -111,12 +111,12 @@ class SABEasyWordsModel {
   }
 
   ///此函数用于判断当前爻是否为动爻
-  bool isMovementAtRow(int intRow) {
+  bool isMovementAtRow(int intMergeRow) {
     bool bResult = false;
-    int row = rowOfMergeRow(intRow);
-    if (0 <= row && 6 >= row)
-      bResult = symbolAtRow(row).bMovement;
-    else if (ROW_MONTH == row || ROW_DAY == row)
+    int rowInEasy = rowOfMergeRow(intMergeRow);
+    if (0 <= rowInEasy && 6 >= rowInEasy)
+      bResult = symbolAtRow(rowInEasy).bMovement;
+    else if (ROW_MONTH == intMergeRow || ROW_DAY == intMergeRow)
       print('日月为用神');
     else
       colog('error');
