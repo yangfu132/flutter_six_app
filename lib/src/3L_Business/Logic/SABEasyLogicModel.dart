@@ -14,6 +14,7 @@ class SABEasyLogicModel {
   bool _bFromEasySixPair;
   bool _bToEasySixPair;
   bool _bHideEasySixPair;
+
   bool _bFromEasySixConflict;
   bool _bToEasySixConflict;
   bool _bHideEasySixConflict;

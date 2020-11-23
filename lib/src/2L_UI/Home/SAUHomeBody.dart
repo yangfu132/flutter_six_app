@@ -5,7 +5,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 // import 'package:flutter/src/foundation/constants.dart';
 import 'AnimationDiceWidget.dart';
-import '../Detail/SAUEasyDetailRoute.dart';
+import '../EasyExpertResult/SAUEasyExpertResultRoute.dart';
 import '../../3L_Business/Easy/SABEasyDigitModel.dart';
 
 class SAUHomeBody extends StatefulWidget {
@@ -107,7 +107,7 @@ class SAUHomeBodyState extends State<SAUHomeBody> {
                   SABEasyDigitModel outEasyModel =
                       SABEasyDigitModel('测试', '子孙');
                   outEasyModel.generateEasyArray();
-                  return SAUEasyDetailRoute(outEasyModel);
+                  return SAUEasyExpertResultRoute(outEasyModel);
                 }));
               }),
               visible: _bAnimation,
