@@ -9,6 +9,8 @@ class SABEasyWordsModel {
   SABEasyWordsModel(this.inputDigitModel);
   List _listSymbols;
 
+  ///时间
+  String stringFormatTime;
   String stringDayEarth;
   String stringDaySky;
   String stringMonthSky;

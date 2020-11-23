@@ -8,13 +8,14 @@ import '../Health/SABEasyHealthBusiness.dart';
 import '../Analysis/SABEasyAnalysisBusiness.dart';
 import '../Logic/SABEasyLogicDelegate.dart';
 import '../Health/SABHealthModel.dart';
+import '../Detail/SABEasyDetailModel.dart';
 
 class SABEasyDetailBusiness extends SABEasyLogicDelegate {
   final SABEasyDigitModel _inputEasyModel;
   SABEasyDetailBusiness(this._inputEasyModel);
   SABEasyLogicBusiness _logicBusiness;
   SABEasyHealthBusiness _healthBusiness;
-  void aaaa() {}
+  SABEasyDetailModel _outputDetailModel;
 
   ///`SABEasyHealthDelegate`
 
@@ -43,5 +44,22 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
       _healthBusiness = SABEasyHealthBusiness(logicBusiness());
     } //else cont.
     return _healthBusiness;
+  }
+
+  SABEasyDetailModel outputDetailModel() {
+    if (null == _outputDetailModel) {
+      _outputDetailModel = SABEasyDetailModel();
+      _outputDetailModel.stringDetailName = easyName();
+    }
+    return _outputDetailModel;
+  }
+
+  String easyName() {
+    String stringResult = '';
+    String formatTime =
+        logicBusiness().logicModel().inputWordsModel.stringFormatTime;
+    String formatDate = formatTime.split(' ')[0];
+    stringResult += '$formatDate ${_inputEasyModel.getUsefulDeity()} 补充';
+    return stringResult;
   }
 }

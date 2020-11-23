@@ -360,6 +360,8 @@ class SABEasyBusiness {
 
       _outEasyWordsModel.bToPureEasy = 0 == lifeIndexAtEasy(toEasyDictionary());
 
+      _outEasyWordsModel.stringFormatTime = businessCalendar().stringFromDate();
+
       for (int intRow = 0; intRow < 6; intRow++) {
         _outEasyWordsModel.setDigit(
             intRow, _inputEasyModel.digitAtIndex(intRow));
