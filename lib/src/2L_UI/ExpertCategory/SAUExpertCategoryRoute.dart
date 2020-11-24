@@ -1,8 +1,8 @@
 ﻿import 'package:flutter/material.dart';
 import '../EasyResult/SAUEasyResultRoute.dart';
 import '../../3L_Business/Easy/SABEasyDigitModel.dart';
-import '../../3L_Business/Detail/SABEasyDetailBusiness.dart';
-import '../../3L_Business/Detail/SABEasyDetailModel.dart';
+import '../../3L_Business/Result/SABEasyResultBusiness.dart';
+import '../../3L_Business/Result/SABEasyResultModel.dart';
 
 class SAUExpertCategoryRoute extends StatefulWidget {
   SAUExpertCategoryRoute(this.inputEasyModel);
@@ -15,31 +15,33 @@ class SAUExpertCategoryRoute extends StatefulWidget {
 }
 
 class _SAUExpertCategoryRoute extends State<SAUExpertCategoryRoute> {
-  SABEasyDetailBusiness detailBusiness;
+  SABEasyResultBusiness detailBusiness;
+  SABEasyResultModel outputResultModel = SABEasyResultModel();
 
   @override
   void initState() {
     super.initState();
-    detailBusiness = SABEasyDetailBusiness(widget.inputEasyModel);
+    detailBusiness = SABEasyResultBusiness();
+    detailBusiness.configResultModel(widget.inputEasyModel, outputResultModel);
   }
 
-  SABEasyDetailModel detailModel() {
-    return detailBusiness.outputDetailModel();
+  SABEasyResultModel resultModel() {
+    return outputResultModel;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(detailModel().stringDetailName),
+        title: Text('补充'),
       ),
       body: ListView.builder(
-          itemCount: detailModel().detailList.length * 2,
+          itemCount: resultModel().resultList.length * 2,
           //itemExtent: 50.0, //强制高度为50.0
           itemBuilder: (BuildContext context, int index) {
             int dataIndex = index ~/ 2;
             int kv = index % 2;
-            Map value = detailModel().detailList[dataIndex];
+            Map value = resultModel().resultList[dataIndex];
             if (kv > 0)
               return ListTile(
                 title: Text(value['value']),

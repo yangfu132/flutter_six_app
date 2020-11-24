@@ -34,31 +34,52 @@ class _SAUEasyDetailRouteState extends State<SAUEasyDetailRoute> {
         title: Text(detailModel().stringDetailName),
       ),
       body: ListView.builder(
-          itemCount: detailModel().detailList.length * 2,
+          itemCount: detailModel().detailList().length,
           //itemExtent: 50.0, //强制高度为50.0
           itemBuilder: (BuildContext context, int index) {
-            int dataIndex = index ~/ 2;
-            int kv = index % 2;
-            Map value = detailModel().detailList[dataIndex];
-            if (kv > 0)
-              return ListTile(
-                title: Text(value['value']),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return SAUEasyResultRoute(widget.inputEasyModel);
-                  }));
-                },
-              );
-            else
+            List listValue = detailModel().detailList()[index];
+            if (0 == index) {
               return Container(
                 //color: Colors.grey,
                 decoration: BoxDecoration(
                   color: Colors.grey,
                 ),
-                child: ListTile(title: Text(value['key'])),
+                child: ListTile(
+                  title: Row(children: getWidgetList(listValue)),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return SAUEasyResultRoute(widget.inputEasyModel);
+                    }));
+                  },
+                ),
               );
-            //return ListTile(title: Text(value['key']));
+            } else {
+              return Container(
+                //color: Colors.grey,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: ListTile(
+                  title: Row(children: getWidgetList(listValue)),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return SAUEasyResultRoute(widget.inputEasyModel);
+                    }));
+                  },
+                ),
+              );
+            }
           }),
     );
+  }
+
+  List<Widget> getWidgetList(List<String> listContent) {
+    List<Widget> result = [];
+    for (String stringItem in listContent) {
+      result.add(Text(stringItem));
+    }
+    return result;
   }
 }
