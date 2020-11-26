@@ -94,8 +94,10 @@ class SABEasyLogicBusiness {
     if (0 <= usefulIndex && usefulIndex <= 5) {
       bResult = isSymbolHealthStrong(usefulIndex, EasyTypeEnum.from);
     } else if (ROW_MONTH == usefulIndex) {
+      bResult = true;
       colog("error!");
     } else if (ROW_DAY == usefulIndex) {
+      bResult = true;
       colog("error!");
     } else if (ROW_FLY_BEGIN <= usefulIndex) {
       usefulIndex -= ROW_FLY_BEGIN;
