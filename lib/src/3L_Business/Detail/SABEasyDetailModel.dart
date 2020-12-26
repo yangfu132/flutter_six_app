@@ -3,6 +3,8 @@
 
   List _detailList;
 
+  void set() {}
+
   List detailList() {
     if (null == _detailList) {
       _detailList = [

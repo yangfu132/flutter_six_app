@@ -48,8 +48,10 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
 
   SABEasyDetailModel outputDetailModel() {
     if (null == _outputDetailModel) {
+      //TODO:细化detailmodel
       _outputDetailModel = SABEasyDetailModel();
       _outputDetailModel.stringDetailName = easyName();
+      _outputDetailModel.detailList();
     }
     return _outputDetailModel;
   }
