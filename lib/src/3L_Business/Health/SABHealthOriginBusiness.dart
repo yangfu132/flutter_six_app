@@ -513,9 +513,11 @@ class SABHealthOriginBusiness {
           bResult = MAX_DEFENSIVE;
         else if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_inputLogicBusiness.logicModel().isMonthPair(nRow, easyType))
+        else if (_inputLogicBusiness
+            .outLogicModel()
+            .isMonthPair(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_inputLogicBusiness.logicModel().isDayPair(nRow, easyType))
+        else if (_inputLogicBusiness.outLogicModel().isDayPair(nRow, easyType))
           bResult = MAX_DEFENSIVE;
         //else cont.
       } else
@@ -528,6 +530,6 @@ class SABHealthOriginBusiness {
 
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
-    return _inputLogicBusiness.logicModel();
+    return _inputLogicBusiness.outLogicModel();
   }
 }

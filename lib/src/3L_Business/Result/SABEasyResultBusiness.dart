@@ -723,6 +723,6 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
-    return logicBusiness().logicModel();
+    return logicBusiness().outLogicModel();
   }
 }

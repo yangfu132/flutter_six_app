@@ -23,9 +23,9 @@ class SABEasyLogicBusiness {
 
   String _symbolRelative(int intRow) {
     String theEarth =
-        outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
+        inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
     String basicEarth =
-        outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.hide);
+        inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.hide);
 
     return branchBusiness().earthRelative(theEarth, basicEarth);
   }
@@ -39,7 +39,7 @@ class SABEasyLogicBusiness {
 
     for (int intRow = 0; intRow < 6; intRow++) {
       String stringSymbolParent =
-          outEasyWordsModel().getSmbolParent(intRow, easyTypeEnum);
+          inputEasyWordsModel().getSmbolParent(intRow, easyTypeEnum);
       if (stringSymbolParent == parent) {
         parrentArray.add(intRow);
       }
@@ -124,7 +124,7 @@ class SABEasyLogicBusiness {
     } else if (usefulIndex == ROW_DAY) {
       strUsefulElement = dayElement();
     } else if (usefulIndex >= ROW_FLY_BEGIN) {
-      strUsefulElement = outEasyWordsModel()
+      strUsefulElement = inputEasyWordsModel()
           .getSmbolElement(usefulIndex - ROW_FLY_BEGIN, EasyTypeEnum.hide);
     } else
       colog("error!");
@@ -197,14 +197,14 @@ class SABEasyLogicBusiness {
 
   ///`--生世克世`//////////////////////////////////////////////////////
   List lifeBornArray() {
-    String lifeElement =
-        outEasyWordsModel().getSmbolElement(getLifeIndex(), EasyTypeEnum.from);
+    String lifeElement = inputEasyWordsModel()
+        .getSmbolElement(getLifeIndex(), EasyTypeEnum.from);
     return arrayParent("父母", lifeElement);
   }
 
   List lifeEnemyArray() {
-    String lifeElement =
-        outEasyWordsModel().getSmbolElement(getLifeIndex(), EasyTypeEnum.from);
+    String lifeElement = inputEasyWordsModel()
+        .getSmbolElement(getLifeIndex(), EasyTypeEnum.from);
     return arrayParent("官鬼", lifeElement);
   }
 
@@ -492,7 +492,7 @@ class SABEasyLogicBusiness {
       bool bEmpty = isEmptyAtRow(intRow, EasyTypeEnum.from);
       bool bBroken = MonthConflictEnum.Conflict_Broken ==
           _symbolConflictStateOnMonth(intRow, EasyTypeEnum.from);
-      bool bMoving = outEasyWordsModel().isMovementAtRow(intRow);
+      bool bMoving = inputEasyWordsModel().isMovementAtRow(intRow);
       if ((!bMoving && bEmpty && bBroken))
         bResult = true;
       else {
@@ -1235,9 +1235,9 @@ class SABEasyLogicBusiness {
 
     if (!isSymbolHealthStrong(intRow, easyType)) {
       String strDay = dayEarth();
-      if (!outEasyWordsModel().isMovementAtRow(intRow)) {
+      if (!inputEasyWordsModel().isMovementAtRow(intRow)) {
         result = isEarthConflict(
-            strDay, outEasyWordsModel().getSmbolEarth(intRow, easyType));
+            strDay, inputEasyWordsModel().getSmbolEarth(intRow, easyType));
       }
       //else cont.
     }
@@ -1249,13 +1249,13 @@ class SABEasyLogicBusiness {
 //冲衰弱之静爻则为日破
   DayConflictEnum _symbolDayConflictState(int intRow, EasyTypeEnum easyType) {
     DayConflictEnum nResult = DayConflictEnum.Conflict_NO;
-    String stringSymbol = outEasyWordsModel().getSmbolName(intRow, easyType);
+    String stringSymbol = inputEasyWordsModel().getSmbolName(intRow, easyType);
     bool bConflict = branchBusiness().isEarthConflict(
-        dayEarth(), outEasyWordsModel().getSmbolEarth(intRow, easyType));
+        dayEarth(), inputEasyWordsModel().getSmbolEarth(intRow, easyType));
     if (bConflict) {
       nResult = DayConflictEnum.Conflict_YES;
 
-      if (outEasyWordsModel().isMovementAtRow(intRow)) {
+      if (inputEasyWordsModel().isMovementAtRow(intRow)) {
         if (isSymbolSeasonStrong(stringSymbol))
           nResult = DayConflictEnum.Conflict_SAN;
         else
@@ -1371,7 +1371,7 @@ class SABEasyLogicBusiness {
     List arrayEarth = [];
 
     for (int intItem in arrayRow) {
-      arrayEarth.add(outEasyWordsModel().earthAtMergeRow(intItem));
+      arrayEarth.add(inputEasyWordsModel().earthAtMergeRow(intItem));
     } //endf
 
     return arrayEarth;
@@ -1483,8 +1483,8 @@ class SABEasyLogicBusiness {
 
   ///`卦变生克墓绝章第二十四`/////////////////////////////////////////////////////
   String easyParent() {
-    String fromElement = outEasyWordsModel().stringFromElement;
-    String toElement = outEasyWordsModel().stringToElement;
+    String fromElement = inputEasyWordsModel().stringFromElement;
+    String toElement = inputEasyWordsModel().stringToElement;
     String strParent = SABElementModel.elementRelative(fromElement, toElement);
     return strParent;
   }
@@ -1494,9 +1494,9 @@ class SABEasyLogicBusiness {
     //卦变者，内外动而反伏者同一卦也, 如乾卦变震卦是也。
     bool bResult = false;
 
-    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
+    List inMovementArray = inputEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
+    List outMovementArray = inputEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length > 0)
       bResult = isEasySame();
@@ -1509,9 +1509,9 @@ class SABEasyLogicBusiness {
     //内卦伏吟
     bool bResult = false;
 
-    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
+    List inMovementArray = inputEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
+    List outMovementArray = inputEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length == 0)
       bResult = isEasySame();
@@ -1524,9 +1524,9 @@ class SABEasyLogicBusiness {
     //外卦伏吟
     bool bResult = false;
 
-    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
+    List inMovementArray = inputEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
+    List outMovementArray = inputEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length == 0 && outMovementArray.length > 0)
       bResult = isEasySame();
@@ -1551,8 +1551,8 @@ class SABEasyLogicBusiness {
       "兑": "震",
     };
 
-    String fromPlace = outEasyWordsModel().stringFromPlace;
-    String toPlace = outEasyWordsModel().stringToPlace;
+    String fromPlace = inputEasyWordsModel().stringFromPlace;
+    String toPlace = inputEasyWordsModel().stringToPlace;
     String strConflictPlace = dictGuaConflict[fromPlace];
     bResult = strConflictPlace == toPlace;
     return bResult;
@@ -1562,9 +1562,9 @@ class SABEasyLogicBusiness {
     //卦变者，内外动而反伏者同一卦也, 如乾卦变震卦是也。
     bool bResult = false;
 
-    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
+    List inMovementArray = inputEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
+    List outMovementArray = inputEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length > 0)
       bResult = isEasyRestricts();
@@ -1577,9 +1577,9 @@ class SABEasyLogicBusiness {
     //内卦伏吟
     bool bResult = false;
 
-    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
+    List inMovementArray = inputEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
+    List outMovementArray = inputEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length > 0 && outMovementArray.length == 0)
       bResult = isEasyRestricts();
@@ -1592,9 +1592,9 @@ class SABEasyLogicBusiness {
     //外卦伏吟
     bool bResult = false;
 
-    List inMovementArray = outEasyWordsModel().inGuaMovementArray();
+    List inMovementArray = inputEasyWordsModel().inGuaMovementArray();
 
-    List outMovementArray = outEasyWordsModel().outGuaMovementArray();
+    List outMovementArray = inputEasyWordsModel().outGuaMovementArray();
 
     if (inMovementArray.length == 0 && outMovementArray.length > 0)
       bResult = isEasyRestricts();
@@ -1796,7 +1796,7 @@ class SABEasyLogicBusiness {
     String stringSymbolSeason = _symbolSeason(stringSymbol);
     bool bWang = ("旺" == stringSymbolSeason) || ("相" == stringSymbolSeason);
 
-    bool bMove = outEasyWordsModel().isMovementAtRow(intRow);
+    bool bMove = inputEasyWordsModel().isMovementAtRow(intRow);
     if (!bMove && !bWang) bResult = true;
     //else cont.
 
@@ -1830,7 +1830,7 @@ class SABEasyLogicBusiness {
     bResult = bResult || "旺" == strSeason;
 
     if (easyType == EasyTypeEnum.from) {
-      bool bMove = outEasyWordsModel().isMovementAtRow(intRow);
+      bool bMove = inputEasyWordsModel().isMovementAtRow(intRow);
 
       //动不为空；
       bResult = bResult || bMove;
@@ -1909,7 +1909,7 @@ class SABEasyLogicBusiness {
   bool isSymbol_SuiGuiRuMu_AtRow(int intRow) {
     bool bResult = false;
     String strParent =
-        outEasyWordsModel().getSmbolParent(intRow, EasyTypeEnum.from);
+        inputEasyWordsModel().getSmbolParent(intRow, EasyTypeEnum.from);
     bool bGui = "官鬼" == strParent;
     bool bRuMu = isSymbolChangeMuAtRow(intRow);
 
@@ -1922,7 +1922,7 @@ class SABEasyLogicBusiness {
   MonthConflictEnum _symbolConflictStateOnMonth(
       int intRow, EasyTypeEnum easyTypeEnum) {
     String stringSymbol =
-        outEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
+        inputEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
     MonthConflictEnum nResult = MonthConflictEnum.Conflict_NO;
     String basicEarth = _symbolEarth(stringSymbol);
     bool conflictMonth = isEarthConflict(basicEarth, monthEarth());
@@ -1932,7 +1932,7 @@ class SABEasyLogicBusiness {
       String strDayEarth = dayEarth();
       if (strDayEarth == basicEarth)
         nResult = MonthConflictEnum.Conflict_OnDay;
-      else if (outEasyWordsModel().isMovementAtRow(intRow)) {
+      else if (inputEasyWordsModel().isMovementAtRow(intRow)) {
         nResult = MonthConflictEnum.Conflict_Move;
       } else {
         //唯静而不动，又无日辰动爻生助，实则到底而破矣。
@@ -2000,7 +2000,7 @@ class SABEasyLogicBusiness {
             //伏神墓绝于日月飞爻者，四也。
             String basicEarth = _symbolEarth(basicSymbol);
             String fromEarth =
-                outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
+                inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
 
             String monthTwelve =
                 branchBusiness().earthTwelveDeity(basicEarth, monthEarth());
@@ -2224,7 +2224,7 @@ class SABEasyLogicBusiness {
 
     String usefulParent = getUsefulDeity();
 
-    String fromEasyElement = outEasyWordsModel().stringFromElement;
+    String fromEasyElement = inputEasyWordsModel().stringFromElement;
 
     String stringMonthElement = monthElement();
     String monthParent =
@@ -2394,7 +2394,7 @@ class SABEasyLogicBusiness {
     List listEmpty = List();
     for (int intRow in usefulArray) {
       String stringSymbol =
-          outEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
+          inputEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
       if (_symbolBasicEmptyState(stringSymbol) != EmptyEnum.Empty_NO) {
         listEmpty.add(intRow);
       }
@@ -2474,89 +2474,89 @@ class SABEasyLogicBusiness {
   }
 
   Map _fromEasyDictionary() {
-    return outEasyWordsModel().mapFromEasy;
+    return inputEasyWordsModel().mapFromEasy;
   }
 
   Map _toEasyDictionary() {
-    return outEasyWordsModel().mapToEasy;
+    return inputEasyWordsModel().mapToEasy;
   }
 
   String fromEasyName() {
-    return outEasyWordsModel().stringFromName;
+    return inputEasyWordsModel().stringFromName;
   }
 
   String toEasyName() {
-    return outEasyWordsModel().stringToName;
+    return inputEasyWordsModel().stringToName;
   }
 
   String fromEasyKey() {
-    return outEasyWordsModel().inputDigitModel.fromEasyKey();
+    return inputEasyWordsModel().inputDigitModel.fromEasyKey();
   }
 
   String toEasyKey() {
-    return outEasyWordsModel().inputDigitModel.toEasyKey();
+    return inputEasyWordsModel().inputDigitModel.toEasyKey();
   }
 
   String getUsefulDeity() {
-    return outEasyWordsModel().inputDigitModel.getUsefulDeity();
+    return inputEasyWordsModel().inputDigitModel.getUsefulDeity();
   }
 
   int getLifeIndex() {
-    return outEasyWordsModel().intLifeIndex;
+    return inputEasyWordsModel().intLifeIndex;
   }
 
   int getGoalIndex() {
-    return outEasyWordsModel().intGoalIndex;
+    return inputEasyWordsModel().intGoalIndex;
   }
 
   String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
-    return outEasyWordsModel().getSmbolName(intRow, enumEasyType);
+    return inputEasyWordsModel().getSmbolName(intRow, enumEasyType);
   }
 
   String symbolAtFromRow(int intRow) {
-    return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.from);
+    return inputEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.from);
   }
 
   ///原名symbolAtChangeRow,更改为symbolAtToRow
   String symbolAtToRow(int intRow) {
-    return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.to);
+    return inputEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.to);
   }
 
   String symbolAtHideRow(int intRow) {
-    return outEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.hide);
+    return inputEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.hide);
   }
 
   String symbolNameAtMergeRow(int intRow) {
-    return outEasyWordsModel().symbolNameAtMergeRow(intRow);
+    return inputEasyWordsModel().symbolNameAtMergeRow(intRow);
   }
 
   String monthEarth() {
-    return outEasyWordsModel().stringMonthEarth;
+    return inputEasyWordsModel().stringMonthEarth;
   }
 
   String daySky() {
-    return outEasyWordsModel().stringDaySky;
+    return inputEasyWordsModel().stringDaySky;
   }
 
   String dayEarth() {
-    return outEasyWordsModel().stringDayEarth;
+    return inputEasyWordsModel().stringDayEarth;
   }
 
   String earthAtFromRow(int intRow) {
-    return outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
+    return inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
   }
 
   ///原名为earthAtChangeRow,更改为earthAtToRow
   String earthAtToRow(int intRow) {
-    return outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.to);
+    return inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.to);
   }
 
   String earthAtHideRow(int intRow) {
-    return outEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.hide);
+    return inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.hide);
   }
 
   bool isMovementAtRow(int intRow) {
-    return outEasyWordsModel().isMovementAtRow(intRow);
+    return inputEasyWordsModel().isMovementAtRow(intRow);
   }
 
   ///`加载函数`//////////////////////////////////////////////////////
@@ -2578,7 +2578,7 @@ class SABEasyLogicBusiness {
     return _branchBusiness;
   }
 
-  SABEasyWordsModel outEasyWordsModel() {
+  SABEasyWordsModel inputEasyWordsModel() {
     return easyBusiness().outEasyWordsModel();
   }
 
@@ -2589,9 +2589,9 @@ class SABEasyLogicBusiness {
     return _easyBusiness;
   }
 
-  SABEasyLogicModel logicModel() {
+  SABEasyLogicModel outLogicModel() {
     if (null == _outLogicModel) {
-      _outLogicModel = SABEasyLogicModel(outEasyWordsModel());
+      _outLogicModel = SABEasyLogicModel(inputEasyWordsModel());
 
       _outLogicModel.bStaticEasy = isStaticEasy();
 

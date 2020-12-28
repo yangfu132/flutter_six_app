@@ -122,7 +122,7 @@ class SABEasyHealthBusiness {
   ///`加载函数`
   SABHealthModel outHealthModel() {
     if (null == _outHealthModel) {
-      _outHealthModel = SABHealthModel();
+      _outHealthModel = SABHealthModel(_inputLogicBusiness.outLogicModel());
     }
     return _outHealthModel;
   }

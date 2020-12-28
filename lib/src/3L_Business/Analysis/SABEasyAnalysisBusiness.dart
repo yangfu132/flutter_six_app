@@ -773,6 +773,6 @@ class SABEasyAnalysisBusiness {
 
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
-    return _inputLogicBusiness.logicModel();
+    return _inputLogicBusiness.outLogicModel();
   }
 }
