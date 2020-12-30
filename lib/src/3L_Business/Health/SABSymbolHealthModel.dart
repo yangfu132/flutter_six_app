@@ -1,6 +1,10 @@
 ﻿import '../Logic/SABSymbolLogicModel.dart';
 
 class SABSymbolHealthModel {
-  SABSymbolHealthModel(this._inputLogicSymbol);
-  final SABSymbolLogicModel _inputLogicSymbol;
+  SABSymbolHealthModel(this.inputLogicSymbol);
+  final SABSymbolLogicModel inputLogicSymbol;
+
+  String stringHideHealth;
+  String stringFromEasySymbolHealth;
+  String stringToEasySymbolHealth;
 }

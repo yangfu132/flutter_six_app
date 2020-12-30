@@ -43,11 +43,11 @@ class SABEasyWordsModel {
   String symbolNameAtMergeRow(int intRow) {
     String stringResult = "";
     if (0 <= intRow && intRow < 6) {
-      stringResult = getSmbolName(intRow, EasyTypeEnum.from);
+      stringResult = getSymbolName(intRow, EasyTypeEnum.from);
     } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
-      stringResult = getSmbolName(intRow - ROW_CHNAGE_BEGIN, EasyTypeEnum.to);
+      stringResult = getSymbolName(intRow - ROW_CHNAGE_BEGIN, EasyTypeEnum.to);
     } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
-      stringResult = getSmbolName(intRow - ROW_FLY_BEGIN, EasyTypeEnum.hide);
+      stringResult = getSymbolName(intRow - ROW_FLY_BEGIN, EasyTypeEnum.hide);
     }
     //else cont.
 
@@ -106,6 +106,14 @@ class SABEasyWordsModel {
     return symbolAtRow(intRow).intDigit;
   }
 
+  void setAnimal(int intRow, String stringAnimal) {
+    symbolAtRow(intRow).stringAnimal = stringAnimal;
+  }
+
+  String getAnimal(int intRow) {
+    return symbolAtRow(intRow).stringAnimal;
+  }
+
   void setMovement(int intRow, bool bMovement) {
     symbolAtRow(intRow).bMovement = bMovement;
   }
@@ -123,8 +131,8 @@ class SABEasyWordsModel {
     return bResult;
   }
 
-  String getSmbolName(int intRow, EasyTypeEnum easyTypeEnum) {
-    return symbolAtRow(intRow).getSmbolName(easyTypeEnum);
+  String getSymbolName(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getSymbolName(easyTypeEnum);
   }
 
   String getSmbolParent(int intRow, EasyTypeEnum easyTypeEnum) {

@@ -13,11 +13,37 @@ class SABSymbolLogicModel {
   ///'isMonthPair'
   ///'basicEmptyState'
   ///'conflictOnMonthState'
+  ///'conflictOnDayState'
   ///'isSeasonStrong'
+  ///'diety'
   ///}
   Map mapSymbolFrom = {};
   Map mapSymbolTo = {};
   Map mapSymbolHide = {};
+
+  String getDiety(EasyTypeEnum easyTypeEnum) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      return mapSymbolFrom['diety'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      return mapSymbolTo['diety'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      return mapSymbolHide['diety'];
+    } else {
+      colog('easyTypeEnum:$easyTypeEnum');
+      return 'easyTypeEnum:$easyTypeEnum';
+    }
+  }
+
+  void setDiety(EasyTypeEnum easyTypeEnum, String stringDiety) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['diety'] = stringDiety;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['diety'] = stringDiety;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['diety'] = stringDiety;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
 
   bool getIsSeasonStrong(EasyTypeEnum easyTypeEnum) {
     bool bResultStrong = false;
@@ -66,6 +92,32 @@ class SABSymbolLogicModel {
       mapSymbolTo['conflictOnMonthState'] = enumResultConflict;
     } else if (easyTypeEnum == EasyTypeEnum.hide) {
       mapSymbolHide['conflictOnMonthState'] = enumResultConflict;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
+
+  DayConflictEnum getConflictOnDayState(EasyTypeEnum easyTypeEnum) {
+    DayConflictEnum enumResultConflict = DayConflictEnum.Conflict_Null;
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      enumResultConflict = mapSymbolFrom['conflictOnDayState'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      enumResultConflict = mapSymbolTo['conflictOnDayState'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      enumResultConflict = mapSymbolHide['conflictOnDayState'];
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+
+    return enumResultConflict;
+  }
+
+  void setConflictOnDayState(
+      EasyTypeEnum easyTypeEnum, DayConflictEnum enumResultConflict) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['conflictOnDayState'] = enumResultConflict;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['conflictOnDayState'] = enumResultConflict;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['conflictOnDayState'] = enumResultConflict;
     } else
       colog('easyTypeEnum:$easyTypeEnum');
   }

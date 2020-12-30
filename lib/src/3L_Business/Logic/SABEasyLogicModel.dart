@@ -82,6 +82,15 @@ class SABEasyLogicModel {
   }
 
   /// `Get & Set`//////////////////////////////////////////////////////////////
+  ///
+  String getDiety(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getDiety(easyTypeEnum);
+  }
+
+  void setDiety(int intRow, EasyTypeEnum easyTypeEnum, String stringDeity) {
+    symbolAtRow(intRow).setDiety(easyTypeEnum, stringDeity);
+  }
+
   bool isSeasonStrong(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getIsSeasonStrong(easyTypeEnum);
   }
@@ -100,6 +109,15 @@ class SABEasyLogicModel {
       MonthConflictEnum enumResultConflict) {
     symbolAtRow(intRow)
         .setConflictOnMonthState(easyTypeEnum, enumResultConflict);
+  }
+
+  DayConflictEnum getConflictOnDayState(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getConflictOnDayState(easyTypeEnum);
+  }
+
+  void setConflictOnDayState(int intRow, EasyTypeEnum easyTypeEnum,
+      DayConflictEnum enumResultConflict) {
+    symbolAtRow(intRow).setConflictOnDayState(easyTypeEnum, enumResultConflict);
   }
 
   EmptyEnum getBasicEmptyState(int intRow, EasyTypeEnum easyTypeEnum) {

@@ -162,7 +162,7 @@ class SABEasyLogicBusiness {
   }
 
   ///`用神元神忌神仇神章第九`//////////////////////////////////////////////////////
-  String godAtRow(int intIndex, EasyTypeEnum enumEasyType) {
+  String dietyAtRow(int intIndex, EasyTypeEnum enumEasyType) {
     String strResult = "";
 
     if (enumEasyType == EasyTypeEnum.from) {
@@ -1249,7 +1249,7 @@ class SABEasyLogicBusiness {
 //冲衰弱之静爻则为日破
   DayConflictEnum _symbolDayConflictState(int intRow, EasyTypeEnum easyType) {
     DayConflictEnum nResult = DayConflictEnum.Conflict_NO;
-    String stringSymbol = inputEasyWordsModel().getSmbolName(intRow, easyType);
+    String stringSymbol = inputEasyWordsModel().getSymbolName(intRow, easyType);
     bool bConflict = branchBusiness().isEarthConflict(
         dayEarth(), inputEasyWordsModel().getSmbolEarth(intRow, easyType));
     if (bConflict) {
@@ -1922,7 +1922,7 @@ class SABEasyLogicBusiness {
   MonthConflictEnum _symbolConflictStateOnMonth(
       int intRow, EasyTypeEnum easyTypeEnum) {
     String stringSymbol =
-        inputEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
+        inputEasyWordsModel().getSymbolName(intRow, easyTypeEnum);
     MonthConflictEnum nResult = MonthConflictEnum.Conflict_NO;
     String basicEarth = _symbolEarth(stringSymbol);
     bool conflictMonth = isEarthConflict(basicEarth, monthEarth());
@@ -2394,7 +2394,7 @@ class SABEasyLogicBusiness {
     List listEmpty = List();
     for (int intRow in usefulArray) {
       String stringSymbol =
-          inputEasyWordsModel().getSmbolName(intRow, easyTypeEnum);
+          inputEasyWordsModel().getSymbolName(intRow, easyTypeEnum);
       if (_symbolBasicEmptyState(stringSymbol) != EmptyEnum.Empty_NO) {
         listEmpty.add(intRow);
       }
@@ -2510,20 +2510,20 @@ class SABEasyLogicBusiness {
   }
 
   String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {
-    return inputEasyWordsModel().getSmbolName(intRow, enumEasyType);
+    return inputEasyWordsModel().getSymbolName(intRow, enumEasyType);
   }
 
   String symbolAtFromRow(int intRow) {
-    return inputEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.from);
+    return inputEasyWordsModel().getSymbolName(intRow, EasyTypeEnum.from);
   }
 
   ///原名symbolAtChangeRow,更改为symbolAtToRow
   String symbolAtToRow(int intRow) {
-    return inputEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.to);
+    return inputEasyWordsModel().getSymbolName(intRow, EasyTypeEnum.to);
   }
 
   String symbolAtHideRow(int intRow) {
-    return inputEasyWordsModel().getSmbolName(intRow, EasyTypeEnum.hide);
+    return inputEasyWordsModel().getSymbolName(intRow, EasyTypeEnum.hide);
   }
 
   String symbolNameAtMergeRow(int intRow) {
@@ -2674,6 +2674,16 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setBasicEmptyState(intRow, EasyTypeEnum.hide,
             _symbolBasicEmptyState(symbolAtHideRow(intRow)));
+
+        ///Diety
+        _outLogicModel.setDiety(
+            intRow, EasyTypeEnum.from, dietyAtRow(intRow, EasyTypeEnum.from));
+
+        _outLogicModel.setDiety(
+            intRow, EasyTypeEnum.to, dietyAtRow(intRow, EasyTypeEnum.to));
+
+        _outLogicModel.setDiety(
+            intRow, EasyTypeEnum.hide, dietyAtRow(intRow, EasyTypeEnum.hide));
       }
 
       //此信息依赖爻的基础信息
@@ -2687,6 +2697,15 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setConflictOnMonthState(intRow, EasyTypeEnum.hide,
             _symbolConflictStateOnMonth(intRow, EasyTypeEnum.hide));
+
+        _outLogicModel.setConflictOnDayState(intRow, EasyTypeEnum.from,
+            _symbolDayConflictState(intRow, EasyTypeEnum.from));
+
+        _outLogicModel.setConflictOnDayState(intRow, EasyTypeEnum.to,
+            _symbolDayConflictState(intRow, EasyTypeEnum.to));
+
+        _outLogicModel.setConflictOnDayState(intRow, EasyTypeEnum.hide,
+            _symbolDayConflictState(intRow, EasyTypeEnum.hide));
       }
 
       ///endf
