@@ -17,19 +17,7 @@ class SABEasyDigitModel {
   //属性：实例的用神
   String _strUsefulDeity;
 
-  DateTime getEasyTime() {
-    return _nEasyTime;
-  }
-
-  //函数：占卜目的
-  String getEasyGoal() {
-    return _strEasyGoal;
-  }
-
-  //函数：用神
-  String getUsefulDeity() {
-    return _strUsefulDeity;
-  }
+  /// `public 函数`/////////////////////////////////////////////////////////////
 
   ///利用随机数创造数据
   List generateEasyArray() {
@@ -50,6 +38,52 @@ class SABEasyDigitModel {
     //[0, 1, 1, 8, 8, 1]
 
     return _listEasyData;
+  }
+
+  ///此函数获取内卦变动的爻列表
+  List inGuaMovementArray() {
+    List inMovementArray = [];
+
+    for (int intIndex = 3; intIndex < 6; intIndex++) {
+      int intValue = _listEasyData[intIndex];
+      if (8 == intValue || 9 == intValue) {
+        inMovementArray.add(intValue);
+      }
+      //else cont.
+    } //endf
+
+    return inMovementArray;
+  }
+
+  ///此函数获取外卦变动的爻列表
+  List outGuaMovementArray() {
+    List outMovementArray = [];
+    for (int intIndex = 0; intIndex < 3; intIndex++) {
+      int intValue = _listEasyData[intIndex];
+
+      if (8 == intValue || 9 == intValue) {
+        outMovementArray.add(intValue);
+      }
+      //else cont.
+    } //endf
+
+    return outMovementArray;
+  }
+
+  /// `get and set函数`/////////////////////////////////////////////////////////
+
+  DateTime getEasyTime() {
+    return _nEasyTime;
+  }
+
+  //函数：占卜目的
+  String getEasyGoal() {
+    return _strEasyGoal;
+  }
+
+  //函数：用神
+  String getUsefulDeity() {
+    return _strUsefulDeity;
   }
 
   bool isMovementAtRow(int nRow) {
@@ -105,35 +139,5 @@ class SABEasyDigitModel {
 
   int digitAtIndex(int intSymbolIndex) {
     return _listEasyData[intSymbolIndex];
-  }
-
-  ///此函数获取内卦变动的爻列表
-  List inGuaMovementArray() {
-    List inMovementArray = [];
-
-    for (int intIndex = 3; intIndex < 6; intIndex++) {
-      int intValue = _listEasyData[intIndex];
-      if (8 == intValue || 9 == intValue) {
-        inMovementArray.add(intValue);
-      }
-      //else cont.
-    } //endf
-
-    return inMovementArray;
-  }
-
-  ///此函数获取外卦变动的爻列表
-  List outGuaMovementArray() {
-    List outMovementArray = [];
-    for (int intIndex = 0; intIndex < 3; intIndex++) {
-      int intValue = _listEasyData[intIndex];
-
-      if (8 == intValue || 9 == intValue) {
-        outMovementArray.add(intValue);
-      }
-      //else cont.
-    } //endf
-
-    return outMovementArray;
   }
 }

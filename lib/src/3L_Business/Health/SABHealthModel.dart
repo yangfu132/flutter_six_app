@@ -5,9 +5,9 @@ class SABHealthModel {
   SABHealthModel(this._inputLogicModel);
   final SABEasyLogicModel _inputLogicModel;
   bool bValidEasy = false;
+  List _listSymbols;
   Map<int, double> _healthMap = {};
   List _finishedList = [];
-  List _listSymbols;
 
   void setHealth(double numHealth, int nRow) {
     if (null == numHealth) {

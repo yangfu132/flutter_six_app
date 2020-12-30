@@ -1,7 +1,9 @@
 import '../Health/SABSymbolHealthModel.dart';
 
 class SABSymbolDetailModel {
-  SABSymbolDetailModel(this._healthSymbol);
+  SABSymbolDetailModel(this._healthSymbol) {
+    // this.stringHealth = _healthSymbol;
+  }
   SABSymbolHealthModel _healthSymbol;
   //TODO:继续细化
   String stringDeity; //事情
