@@ -2,8 +2,8 @@
 import 'SABSymbolHealthModel.dart';
 
 class SABHealthModel {
-  SABHealthModel(this._inputLogicModel);
-  final SABEasyLogicModel _inputLogicModel;
+  SABHealthModel(this.inputLogicModel);
+  final SABEasyLogicModel inputLogicModel;
   bool bValidEasy = false;
   List _listSymbols;
 
@@ -41,7 +41,7 @@ class SABHealthModel {
       _listSymbols = [];
       for (int intRow = 0; intRow < 6; intRow++) {
         SABSymbolHealthModel model =
-            SABSymbolHealthModel(_inputLogicModel.symbolAtRow(intRow));
+            SABSymbolHealthModel(this.inputLogicModel.symbolAtRow(intRow));
         _listSymbols.add(model);
       }
     }

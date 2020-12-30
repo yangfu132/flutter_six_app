@@ -808,22 +808,8 @@ class SABEasyLogicBusiness {
     return _staticStrongArray;
   }
 
-  List movementIndexArray() {
-    List movementArray = List();
-
-    List arrayLevel =
-        _inputDelegate.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
-    for (int intRow in arrayLevel) {
-      if (!isMovementAtRow(intRow)) {
-        //静爻旺相，日辰冲之暗动。
-        if (isSymbolBackMoveAtRow(intRow, EasyTypeEnum.from))
-          movementArray.add(intRow);
-        //else cont.
-      } else
-        movementArray.add(intRow);
-    } //endf
-
-    return movementArray;
+  List moveRightArray() {
+    return _inputDelegate.rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
   }
 
 //被动爻生
@@ -862,7 +848,7 @@ class SABEasyLogicBusiness {
 //被动爻生
   bool _isSymbolMoveBorn(String stringSymbol) {
     bool bResult = false;
-    List arrayEffects = movementIndexArray();
+    List arrayEffects = moveRightArray();
     for (int numItem in arrayEffects) {
       String stringSymbolItem = symbolAtFromRow(numItem);
       if (_isSymbolBorn(stringSymbol, stringSymbolItem)) {
@@ -908,7 +894,7 @@ class SABEasyLogicBusiness {
 //被动爻克
   bool isSymbolRestrictedByMoveAtIndex(int intIndex, EasyTypeEnum easyType) {
     bool bResult = false;
-    List arrayEffects = movementIndexArray();
+    List arrayEffects = moveRightArray();
 
     String stringSymbol = "";
 
@@ -1391,7 +1377,7 @@ class SABEasyLogicBusiness {
     } //endf
 
     if (arrayRowPaired.length == 3) {
-      List movementArray = movementIndexArray();
+      List movementArray = moveRightArray();
 
       for (String item in arrayRowPaired) {
         if (-1 == movementArray.indexOf(item)) arrayResult.add(item);
@@ -2120,7 +2106,7 @@ class SABEasyLogicBusiness {
   bool _isSymbolMoveConflict(String stringSymbol) {
     bool bResult = false;
 
-    List arrayEffects = movementIndexArray();
+    List arrayEffects = moveRightArray();
 
     for (int numItem in arrayEffects) {
       String stringSymbolItem = symbolAtFromRow(numItem);

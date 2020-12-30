@@ -1,12 +1,16 @@
 ﻿import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
+import '../Health/SABEasyHealthBusiness.dart';
 import '../Logic/SABEasyLogicModel.dart';
+import 'SABEasyAnalysisModel.dart';
 
 class SABEasyAnalysisBusiness {
-  final SABEasyLogicBusiness _inputLogicBusiness;
+  final SABEasyHealthBusiness _inputHealthBusiness;
 
-  SABEasyAnalysisBusiness(this._inputLogicBusiness);
+  SABEasyAnalysisBusiness(this._inputHealthBusiness);
+
+  SABEasyAnalysisModel _analysisModel;
 
   ///`basic`//////////////////////////////////////////////////////
 
@@ -75,7 +79,7 @@ class SABEasyAnalysisBusiness {
     String stringSymbol = _inputLogicBusiness.symbolAtRow(nIndex, easyType);
 
     if (null != stringSymbol) {
-      List arrayEffects = _inputLogicBusiness.movementIndexArray();
+      List arrayEffects = _inputLogicBusiness.moveRightArray();
 
       //把自己从列表中移除
       if (EasyTypeEnum.from == easyType) arrayEffects.remove(nIndex);
@@ -406,7 +410,7 @@ class SABEasyAnalysisBusiness {
       if (EasyTypeEnum.from == easyType) {
         String strSymbolPair = "";
         //爻与爻合者，二也; 两爻都需要是动爻才能合
-        List movementArray = _inputLogicBusiness.movementIndexArray();
+        List movementArray = _inputLogicBusiness.moveRightArray();
         if (movementArray.length >= 2) {
           for (int item in movementArray) {
             String tempEarth =
@@ -481,7 +485,7 @@ class SABEasyAnalysisBusiness {
     String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
 
     if (logicModel().isMovementAtRow(nRow)) {
-      List movementArray = _inputLogicBusiness.movementIndexArray();
+      List movementArray = _inputLogicBusiness.moveRightArray();
       for (int item in movementArray) {
         if (nRow != item) {
           String tempEarth =
@@ -553,7 +557,7 @@ class SABEasyAnalysisBusiness {
     String strResult = "";
 
     //一卦之内有三爻动而合局者，一也。
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.moveRightArray();
     String strThreePair = subResultThreePairOfRowArray(movementArray);
 
     List array = [0, 1, 2, 3, 4, 5];
@@ -576,7 +580,7 @@ class SABEasyAnalysisBusiness {
 
   int moveCountInArray(List arrayPairRow) {
     int nCount = 0;
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.moveRightArray();
     for (String item in arrayPairRow) {
       if (-1 != movementArray.indexOf(item)) nCount++;
       //else cont.
@@ -670,7 +674,7 @@ class SABEasyAnalysisBusiness {
     String strResult = "";
     //有内卦初爻三爻动，动而变出之爻成三合者，三也。
 
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.moveRightArray();
     if (-1 != movementArray.indexOf(3) && -1 != movementArray.indexOf(5)) {
       String strPair = "";
       List arrayRow1 = [];
@@ -707,7 +711,7 @@ class SABEasyAnalysisBusiness {
     //有外卦四爻六爻动，动而变出之爻成合者，四也。
     int nFirst = 0;
     int nSecond = 0;
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = _inputLogicBusiness.moveRightArray();
     if (-1 != movementArray.indexOf(nFirst) &&
         -1 != movementArray.indexOf(nSecond)) {
       String strPair = "";
@@ -773,6 +777,14 @@ class SABEasyAnalysisBusiness {
 
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
-    return _inputLogicBusiness.outLogicModel();
+    return _inputHealthBusiness.outHealthModel().inputLogicModel;
+  }
+
+  SABEasyAnalysisModel analysisModel() {
+    if (null == _analysisModel) {
+      _analysisModel =
+          SABEasyAnalysisModel(_inputHealthBusiness.outHealthModel());
+    }
+    return _analysisModel;
   }
 }

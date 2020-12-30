@@ -702,7 +702,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
   SABEasyAnalysisBusiness analysisBusiness() {
     if (null == _analysisBusiness) {
-      _analysisBusiness = SABEasyAnalysisBusiness(logicBusiness());
+      _analysisBusiness = SABEasyAnalysisBusiness(healthBusiness());
     }
     return _analysisBusiness;
   }
