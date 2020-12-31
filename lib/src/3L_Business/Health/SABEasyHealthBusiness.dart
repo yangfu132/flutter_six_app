@@ -123,6 +123,8 @@ class SABEasyHealthBusiness {
   SABHealthModel outHealthModel() {
     if (null == _outHealthModel) {
       _outHealthModel = SABHealthModel(_inputLogicBusiness.outLogicModel());
+      _outHealthModel.listMoveRight =
+          rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
     }
     return _outHealthModel;
   }

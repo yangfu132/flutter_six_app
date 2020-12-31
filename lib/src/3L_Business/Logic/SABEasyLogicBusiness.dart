@@ -2599,6 +2599,8 @@ class SABEasyLogicBusiness {
       _outLogicModel.setIsEasySixConflict(EasyTypeEnum.hide,
           _isEasySixConflict(easyBusiness().placeFirstEasy()));
 
+      _outLogicModel.listStaticSeasonStrong = staticSeasonStrong();
+
       ///爻的基础信息
       for (int intRow = 0; intRow < 6; intRow++) {
         ///IsOnMonth
@@ -2640,6 +2642,16 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setIsDayPair(intRow, EasyTypeEnum.hide,
             _isSymbolDayPair(symbolAtHideRow(intRow)));
+
+        ///IsEffectable
+        _outLogicModel.setIsEffectable(intRow, EasyTypeEnum.from,
+            isEffectableRow(intRow, EasyTypeEnum.from));
+
+        _outLogicModel.setIsEffectable(
+            intRow, EasyTypeEnum.to, isEffectableRow(intRow, EasyTypeEnum.to));
+
+        _outLogicModel.setIsEffectable(intRow, EasyTypeEnum.hide,
+            isEffectableRow(intRow, EasyTypeEnum.hide));
 
         ///IsSeasonStrong
         _outLogicModel.setIsSeasonStrong(intRow, EasyTypeEnum.from,

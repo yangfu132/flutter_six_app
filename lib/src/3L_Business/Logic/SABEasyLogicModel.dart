@@ -6,7 +6,7 @@ import 'SABSymbolLogicModel.dart';
 class SABEasyLogicModel {
   SABEasyLogicModel(this.inputWordsModel);
   final SABEasyWordsModel inputWordsModel;
-
+  List listStaticSeasonStrong;
   List _listSymbols;
 
   bool bStaticEasy;
@@ -89,6 +89,15 @@ class SABEasyLogicModel {
 
   void setDiety(int intRow, EasyTypeEnum easyTypeEnum, String stringDeity) {
     symbolAtRow(intRow).setDiety(easyTypeEnum, stringDeity);
+  }
+
+  bool isEffectable(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getIsEffectable(easyTypeEnum);
+  }
+
+  void setIsEffectable(
+      int intRow, EasyTypeEnum easyTypeEnum, bool bSeasonStrong) {
+    symbolAtRow(intRow).setIsEffectable(easyTypeEnum, bSeasonStrong);
   }
 
   bool isSeasonStrong(int intRow, EasyTypeEnum easyTypeEnum) {

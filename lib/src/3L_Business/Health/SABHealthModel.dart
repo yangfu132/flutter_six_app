@@ -6,6 +6,7 @@ class SABHealthModel {
   final SABEasyLogicModel inputLogicModel;
   bool bValidEasy = false;
   List _listSymbols;
+  List listMoveRight;
 
   Map<int, double> _healthMap = {};
   List _finishedList = [];

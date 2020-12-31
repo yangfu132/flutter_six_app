@@ -16,6 +16,7 @@ class SABSymbolLogicModel {
   ///'conflictOnDayState'
   ///'isSeasonStrong'
   ///'diety'
+  ///'isEffectable'
   ///}
   Map mapSymbolFrom = {};
   Map mapSymbolTo = {};
@@ -41,6 +42,31 @@ class SABSymbolLogicModel {
       mapSymbolTo['diety'] = stringDiety;
     } else if (easyTypeEnum == EasyTypeEnum.hide) {
       mapSymbolHide['diety'] = stringDiety;
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+  }
+
+  bool getIsEffectable(EasyTypeEnum easyTypeEnum) {
+    bool bEffectable = false;
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      bEffectable = mapSymbolFrom['isEffectable'];
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      bEffectable = mapSymbolTo['isEffectable'];
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      bEffectable = mapSymbolHide['isEffectable'];
+    } else
+      colog('easyTypeEnum:$easyTypeEnum');
+
+    return bEffectable;
+  }
+
+  void setIsEffectable(EasyTypeEnum easyTypeEnum, bool bEffectable) {
+    if (easyTypeEnum == EasyTypeEnum.from) {
+      mapSymbolFrom['isEffectable'] = bEffectable;
+    } else if (easyTypeEnum == EasyTypeEnum.to) {
+      mapSymbolTo['isEffectable'] = bEffectable;
+    } else if (easyTypeEnum == EasyTypeEnum.hide) {
+      mapSymbolHide['isEffectable'] = bEffectable;
     } else
       colog('easyTypeEnum:$easyTypeEnum');
   }

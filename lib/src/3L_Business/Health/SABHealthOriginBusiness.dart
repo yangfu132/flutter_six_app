@@ -451,7 +451,6 @@ class SABHealthOriginBusiness {
     if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
       fResult = 0.0;
     else {
-      //if (_inputLogicBusiness.moveRightArray().length > 0) {
       if (rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE).length > 0) {
         //动卦中静爻的作用没有那么大
         if (!logicModel().inputWordsModel.isMovementAtRow(nRow)) {
