@@ -85,15 +85,25 @@ class SABEasyWordsModel {
   String earthAtMergeRow(int intRow) {
     String stringResult = "";
     if (0 <= intRow && intRow < 6) {
-      stringResult = getSmbolEarth(intRow, EasyTypeEnum.from);
+      stringResult = getSymbolEarth(intRow, EasyTypeEnum.from);
     } else if (ROW_CHNAGE_BEGIN <= intRow && intRow < ROW_CHNAGE_END) {
-      stringResult = getSmbolEarth(intRow - ROW_CHNAGE_BEGIN, EasyTypeEnum.to);
+      stringResult = getSymbolEarth(intRow - ROW_CHNAGE_BEGIN, EasyTypeEnum.to);
     } else if (ROW_FLY_BEGIN <= intRow && intRow < ROW_FLY_END) {
-      stringResult = getSmbolEarth(intRow - ROW_FLY_BEGIN, EasyTypeEnum.hide);
+      stringResult = getSymbolEarth(intRow - ROW_FLY_BEGIN, EasyTypeEnum.hide);
     }
     //else cont.
 
     return stringResult;
+  }
+
+  List earthAtMergeRowArray(List arrayRow) {
+    List arrayEarth = [];
+
+    for (int intItem in arrayRow) {
+      arrayEarth.add(earthAtMergeRow(intItem));
+    } //endf
+
+    return arrayEarth;
   }
 
   /// `Get & Set函数`///////////////////////////////////////////////////////////
@@ -139,8 +149,8 @@ class SABEasyWordsModel {
     return symbolAtRow(intRow).getSmbolParent(easyTypeEnum);
   }
 
-  String getSmbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {
-    return symbolAtRow(intRow).getSmbolEarth(easyTypeEnum);
+  String getSymbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getSymbolEarth(easyTypeEnum);
   }
 
   String getSmbolElement(int intRow, EasyTypeEnum easyTypeEnum) {

@@ -37,7 +37,7 @@ class SABSymbolWordsModel {
       return 'easyTypeEnum:$easyTypeEnum';
   }
 
-  String getSmbolEarth(EasyTypeEnum easyTypeEnum) {
+  String getSymbolEarth(EasyTypeEnum easyTypeEnum) {
     if (easyTypeEnum == EasyTypeEnum.from) {
       return mapSymbolFrom['earth'];
     } else if (easyTypeEnum == EasyTypeEnum.to) {

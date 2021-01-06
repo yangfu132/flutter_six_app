@@ -141,7 +141,7 @@ class SABStaticHealthBusiness {
 
   List effectingArrayAtLevel4Row(int nRow, EasyTypeEnum easyType) {
     List arrayEffects = [];
-    String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
+    String basicEarth = logicModel().getSymbolEarth(nRow, easyType);
 
     List levelArray =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);

@@ -2,10 +2,12 @@
 import '../../1L_Context/SACContext.dart';
 import '../Easy/SABEasyWordsModel.dart';
 import 'SABSymbolLogicModel.dart';
+import '../EarthBranch/SABEarthBranchModel.dart';
 
 class SABEasyLogicModel {
   SABEasyLogicModel(this.inputWordsModel);
   final SABEasyWordsModel inputWordsModel;
+  SABEarthBranchModel _earthBranchModel;
   List listStaticSeasonStrong;
   List _listSymbols;
 
@@ -73,8 +75,8 @@ class SABEasyLogicModel {
     }
   }
 
-  String getSmbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {
-    return symbolAtRow(intRow).inputWordsSymbol.getSmbolEarth(easyTypeEnum);
+  String getSymbolEarth(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).inputWordsSymbol.getSymbolEarth(easyTypeEnum);
   }
 
   bool isMovementAtRow(int intRow) {
@@ -83,6 +85,64 @@ class SABEasyLogicModel {
 
   /// `Get & Set`//////////////////////////////////////////////////////////////
   ///
+
+  EmptyEnum getSymbolEmptyState(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getSymbolEmptyState(easyTypeEnum);
+  }
+
+  void setSymbolEmptyState(
+      int intRow, EasyTypeEnum easyTypeEnum, EmptyEnum symbolEmptyState) {
+    symbolAtRow(intRow).setSymbolEmptyState(easyTypeEnum, symbolEmptyState);
+  }
+
+  bool getIsSymbolBackMove(int intRow) {
+    return symbolAtRow(intRow).isSymbolBackMove;
+  }
+
+  void setIsSymbolBackMove(int intRow, bool bSymbolBackMove) {
+    symbolAtRow(intRow).isSymbolBackMove = bSymbolBackMove;
+  }
+
+  bool getIsSymbolChangeEmpty(int intRow) {
+    return symbolAtRow(intRow).isSymbolChangeEmpty;
+  }
+
+  void setIsSymbolChangeEmpty(int intRow, bool bSymbolChangeEmpty) {
+    symbolAtRow(intRow).isSymbolChangeEmpty = bSymbolChangeEmpty;
+  }
+
+  String getSymbolForwardOrBack(int intRow) {
+    return symbolAtRow(intRow).stringSymbolForwardOrBack;
+  }
+
+  void setSymbolForwardOrBack(int intRow, String stringForwardOrBack) {
+    symbolAtRow(intRow).stringSymbolForwardOrBack = stringForwardOrBack;
+  }
+
+  bool getIsSymbolChangeBorn(int intRow) {
+    return symbolAtRow(intRow).isSymbolChangeBorn;
+  }
+
+  void setIsSymbolChangeBorn(int intRow, bool bSymbolChangeBorn) {
+    symbolAtRow(intRow).isSymbolChangeBorn = bSymbolChangeBorn;
+  }
+
+  bool getIsSymbolChangeRestrict(int intRow) {
+    return symbolAtRow(intRow).isSymbolChangeRestrict;
+  }
+
+  void setIsSymbolChangeRestrict(int intRow, bool bSymbolChangeRestrict) {
+    symbolAtRow(intRow).isSymbolChangeRestrict = bSymbolChangeRestrict;
+  }
+
+  bool getIsSymbolChangeConflict(int intRow) {
+    return symbolAtRow(intRow).isSymbolChangeConflict;
+  }
+
+  void setIsSymbolChangeConflict(int intRow, bool bSymbolChangeConflict) {
+    symbolAtRow(intRow).isSymbolChangeConflict = bSymbolChangeConflict;
+  }
+
   String getDiety(int intRow, EasyTypeEnum easyTypeEnum) {
     return symbolAtRow(intRow).getDiety(easyTypeEnum);
   }
@@ -98,6 +158,15 @@ class SABEasyLogicModel {
   void setIsEffectable(
       int intRow, EasyTypeEnum easyTypeEnum, bool bSeasonStrong) {
     symbolAtRow(intRow).setIsEffectable(easyTypeEnum, bSeasonStrong);
+  }
+
+  bool getIsSymbolDayBroken(int intRow, EasyTypeEnum easyTypeEnum) {
+    return symbolAtRow(intRow).getIsSymbolDayBroken(easyTypeEnum);
+  }
+
+  void setIsSymbolDayBroken(
+      int intRow, EasyTypeEnum easyTypeEnum, bool bSymbolDayBroken) {
+    symbolAtRow(intRow).setIsSymbolDayBroken(easyTypeEnum, bSymbolDayBroken);
   }
 
   bool isSeasonStrong(int intRow, EasyTypeEnum easyTypeEnum) {
@@ -186,5 +255,12 @@ class SABEasyLogicModel {
 
   SABSymbolLogicModel symbolAtRow(int intRow) {
     return _symbolsArray()[intRow];
+  }
+
+  SABEarthBranchModel earthBranchModel() {
+    if (null == _earthBranchModel) {
+      _earthBranchModel = SABEarthBranchModel();
+    }
+    return _earthBranchModel;
   }
 }

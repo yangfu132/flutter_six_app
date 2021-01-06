@@ -23,9 +23,9 @@ class SABEasyLogicBusiness {
 
   String _symbolRelative(int intRow) {
     String theEarth =
-        inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
+        inputEasyWordsModel().getSymbolEarth(intRow, EasyTypeEnum.from);
     String basicEarth =
-        inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.hide);
+        inputEasyWordsModel().getSymbolEarth(intRow, EasyTypeEnum.hide);
 
     return branchBusiness().earthRelative(theEarth, basicEarth);
   }
@@ -965,7 +965,7 @@ class SABEasyLogicBusiness {
 
   /// `动静生克冲合章第十五`/////////////////////////////////////////////
 
-//动化回头生
+  ///动化回头生
   bool isSymbolChangeBornAtRow(int intIndex) {
     bool bResult = false;
     if (isMovementAtRow(intIndex)) {
@@ -978,6 +978,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
+  ///动化回头克
   bool isSymbolChangeRestrictAtRow(int intRow) {
     bool bResult = false;
 
@@ -992,6 +993,7 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
+  ///动化回头冲
   bool isSymbolChangeConflictAtRow(int intRow) {
     bool bResult = false;
     String fromEarth = earthAtFromRow(intRow);
@@ -1223,7 +1225,7 @@ class SABEasyLogicBusiness {
       String strDay = dayEarth();
       if (!inputEasyWordsModel().isMovementAtRow(intRow)) {
         result = isEarthConflict(
-            strDay, inputEasyWordsModel().getSmbolEarth(intRow, easyType));
+            strDay, inputEasyWordsModel().getSymbolEarth(intRow, easyType));
       }
       //else cont.
     }
@@ -1237,7 +1239,7 @@ class SABEasyLogicBusiness {
     DayConflictEnum nResult = DayConflictEnum.Conflict_NO;
     String stringSymbol = inputEasyWordsModel().getSymbolName(intRow, easyType);
     bool bConflict = branchBusiness().isEarthConflict(
-        dayEarth(), inputEasyWordsModel().getSmbolEarth(intRow, easyType));
+        dayEarth(), inputEasyWordsModel().getSymbolEarth(intRow, easyType));
     if (bConflict) {
       nResult = DayConflictEnum.Conflict_YES;
 
@@ -1301,16 +1303,6 @@ class SABEasyLogicBusiness {
     return bResult;
   }
 
-  bool isEarthPairDay(String basicEarth, String dayEarth) {
-    bool bResult = false;
-
-    String strPair = earthSixPair(basicEarth);
-
-    bResult = strPair == dayEarth;
-
-    return bResult;
-  }
-
   bool isPairSymbolAtRow(int intRow, int nOtherRow) {
     bool bResult = false;
 
@@ -1340,7 +1332,7 @@ class SABEasyLogicBusiness {
   bool _isSymbolDayPair(String stringSymbol) {
     String strEarth = _symbolEarth(stringSymbol);
 
-    return isEarthPairDay(strEarth, dayEarth());
+    return branchBusiness().isEarthPairDay(strEarth, dayEarth());
   }
 
   bool _isSymbolMonthPair(String stringSymbol) {
@@ -1353,20 +1345,10 @@ class SABEasyLogicBusiness {
 
   ///`--爻的三合`//////////////////////////////////////////////////////
 
-  List earthAtMergeRowArray(List arrayRow) {
-    List arrayEarth = [];
-
-    for (int intItem in arrayRow) {
-      arrayEarth.add(inputEasyWordsModel().earthAtMergeRow(intItem));
-    } //endf
-
-    return arrayEarth;
-  }
-
   List virtualEarthThreePair(List arrayPair, List arrayRow) {
     List arrayResult = [];
 
-    List arrayEarth = earthAtMergeRowArray(arrayRow);
+    List arrayEarth = inputEasyWordsModel().earthAtMergeRowArray(arrayRow);
 
     List arrayRowPaired = [];
     for (String item in arrayPair) {
@@ -1383,41 +1365,6 @@ class SABEasyLogicBusiness {
         if (-1 == movementArray.indexOf(item)) arrayResult.add(item);
         //else cont.
       } //endf
-    }
-    //else cont.
-
-    return arrayResult;
-  }
-
-  List earthThreePairInArray(List arrayEarth) {
-    List arrayResult = [];
-
-    if (-1 != arrayEarth.indexOf("子")) {
-      if (-1 != arrayEarth.indexOf("申") && -1 != arrayEarth.indexOf("辰")) {
-        arrayResult.add("申子辰合成水局");
-      }
-      //else cont.
-    }
-
-    if (-1 != arrayEarth.indexOf("酉")) {
-      if (-1 != arrayEarth.indexOf("巳") && -1 != arrayEarth.indexOf("丑")) {
-        arrayResult.add("巳酉丑合成金局");
-      }
-      //else cont.
-    }
-
-    if (-1 != arrayEarth.indexOf("午")) {
-      if (-1 != arrayEarth.indexOf("寅") && -1 != arrayEarth.indexOf("戌")) {
-        arrayResult.add("寅午戌合成火局");
-      }
-      //else cont.
-    }
-
-    if (-1 != arrayEarth.indexOf("卯")) {
-      if (-1 != arrayEarth.indexOf("亥") && -1 != arrayEarth.indexOf("未")) {
-        arrayResult.add("亥卯未合成木局");
-      }
-      //else cont.
     }
     //else cont.
 
@@ -1986,7 +1933,7 @@ class SABEasyLogicBusiness {
             //伏神墓绝于日月飞爻者，四也。
             String basicEarth = _symbolEarth(basicSymbol);
             String fromEarth =
-                inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
+                inputEasyWordsModel().getSymbolEarth(intRow, EasyTypeEnum.from);
 
             String monthTwelve =
                 branchBusiness().earthTwelveDeity(basicEarth, monthEarth());
@@ -2136,9 +2083,12 @@ class SABEasyLogicBusiness {
   }
 
   ///`进神退神章第二十九`//////////////////////////////////////////////////////
-  String symbolForwardOrBack(String fromEarth, String toEarth) {
+  String symbolForwardOrBack(int nRow) {
     String result = "";
-
+    String fromEarth =
+        inputEasyWordsModel().getSymbolEarth(nRow, EasyTypeEnum.from);
+    String toEarth =
+        inputEasyWordsModel().getSymbolEarth(nRow, EasyTypeEnum.to);
     if (branchBusiness().isEarthForward(fromEarth, toEarth))
       result = "化进";
     else if (branchBusiness().isEarthBack(fromEarth, toEarth)) result = "化退";
@@ -2147,11 +2097,11 @@ class SABEasyLogicBusiness {
     return result;
   }
 
-  bool isSymbolChangeForwardAtRow(int intIndex) {
+  bool isSymbolChangeForwardAtRow(int nRow) {
     bool bResult = false;
-    if (isMovementAtRow(intIndex)) {
-      String fromEarth = earthAtFromRow(intIndex);
-      String toEarth = earthAtToRow(intIndex);
+    if (isMovementAtRow(nRow)) {
+      String fromEarth = earthAtFromRow(nRow);
+      String toEarth = earthAtToRow(nRow);
       bResult = branchBusiness().isEarthForward(fromEarth, toEarth);
     }
     //else cont.
@@ -2529,16 +2479,16 @@ class SABEasyLogicBusiness {
   }
 
   String earthAtFromRow(int intRow) {
-    return inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.from);
+    return inputEasyWordsModel().getSymbolEarth(intRow, EasyTypeEnum.from);
   }
 
   ///原名为earthAtChangeRow,更改为earthAtToRow
   String earthAtToRow(int intRow) {
-    return inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.to);
+    return inputEasyWordsModel().getSymbolEarth(intRow, EasyTypeEnum.to);
   }
 
   String earthAtHideRow(int intRow) {
-    return inputEasyWordsModel().getSmbolEarth(intRow, EasyTypeEnum.hide);
+    return inputEasyWordsModel().getSymbolEarth(intRow, EasyTypeEnum.hide);
   }
 
   bool isMovementAtRow(int intRow) {
@@ -2603,6 +2553,20 @@ class SABEasyLogicBusiness {
 
       ///爻的基础信息
       for (int intRow = 0; intRow < 6; intRow++) {
+        _outLogicModel.setIsSymbolChangeBorn(
+            intRow, isSymbolChangeBornAtRow(intRow));
+
+        _outLogicModel.setIsSymbolChangeRestrict(
+            intRow, isSymbolChangeConflictAtRow(intRow));
+
+        _outLogicModel.setIsSymbolChangeConflict(
+            intRow, isSymbolChangeConflictAtRow(intRow));
+
+        _outLogicModel.setSymbolForwardOrBack(
+            intRow, symbolForwardOrBack(intRow));
+        _outLogicModel.setIsSymbolBackMove(
+            intRow, isSymbolBackMoveAtRow(intRow, EasyTypeEnum.from));
+
         ///IsOnMonth
         _outLogicModel.setIsOnMonth(intRow, EasyTypeEnum.from,
             _isSymbolOnMonth(symbolAtFromRow(intRow)));
@@ -2653,6 +2617,16 @@ class SABEasyLogicBusiness {
         _outLogicModel.setIsEffectable(intRow, EasyTypeEnum.hide,
             isEffectableRow(intRow, EasyTypeEnum.hide));
 
+        ///IsSymbolDayBroken
+        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.from,
+            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.from));
+
+        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.to,
+            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.to));
+
+        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.hide,
+            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.hide));
+
         ///IsSeasonStrong
         _outLogicModel.setIsSeasonStrong(intRow, EasyTypeEnum.from,
             isSymbolSeasonStrong(symbolAtFromRow(intRow)));
@@ -2682,6 +2656,16 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setDiety(
             intRow, EasyTypeEnum.hide, dietyAtRow(intRow, EasyTypeEnum.hide));
+
+        ///symbolEmptyState
+        _outLogicModel.setSymbolEmptyState(intRow, EasyTypeEnum.from,
+            symbolEmptyState(intRow, EasyTypeEnum.from));
+
+        _outLogicModel.setSymbolEmptyState(
+            intRow, EasyTypeEnum.to, symbolEmptyState(intRow, EasyTypeEnum.to));
+
+        _outLogicModel.setSymbolEmptyState(intRow, EasyTypeEnum.hide,
+            symbolEmptyState(intRow, EasyTypeEnum.hide));
       }
 
       //此信息依赖爻的基础信息

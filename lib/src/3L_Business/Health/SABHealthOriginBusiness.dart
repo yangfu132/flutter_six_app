@@ -2,6 +2,7 @@ import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import '../Logic/SABEasyLogicModel.dart';
+import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 /*
  
@@ -83,6 +84,8 @@ class SABHealthOriginBusiness {
   SABHealthOriginBusiness(this._inputLogicBusiness);
 
   final SABEasyLogicBusiness _inputLogicBusiness;
+
+  final SABEarthBranchBusiness _branchBusiness = SABEarthBranchBusiness();
 
   ///`基础函数`//////////////////////////////////////////////////////
 
@@ -298,7 +301,7 @@ class SABHealthOriginBusiness {
     //日临
     if (_inputLogicBusiness.isEarthOnDay(basicEarth, dayEarth)) {
       fResult = healthDayOrMonthOn();
-    } else if (_inputLogicBusiness.isEarthPairDay(basicEarth, dayEarth)) {
+    } else if (_branchBusiness.isEarthPairDay(basicEarth, dayEarth)) {
       //日合
       if (fResult < healthCriticalValue())
         fResult = healthCriticalValue() * 1.1;
@@ -315,7 +318,7 @@ class SABHealthOriginBusiness {
     String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
 
     if ("" != stringSymbol) {
-      String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
+      String basicEarth = logicModel().getSymbolEarth(nRow, easyType);
 
       //日
       if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
