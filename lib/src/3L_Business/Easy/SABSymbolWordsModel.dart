@@ -4,23 +4,18 @@ class SABSymbolWordsModel {
   int intDigit;
   int intRow;
   bool bMovement;
+  String stringAnimal;
 
   /// symbol包含的字段
   /// String symbolName;
   /// String stringParent;
   /// String stringEarth;
   /// String stringElement;
-  ///{
-  ///'name':['','',''],
-  ///'parent':['','',''],
-  ///'earth':['','','']
-  ///'Element':['','','']
-  ///}
   Map mapSymbolFrom = {};
   Map mapSymbolTo = {};
   Map mapSymbolHide = {};
 
-  String getSmbolName(EasyTypeEnum easyTypeEnum) {
+  String getSymbolName(EasyTypeEnum easyTypeEnum) {
     if (easyTypeEnum == EasyTypeEnum.from) {
       return mapSymbolFrom['name'];
     } else if (easyTypeEnum == EasyTypeEnum.to) {
@@ -42,7 +37,7 @@ class SABSymbolWordsModel {
       return 'easyTypeEnum:$easyTypeEnum';
   }
 
-  String getSmbolEarth(EasyTypeEnum easyTypeEnum) {
+  String getSymbolEarth(EasyTypeEnum easyTypeEnum) {
     if (easyTypeEnum == EasyTypeEnum.from) {
       return mapSymbolFrom['earth'];
     } else if (easyTypeEnum == EasyTypeEnum.to) {

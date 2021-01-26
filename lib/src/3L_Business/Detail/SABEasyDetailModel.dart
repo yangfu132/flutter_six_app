@@ -1,11 +1,17 @@
-﻿class SABEasyDetailModel {
-  String stringDetailName = 'name';
+﻿import 'SABSymbolDetailModel.dart';
+import '../Health/SABHealthModel.dart';
 
-  List _detailList;
+class SABEasyDetailModel {
+  SABEasyDetailModel(this._healthModel);
+  final SABHealthModel _healthModel;
+  String stringDetailName;
+  List _listSymbols;
+
+  void set() {}
 
   List detailList() {
-    if (null == _detailList) {
-      _detailList = [
+    if (null == _listSymbols) {
+      _listSymbols = [
         [
           '事情',
           '六神',
@@ -34,9 +40,27 @@
           '变月',
           '变日',
         ];
-        _detailList.add(listValue);
+        _listSymbols.add(listValue);
       }
     }
-    return _detailList;
+    return _listSymbols;
+  }
+
+  /// `加载函数`/////////////////////////////////////////////////////////////////
+
+  List _symbolsArray() {
+    if (null == _listSymbols) {
+      _listSymbols = [];
+      for (int intRow = 0; intRow < 6; intRow++) {
+        SABSymbolDetailModel model =
+            SABSymbolDetailModel(_healthModel.symbolAtRow(intRow));
+        _listSymbols.add(model);
+      }
+    }
+    return _listSymbols;
+  }
+
+  SABSymbolDetailModel symbolAtRow(int intRow) {
+    return _symbolsArray()[intRow];
   }
 }

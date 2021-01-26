@@ -74,14 +74,15 @@ class SABMoveHealthBusiness {
     double basicDefense =
         originBusiness().symbolDefensiveAtRow(basicRow, EasyTypeEnum.from);
 
-    String basicEarth = logicModel().getSmbolEarth(basicRow, EasyTypeEnum.from);
+    String basicEarth =
+        logicModel().getSymbolEarth(basicRow, EasyTypeEnum.from);
 
     String effectsSymbol =
         _inputLogicBusiness.symbolAtRow(effectsRow, effectsEasyType);
 
     if (null != effectsSymbol && "" != effectsSymbol) {
       String effectsEarth =
-          logicModel().getSmbolEarth(effectsRow, effectsEasyType);
+          logicModel().getSymbolEarth(effectsRow, effectsEasyType);
 
       if (_inputLogicBusiness.isEarthBorn(effectsEarth, basicEarth)) {
         fHealth += symbolOutAtRow(effectsRow, effectsEasyType);
@@ -178,7 +179,7 @@ class SABMoveHealthBusiness {
     ///TODO:为了找到分析的开头，假设日建或者月建是不收其他爻生克的;
     if (logicModel().isOnDay(nLevel3Row, easyType) ||
         logicModel().isOnMonth(nLevel3Row, easyType)) {
-      String basicEarth = logicModel().getSmbolEarth(nLevel3Row, easyType);
+      String basicEarth = logicModel().getSymbolEarth(nLevel3Row, easyType);
       List level3Array =
           originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
 
@@ -213,7 +214,7 @@ class SABMoveHealthBusiness {
   List effectingArrayAtLevel6Row(int nRow, EasyTypeEnum easyType) {
     List arrayEffects = [];
 
-    String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
+    String basicEarth = logicModel().getSymbolEarth(nRow, easyType);
 
     List levelArray =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
@@ -291,6 +292,6 @@ class SABMoveHealthBusiness {
 
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
-    return _inputLogicBusiness.logicModel();
+    return _inputLogicBusiness.outLogicModel();
   }
 }

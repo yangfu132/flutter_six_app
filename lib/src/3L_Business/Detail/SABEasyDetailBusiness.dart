@@ -48,8 +48,10 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
 
   SABEasyDetailModel outputDetailModel() {
     if (null == _outputDetailModel) {
-      _outputDetailModel = SABEasyDetailModel();
+      //TODO:细化detailmodel
+      _outputDetailModel = SABEasyDetailModel(_healthBusiness.outHealthModel());
       _outputDetailModel.stringDetailName = easyName();
+      _outputDetailModel.detailList();
     }
     return _outputDetailModel;
   }
@@ -57,7 +59,7 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
   String easyName() {
     String stringResult = '';
     String formatTime =
-        logicBusiness().logicModel().inputWordsModel.stringFormatTime;
+        logicBusiness().outLogicModel().inputWordsModel.stringFormatTime;
     String formatDate = formatTime.split(' ')[0];
     stringResult += '$formatDate ${_inputEasyModel.getUsefulDeity()} 补充';
     return stringResult;

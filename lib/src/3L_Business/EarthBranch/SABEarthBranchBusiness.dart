@@ -114,4 +114,49 @@ class SABEarthBranchBusiness {
   String seasonDescription(String monthEarth, String _earthName) {
     return _branchModel.getSeasonStrong()[_earthName][monthEarth];
   }
+
+  bool isEarthPairDay(String basicEarth, String dayEarth) {
+    bool bResult = false;
+
+    String strPair = earthSixPair(basicEarth);
+
+    bResult = strPair == dayEarth;
+
+    return bResult;
+  }
+
+  List earthThreePairInArray(List arrayEarth) {
+    List arrayResult = [];
+
+    if (-1 != arrayEarth.indexOf("子")) {
+      if (-1 != arrayEarth.indexOf("申") && -1 != arrayEarth.indexOf("辰")) {
+        arrayResult.add("申子辰合成水局");
+      }
+      //else cont.
+    }
+
+    if (-1 != arrayEarth.indexOf("酉")) {
+      if (-1 != arrayEarth.indexOf("巳") && -1 != arrayEarth.indexOf("丑")) {
+        arrayResult.add("巳酉丑合成金局");
+      }
+      //else cont.
+    }
+
+    if (-1 != arrayEarth.indexOf("午")) {
+      if (-1 != arrayEarth.indexOf("寅") && -1 != arrayEarth.indexOf("戌")) {
+        arrayResult.add("寅午戌合成火局");
+      }
+      //else cont.
+    }
+
+    if (-1 != arrayEarth.indexOf("卯")) {
+      if (-1 != arrayEarth.indexOf("亥") && -1 != arrayEarth.indexOf("未")) {
+        arrayResult.add("亥卯未合成木局");
+      }
+      //else cont.
+    }
+    //else cont.
+
+    return arrayResult;
+  }
 }

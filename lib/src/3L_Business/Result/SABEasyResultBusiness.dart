@@ -273,10 +273,10 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
     String usefulEarth = "";
 
     if (0 <= usefulIndex && usefulIndex < 6)
-      usefulEarth = logicModel().getSmbolEarth(usefulIndex, EasyTypeEnum.from);
+      usefulEarth = logicModel().getSymbolEarth(usefulIndex, EasyTypeEnum.from);
     else
       usefulEarth = logicModel()
-          .getSmbolEarth(usefulIndex - ROW_FLY_BEGIN, EasyTypeEnum.hide);
+          .getSymbolEarth(usefulIndex - ROW_FLY_BEGIN, EasyTypeEnum.hide);
 
     String onResult = "用神月破：实破之 $usefulEarth (日、月、年)则不破";
     result = SACContext.appendToString(result, onResult);
@@ -702,7 +702,7 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
   SABEasyAnalysisBusiness analysisBusiness() {
     if (null == _analysisBusiness) {
-      _analysisBusiness = SABEasyAnalysisBusiness(logicBusiness());
+      _analysisBusiness = SABEasyAnalysisBusiness(healthBusiness());
     }
     return _analysisBusiness;
   }
@@ -723,6 +723,6 @@ class SABEasyResultBusiness extends SABEasyLogicDelegate {
 
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
-    return logicBusiness().logicModel();
+    return logicBusiness().outLogicModel();
   }
 }

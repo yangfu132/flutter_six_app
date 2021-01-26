@@ -59,6 +59,7 @@ enum MonthConflictEnum {
 }
 
 enum DayConflictEnum {
+  Conflict_Null,
   Conflict_NO, //非日冲
   Conflict_YES, //日冲
   Conflict_BROKEN, //日冲，弱而破

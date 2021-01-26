@@ -368,6 +368,8 @@ class SABEasyBusiness {
         _outEasyWordsModel.setMovement(
             intRow, _inputEasyModel.isMovementAtRow(intRow));
 
+        _outEasyWordsModel.setAnimal(intRow, animalAtRow(intRow));
+
         String symbolFrom = symbolAtFromRow(intRow);
         _outEasyWordsModel.setFromSymbolName(intRow, symbolFrom);
         _outEasyWordsModel.setFromParent(intRow, symbolParent(symbolFrom));

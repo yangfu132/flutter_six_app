@@ -1,12 +1,22 @@
 ﻿import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
+import '../Health/SABEasyHealthBusiness.dart';
+import '../Health/SABHealthModel.dart';
 import '../Logic/SABEasyLogicModel.dart';
+import 'SABEasyAnalysisModel.dart';
+import '../Easy/SABEasyWordsModel.dart';
+import '../Easy/SABEasyDigitModel.dart';
+import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 class SABEasyAnalysisBusiness {
-  final SABEasyLogicBusiness _inputLogicBusiness;
+  final SABEasyHealthBusiness _inputHealthBusiness;
 
-  SABEasyAnalysisBusiness(this._inputLogicBusiness);
+  final SABEarthBranchBusiness _branchBusiness = SABEarthBranchBusiness();
+
+  SABEasyAnalysisBusiness(this._inputHealthBusiness);
+
+  SABEasyAnalysisModel _analysisModel;
 
   ///`basic`//////////////////////////////////////////////////////
 
@@ -61,7 +71,7 @@ class SABEasyAnalysisBusiness {
   String parentEffectAtRow(int nIndex, EasyTypeEnum easyType) {
     String result = "";
 
-    if (_inputLogicBusiness.isStaticEasy())
+    if (logicModel().bStaticEasy)
       result = staticEffectedAtRow(nIndex, easyType);
     else
       result = movementEffectedAtRow(nIndex, easyType);
@@ -72,10 +82,10 @@ class SABEasyAnalysisBusiness {
   String movementEffectedAtRow(int nIndex, EasyTypeEnum easyType) {
     String result = "";
 
-    String stringSymbol = _inputLogicBusiness.symbolAtRow(nIndex, easyType);
+    String stringSymbol = wordsModel().getSymbolName(nIndex, easyType);
 
     if (null != stringSymbol) {
-      List arrayEffects = _inputLogicBusiness.movementIndexArray();
+      List arrayEffects = healthModel().listMoveRight;
 
       //把自己从列表中移除
       if (EasyTypeEnum.from == easyType) arrayEffects.remove(nIndex);
@@ -85,7 +95,7 @@ class SABEasyAnalysisBusiness {
       result = symbolEffected(nIndex, easyType, arrayEffects);
 
       //六爻安静，旺相之爻可以生得休囚之爻，亦可以克得休囚之爻。
-      if (!_inputLogicBusiness.isMovementAtRow(nIndex)) {
+      if (!digitModel().isMovementAtRow(nIndex)) {
         String staticResult = staticEffectedAtRow(nIndex, easyType);
         result = SACContext.appendToString(result, staticResult);
       } //endi
@@ -100,14 +110,14 @@ class SABEasyAnalysisBusiness {
 
     String result = "";
 
-    String stringSymbol = _inputLogicBusiness.symbolAtRow(nIndex, easyType);
+    String stringSymbol = wordsModel().getSymbolName(nIndex, easyType);
     if (null != stringSymbol) {
-      List arrayEffects = _inputLogicBusiness.staticSeasonStrong();
+      List arrayEffects = logicModel().listStaticSeasonStrong;
       //把自己从列表中移除
       if (EasyTypeEnum.from == easyType) arrayEffects.remove(nIndex);
       //else cont.
 
-      if (!_inputLogicBusiness.isSymbolSeasonStrong(stringSymbol)) {
+      if (!logicModel().isSeasonStrong(nIndex, easyType)) {
         result = symbolEffected(nIndex, easyType, arrayEffects);
       }
       //else cont.
@@ -120,44 +130,44 @@ class SABEasyAnalysisBusiness {
   String symbolEffected(int intRow, EasyTypeEnum easyType, List arrayEffects) {
     String strResult = "";
 
-    String basicEarth = logicModel().getSmbolEarth(intRow, easyType);
+    String basicEarth = logicModel().getSymbolEarth(intRow, easyType);
 
     for (int numItem in arrayEffects) {
-      String earth = _inputLogicBusiness.earthAtFromRow(numItem);
-
-      bool bEffect =
-          _inputLogicBusiness.isEffectableRow(numItem, EasyTypeEnum.from);
+      String earth = wordsModel().getSymbolEarth(numItem, EasyTypeEnum.from);
+      String stringElement =
+          wordsModel().getSmbolElement(numItem, EasyTypeEnum.from);
+      bool bEffect = logicModel().isEffectable(numItem, EasyTypeEnum.from);
 
       String strEffect = bEffect ? "" : "无效：";
 
-      if (_inputLogicBusiness.isEarthBorn(earth, basicEarth)) {
+      if (_branchBusiness.isEarthBorn(earth, basicEarth)) {
         if ("" == strResult) {
           strResult = strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputLogicBusiness.earthElement(earth) +
+              stringElement +
               "生";
         } else {
           strResult = "\r\n" +
               strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputLogicBusiness.earthElement(earth) +
+              stringElement +
               "生";
         } //endi
-      } else if (_inputLogicBusiness.isEarthRestricts(earth, basicEarth)) {
+      } else if (_branchBusiness.isEarthRestricts(earth, basicEarth)) {
         if ("" == strResult) {
           strResult = strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputLogicBusiness.earthElement(earth) +
+              stringElement +
               "克";
         } else {
           strResult = "\r\n" +
               strEffect +
               positionAtMerge(numItem) +
               earth +
-              _inputLogicBusiness.earthElement(earth) +
+              stringElement +
               "克";
         } //endi
       }
@@ -172,18 +182,18 @@ class SABEasyAnalysisBusiness {
   String changeAnalysisAtRow(int nRow) {
     String result = "";
 
-    String fromEarth = _inputLogicBusiness.earthAtFromRow(nRow);
-    String toEarth = _inputLogicBusiness.earthAtToRow(nRow);
+    String fromEarth = wordsModel().getSymbolEarth(nRow, EasyTypeEnum.from);
+    String toEarth = wordsModel().getSymbolEarth(nRow, EasyTypeEnum.to);
     if ("" != toEarth) {
-      if (_inputLogicBusiness.isSymbolChangeBornAtRow(nRow))
+      if (logicModel().getIsSymbolChangeBorn(nRow))
         result = SACContext.appendToString(result, "回头生");
       //else cont.
 
-      if (_inputLogicBusiness.isSymbolChangeBornAtRow(nRow))
+      if (logicModel().getIsSymbolChangeRestrict(nRow))
         result = SACContext.appendToString(result, "回头克");
       //else cont.
 
-      if (_inputLogicBusiness.isSymbolChangeConflictAtRow(nRow))
+      if (logicModel().getIsSymbolChangeConflict(nRow))
         result = SACContext.appendToString(result, "回头冲");
       //else cont.
 
@@ -191,14 +201,13 @@ class SABEasyAnalysisBusiness {
       if ("" != strPair) result = SACContext.appendToString(result, strPair);
       //else cont.
 
-      String strForwardOrBack =
-          _inputLogicBusiness.symbolForwardOrBack(fromEarth, toEarth);
+      String strForwardOrBack = logicModel().getSymbolForwardOrBack(nRow);
       if ("" != strForwardOrBack)
         result = SACContext.appendToString(result, strForwardOrBack);
       //else cont.
 
       String strTwelveDeity =
-          _inputLogicBusiness.earthTwelveDeity(fromEarth, toEarth);
+          _branchBusiness.earthTwelveDeity(fromEarth, toEarth);
       if ("长生" == strTwelveDeity ||
           "帝旺" == strTwelveDeity ||
           "墓" == strTwelveDeity ||
@@ -210,7 +219,7 @@ class SABEasyAnalysisBusiness {
       }
       //else cont.
 
-      bool bToEmpty = _inputLogicBusiness.isSymbolChangeEmpty(nRow);
+      bool bToEmpty = logicModel().getIsSymbolChangeEmpty(nRow);
       if (bToEmpty) result = SACContext.appendToString(result, "化空");
       //else cont.
     }
@@ -224,12 +233,10 @@ class SABEasyAnalysisBusiness {
   String getMonthRelationAtRow(int nRow, EasyTypeEnum easyType) {
     String strResult = "";
 
-    String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
+    String stringSymbol = wordsModel().getSymbolName(nRow, easyType);
 
     if ("" != stringSymbol) {
-      String strEarth = logicModel().getSmbolEarth(nRow, easyType);
-
-      String strMonth = _inputLogicBusiness.monthEarth();
+      String strEarth = logicModel().getSymbolEarth(nRow, easyType);
 
       if (logicModel().isOnMonth(nRow, easyType))
         strResult = SACContext.appendToString(strResult, "[临]");
@@ -245,8 +252,8 @@ class SABEasyAnalysisBusiness {
         strResult = SACContext.appendToString(strResult, strPair);
       //else cont.
 
-      String strTwelveDeity =
-          _inputLogicBusiness.earthTwelveDeity(strEarth, strMonth);
+      String strTwelveDeity = _branchBusiness.earthTwelveDeity(
+          strEarth, wordsModel().stringMonthEarth);
       if ("长生" == strTwelveDeity ||
           "帝旺" == strTwelveDeity ||
           "绝" == strTwelveDeity) {
@@ -266,29 +273,29 @@ class SABEasyAnalysisBusiness {
   String getDayRelationAtRow(int nRow, EasyTypeEnum easyType) {
     String strResult = "";
 
-    String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
-    String strEarth = logicModel().getSmbolEarth(nRow, easyType);
+    String stringSymbol = wordsModel().getSymbolName(nRow, easyType);
+    String strEarth = logicModel().getSymbolEarth(nRow, easyType);
     if ("" != stringSymbol) {
-      String strDay = _inputLogicBusiness.dayEarth();
+      String strDayEarth = wordsModel().stringDayEarth;
       String strTwelveDeity =
-          _inputLogicBusiness.earthTwelveDeity(strEarth, strDay);
+          _branchBusiness.earthTwelveDeity(strEarth, strDayEarth);
 
       if (logicModel().isOnDay(nRow, easyType))
         strResult = SACContext.appendToString(strResult, "[临]");
       //else cont.
 
-      bool bConflicted = _inputLogicBusiness.isEarthConflict(strDay, strEarth);
+      bool bConflicted = _branchBusiness.isEarthConflict(strDayEarth, strEarth);
       if (bConflicted) {
-        if (_inputLogicBusiness.isSymbolBackMoveAtRow(nRow, easyType))
+        if (logicModel().getIsSymbolBackMove(nRow))
           strResult = SACContext.appendToString(strResult, "[暗动]");
-        else if (_inputLogicBusiness.isSymbolDayBrokenAtRow(nRow, easyType))
+        else if (logicModel().getIsSymbolDayBroken(nRow, easyType))
           strResult = SACContext.appendToString(strResult, "[日破]");
         else
           strResult = SACContext.appendToString(strResult, "[冲]");
       }
       //else cont.
 
-      String strPair = earthDayPairDescription(strEarth);
+      String strPair = earthDayPairDescription(nRow, easyType);
       if ("" != strPair)
         strResult = SACContext.appendToString(strResult, strPair);
       //else cont.
@@ -314,7 +321,7 @@ class SABEasyAnalysisBusiness {
 
   String resultSymbolEmpty(int nRow, EasyTypeEnum easyType) {
     String strEmpty = "";
-    switch (_inputLogicBusiness.symbolEmptyState(nRow, easyType)) {
+    switch (logicModel().getSymbolEmptyState(nRow, easyType)) {
       case EmptyEnum.Empty_NO:
         break;
       case EmptyEnum.Empty_YES:
@@ -343,13 +350,13 @@ class SABEasyAnalysisBusiness {
   String resultMonthPairAtRow(int nRow, EasyTypeEnum easyType) {
     String strResult = "";
 
-    String strEarth = logicModel().getSmbolEarth(nRow, easyType);
+    String strEarth = logicModel().getSymbolEarth(nRow, easyType);
 
     if ("" != strEarth) {
       String strMonthPair = earthMonthPairDescription(strEarth);
       if ("" != strMonthPair) {
         if (EasyTypeEnum.from == easyType) {
-          if (_inputLogicBusiness.isMovementAtRow(nRow)) {
+          if (digitModel().isMovementAtRow(nRow)) {
             strMonthPair =
                 "本爻与月合: $strMonthPair; 动而逢合谓之合绊。爻动或与日月动爻合者，谓之逢合而绊住，反不能动之意。";
           } else {
@@ -375,10 +382,10 @@ class SABEasyAnalysisBusiness {
   String resultDayPairAtRow(int intRow, EasyTypeEnum easyType) {
     String strResult = "";
 
-    String strPairResult = logicModel().getSmbolEarth(intRow, easyType);
+    String strPairResult = logicModel().getSymbolEarth(intRow, easyType);
     if ("" != strPairResult) {
       if (EasyTypeEnum.from == easyType) {
-        if (_inputLogicBusiness.isMovementAtRow(intRow)) {
+        if (digitModel().isMovementAtRow(intRow)) {
           strPairResult =
               "本爻与日合: $strPairResult; 动而逢合谓之合绊。爻动或与日月动爻合者，谓之逢合而绊住，反不能动之意。";
         } else {
@@ -401,16 +408,16 @@ class SABEasyAnalysisBusiness {
 
   String resultMovePairAtRow(int intRow, EasyTypeEnum easyType) {
     String strResult = "";
-    String baseEarth = logicModel().getSmbolEarth(intRow, easyType);
+    String baseEarth = logicModel().getSymbolEarth(intRow, easyType);
     if ("" != baseEarth) {
       if (EasyTypeEnum.from == easyType) {
         String strSymbolPair = "";
         //爻与爻合者，二也; 两爻都需要是动爻才能合
-        List movementArray = _inputLogicBusiness.movementIndexArray();
+        List movementArray = healthModel().listMoveRight;
         if (movementArray.length >= 2) {
           for (int item in movementArray) {
             String tempEarth =
-                logicModel().getSmbolEarth(item, EasyTypeEnum.from);
+                logicModel().getSymbolEarth(item, EasyTypeEnum.from);
             String strPair = earthPairedDescription(baseEarth, tempEarth);
             if ("" != strPair) {
               strSymbolPair = SACContext.appendSentence(strSymbolPair, strPair);
@@ -449,13 +456,12 @@ class SABEasyAnalysisBusiness {
     return strResult;
   }
 
-  String earthDayPairDescription(String strEarth) {
+  String earthDayPairDescription(int nRow, EasyTypeEnum easyType) {
     String strResult = "";
-
-    if (_inputLogicBusiness.isEarthPairDay(
-        strEarth, _inputLogicBusiness.dayEarth())) {
-      strResult = _inputLogicBusiness.sixPairDescription(
-          strEarth, _inputLogicBusiness.dayEarth());
+    String strEarth = logicModel().getSymbolEarth(nRow, easyType);
+    if (_branchBusiness.isEarthPairDay(strEarth, wordsModel().stringDayEarth)) {
+      strResult = _branchBusiness.sixPairDescription(
+          strEarth, wordsModel().stringDayEarth);
     }
     //else cont.
 
@@ -464,12 +470,12 @@ class SABEasyAnalysisBusiness {
 
   String earthMonthPairDescription(String strEarth) {
     String strResult = "";
-    String strDay = _inputLogicBusiness.dayEarth();
-    if (!_inputLogicBusiness.isEarthConflict(strDay, strEarth) &&
-        !_inputLogicBusiness.isEarthConflict(
-            strDay, _inputLogicBusiness.monthEarth())) {
-      strResult = _inputLogicBusiness.sixPairDescription(
-          strEarth, _inputLogicBusiness.monthEarth());
+    String strDay = wordsModel().stringDayEarth;
+    if (!_branchBusiness.isEarthConflict(strDay, strEarth) &&
+        !_branchBusiness.isEarthConflict(
+            strDay, wordsModel().stringMonthEarth)) {
+      strResult = _branchBusiness.sixPairDescription(
+          strEarth, wordsModel().stringMonthEarth);
     }
     //else cont.
 
@@ -478,14 +484,14 @@ class SABEasyAnalysisBusiness {
 
   String symbolMovePairDescriptionAtRow(int nRow, EasyTypeEnum easyType) {
     String strSymbolPair = "";
-    String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
+    String basicEarth = logicModel().getSymbolEarth(nRow, easyType);
 
     if (logicModel().isMovementAtRow(nRow)) {
-      List movementArray = _inputLogicBusiness.movementIndexArray();
+      List movementArray = healthModel().listMoveRight;
       for (int item in movementArray) {
         if (nRow != item) {
           String tempEarth =
-              logicModel().getSmbolEarth(item, EasyTypeEnum.from);
+              logicModel().getSymbolEarth(item, EasyTypeEnum.from);
           String strPair = earthPairedDescription(basicEarth, tempEarth);
           if ("" != strPair)
             strSymbolPair = SACContext.appendToString(strSymbolPair, strPair);
@@ -503,11 +509,10 @@ class SABEasyAnalysisBusiness {
   String earthPairedDescription(String basicEarth, String otherEarth) {
     String strResult = "";
     //爻逢合住，遇日建以冲开，谓之合处逢冲，是也。
-    String strDay = _inputLogicBusiness.dayEarth();
-    if (!_inputLogicBusiness.isEarthConflict(strDay, basicEarth) &&
-        !_inputLogicBusiness.isEarthConflict(strDay, otherEarth)) {
-      strResult =
-          _inputLogicBusiness.sixPairDescription(basicEarth, otherEarth);
+    String stringDayEarth = wordsModel().stringDayEarth;
+    if (!_branchBusiness.isEarthConflict(stringDayEarth, basicEarth) &&
+        !_branchBusiness.isEarthConflict(stringDayEarth, otherEarth)) {
+      strResult = _branchBusiness.sixPairDescription(basicEarth, otherEarth);
     }
     //else cont.
 
@@ -516,8 +521,8 @@ class SABEasyAnalysisBusiness {
 
   String changePairDescriptionAtRow(int intRow) {
     String result = "";
-    String fromEarth = logicModel().getSmbolEarth(intRow, EasyTypeEnum.from);
-    String toEarth = logicModel().getSmbolEarth(intRow, EasyTypeEnum.to);
+    String fromEarth = logicModel().getSymbolEarth(intRow, EasyTypeEnum.from);
+    String toEarth = logicModel().getSymbolEarth(intRow, EasyTypeEnum.to);
     if ("" != fromEarth && "" != toEarth)
       result = earthPairedDescription(fromEarth, toEarth);
     //else cont.
@@ -553,7 +558,7 @@ class SABEasyAnalysisBusiness {
     String strResult = "";
 
     //一卦之内有三爻动而合局者，一也。
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = healthModel().listMoveRight;
     String strThreePair = subResultThreePairOfRowArray(movementArray);
 
     List array = [0, 1, 2, 3, 4, 5];
@@ -576,7 +581,7 @@ class SABEasyAnalysisBusiness {
 
   int moveCountInArray(List arrayPairRow) {
     int nCount = 0;
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = healthModel().listMoveRight;
     for (String item in arrayPairRow) {
       if (-1 != movementArray.indexOf(item)) nCount++;
       //else cont.
@@ -591,7 +596,7 @@ class SABEasyAnalysisBusiness {
     String posionLeft = positionAtMerge(nRow);
 
     if (0 <= nRow && nRow < 6) {
-      if (_inputLogicBusiness.isMovementAtRow(nRow))
+      if (digitModel().isMovementAtRow(nRow))
         strResult = strResult + posionLeft;
       else
         strResult = strResult + "$posionLeft(待)";
@@ -604,8 +609,8 @@ class SABEasyAnalysisBusiness {
   String subThreePairAtRowArray(List arrayPairRow) {
     String strResult = "";
 
-    List arrayR = _inputLogicBusiness.earthThreePairInArray(
-        _inputLogicBusiness.earthAtMergeRowArray(arrayPairRow));
+    List arrayR = _branchBusiness
+        .earthThreePairInArray(wordsModel().earthAtMergeRowArray(arrayPairRow));
 
     if (arrayR.length == 1) {
       if (moveCountInArray(arrayPairRow) >= 2) {
@@ -670,7 +675,7 @@ class SABEasyAnalysisBusiness {
     String strResult = "";
     //有内卦初爻三爻动，动而变出之爻成三合者，三也。
 
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = healthModel().listMoveRight;
     if (-1 != movementArray.indexOf(3) && -1 != movementArray.indexOf(5)) {
       String strPair = "";
       List arrayRow1 = [];
@@ -707,7 +712,7 @@ class SABEasyAnalysisBusiness {
     //有外卦四爻六爻动，动而变出之爻成合者，四也。
     int nFirst = 0;
     int nSecond = 0;
-    List movementArray = _inputLogicBusiness.movementIndexArray();
+    List movementArray = healthModel().listMoveRight;
     if (-1 != movementArray.indexOf(nFirst) &&
         -1 != movementArray.indexOf(nSecond)) {
       String strPair = "";
@@ -772,7 +777,27 @@ class SABEasyAnalysisBusiness {
   }
 
   ///`加载函数`//////////////////////////////////////////////////////
+  SABHealthModel healthModel() {
+    return _inputHealthBusiness.outHealthModel();
+  }
+
   SABEasyLogicModel logicModel() {
-    return _inputLogicBusiness.logicModel();
+    return healthModel().inputLogicModel;
+  }
+
+  SABEasyWordsModel wordsModel() {
+    return logicModel().inputWordsModel;
+  }
+
+  SABEasyDigitModel digitModel() {
+    return wordsModel().inputDigitModel;
+  }
+
+  SABEasyAnalysisModel analysisModel() {
+    if (null == _analysisModel) {
+      _analysisModel =
+          SABEasyAnalysisModel(_inputHealthBusiness.outHealthModel());
+    }
+    return _analysisModel;
   }
 }

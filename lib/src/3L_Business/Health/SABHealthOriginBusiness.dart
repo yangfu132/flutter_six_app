@@ -2,6 +2,7 @@ import '../../1L_Context/SACGlobal.dart';
 import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import '../Logic/SABEasyLogicModel.dart';
+import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 /*
  
@@ -83,6 +84,8 @@ class SABHealthOriginBusiness {
   SABHealthOriginBusiness(this._inputLogicBusiness);
 
   final SABEasyLogicBusiness _inputLogicBusiness;
+
+  final SABEarthBranchBusiness _branchBusiness = SABEarthBranchBusiness();
 
   ///`基础函数`//////////////////////////////////////////////////////
 
@@ -298,7 +301,7 @@ class SABHealthOriginBusiness {
     //日临
     if (_inputLogicBusiness.isEarthOnDay(basicEarth, dayEarth)) {
       fResult = healthDayOrMonthOn();
-    } else if (_inputLogicBusiness.isEarthPairDay(basicEarth, dayEarth)) {
+    } else if (_branchBusiness.isEarthPairDay(basicEarth, dayEarth)) {
       //日合
       if (fResult < healthCriticalValue())
         fResult = healthCriticalValue() * 1.1;
@@ -315,7 +318,7 @@ class SABHealthOriginBusiness {
     String stringSymbol = _inputLogicBusiness.symbolAtRow(nRow, easyType);
 
     if ("" != stringSymbol) {
-      String basicEarth = logicModel().getSmbolEarth(nRow, easyType);
+      String basicEarth = logicModel().getSymbolEarth(nRow, easyType);
 
       //日
       if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
@@ -451,7 +454,6 @@ class SABHealthOriginBusiness {
     if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
       fResult = 0.0;
     else {
-      //if (_inputLogicBusiness.movementIndexArray().length > 0) {
       if (rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE).length > 0) {
         //动卦中静爻的作用没有那么大
         if (!logicModel().inputWordsModel.isMovementAtRow(nRow)) {
@@ -513,9 +515,11 @@ class SABHealthOriginBusiness {
           bResult = MAX_DEFENSIVE;
         else if (_inputLogicBusiness.isEmptyAtRow(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_inputLogicBusiness.logicModel().isMonthPair(nRow, easyType))
+        else if (_inputLogicBusiness
+            .outLogicModel()
+            .isMonthPair(nRow, easyType))
           bResult = MAX_DEFENSIVE;
-        else if (_inputLogicBusiness.logicModel().isDayPair(nRow, easyType))
+        else if (_inputLogicBusiness.outLogicModel().isDayPair(nRow, easyType))
           bResult = MAX_DEFENSIVE;
         //else cont.
       } else
@@ -528,6 +532,6 @@ class SABHealthOriginBusiness {
 
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
-    return _inputLogicBusiness.logicModel();
+    return _inputLogicBusiness.outLogicModel();
   }
 }
