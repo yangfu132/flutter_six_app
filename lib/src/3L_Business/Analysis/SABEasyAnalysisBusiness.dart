@@ -797,6 +797,23 @@ class SABEasyAnalysisBusiness {
     if (null == _analysisModel) {
       _analysisModel =
           SABEasyAnalysisModel(_inputHealthBusiness.outHealthModel());
+      for (int intRow = 0; intRow < 6; intRow++) {
+        ///MonthBrokenDescription
+        _analysisModel.setMonthRelation(intRow, EasyTypeEnum.from,
+            getMonthRelationAtRow(intRow, EasyTypeEnum.from));
+        _analysisModel.setMonthRelation(intRow, EasyTypeEnum.to,
+            getMonthRelationAtRow(intRow, EasyTypeEnum.to));
+        _analysisModel.setMonthRelation(intRow, EasyTypeEnum.hide,
+            getMonthRelationAtRow(intRow, EasyTypeEnum.hide));
+
+        ///DayRelation
+        _analysisModel.setDayRelation(intRow, EasyTypeEnum.from,
+            getDayRelationAtRow(intRow, EasyTypeEnum.from));
+        _analysisModel.setDayRelation(intRow, EasyTypeEnum.to,
+            getDayRelationAtRow(intRow, EasyTypeEnum.to));
+        _analysisModel.setDayRelation(intRow, EasyTypeEnum.hide,
+            getDayRelationAtRow(intRow, EasyTypeEnum.hide));
+      }
     }
     return _analysisModel;
   }
