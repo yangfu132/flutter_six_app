@@ -1,14 +1,10 @@
 ﻿import '../../1L_Context/SACGlobal.dart';
-import '../../1L_Context/SACContext.dart';
-import '../../4L_Service/SASStringService.dart';
-
-import '../Easy/SABEasyDigitModel.dart';
-import '../Logic/SABEasyLogicBusiness.dart';
-import '../Health/SABEasyHealthBusiness.dart';
 import '../Analysis/SABEasyAnalysisBusiness.dart';
-import '../Logic/SABEasyLogicDelegate.dart';
-import '../Health/SABHealthModel.dart';
 import '../Detail/SABEasyDetailModel.dart';
+import '../Easy/SABEasyDigitModel.dart';
+import '../Health/SABEasyHealthBusiness.dart';
+import '../Logic/SABEasyLogicBusiness.dart';
+import '../Logic/SABEasyLogicDelegate.dart';
 
 class SABEasyDetailBusiness extends SABEasyLogicDelegate {
   final SABEasyDigitModel _inputEasyModel;
@@ -16,6 +12,7 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
   SABEasyLogicBusiness _logicBusiness;
   SABEasyHealthBusiness _healthBusiness;
   SABEasyDetailModel _outputDetailModel;
+  SABEasyAnalysisBusiness _analysisBusiness;
 
   ///`SABEasyHealthDelegate`
 
@@ -49,7 +46,8 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
   SABEasyDetailModel outputDetailModel() {
     if (null == _outputDetailModel) {
       //TODO:细化detailmodel
-      _outputDetailModel = SABEasyDetailModel(_healthBusiness.outHealthModel());
+      _outputDetailModel =
+          SABEasyDetailModel(_analysisBusiness.outAnalysisModel());
       _outputDetailModel.stringDetailName = easyName();
       _outputDetailModel.detailList();
     }

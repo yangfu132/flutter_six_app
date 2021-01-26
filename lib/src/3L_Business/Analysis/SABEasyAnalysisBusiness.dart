@@ -1,13 +1,12 @@
-﻿import '../../1L_Context/SACGlobal.dart';
-import '../../1L_Context/SACContext.dart';
-import '../Logic/SABEasyLogicBusiness.dart';
+﻿import '../../1L_Context/SACContext.dart';
+import '../../1L_Context/SACGlobal.dart';
+import '../EarthBranch/SABEarthBranchBusiness.dart';
+import '../Easy/SABEasyDigitModel.dart';
+import '../Easy/SABEasyWordsModel.dart';
 import '../Health/SABEasyHealthBusiness.dart';
 import '../Health/SABHealthModel.dart';
 import '../Logic/SABEasyLogicModel.dart';
 import 'SABEasyAnalysisModel.dart';
-import '../Easy/SABEasyWordsModel.dart';
-import '../Easy/SABEasyDigitModel.dart';
-import '../EarthBranch/SABEarthBranchBusiness.dart';
 
 class SABEasyAnalysisBusiness {
   final SABEasyHealthBusiness _inputHealthBusiness;
@@ -793,7 +792,7 @@ class SABEasyAnalysisBusiness {
     return wordsModel().inputDigitModel;
   }
 
-  SABEasyAnalysisModel analysisModel() {
+  SABEasyAnalysisModel outAnalysisModel() {
     if (null == _analysisModel) {
       _analysisModel =
           SABEasyAnalysisModel(_inputHealthBusiness.outHealthModel());

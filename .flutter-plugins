@@ -1,9 +1,9 @@
 # This is a generated file; do not edit or check into version control.
-audioplayers=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/audioplayers-0.15.1/
-path_provider=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/path_provider-1.6.11/
-path_provider_linux=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-0.0.1+2/
-path_provider_macos=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/path_provider_macos-0.0.4+3/
-shared_preferences=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences-0.5.8/
-shared_preferences_linux=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_linux-0.0.2+1/
-shared_preferences_macos=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_macos-0.0.1+10/
-shared_preferences_web=/Users/hyx/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_web-0.1.2+7/
+audioplayers=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/audioplayers-0.15.1/
+path_provider=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider-1.6.11/
+path_provider_linux=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_linux-0.0.1+2/
+path_provider_macos=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/path_provider_macos-0.0.4+3/
+shared_preferences=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences-0.5.8/
+shared_preferences_linux=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_linux-0.0.2+1/
+shared_preferences_macos=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_macos-0.0.1+10/
+shared_preferences_web=/Users/Shared/DevEnv/flutter/.pub-cache/hosted/pub.flutter-io.cn/shared_preferences_web-0.1.2+7/

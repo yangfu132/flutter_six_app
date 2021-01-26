@@ -1,13 +1,11 @@
-﻿import 'SABSymbolDetailModel.dart';
-import '../Health/SABHealthModel.dart';
+﻿import '../Analysis/SABEasyAnalysisModel.dart';
+import 'SABSymbolDetailModel.dart';
 
 class SABEasyDetailModel {
-  SABEasyDetailModel(this._healthModel);
-  final SABHealthModel _healthModel;
+  SABEasyDetailModel(this._analysisModel);
+  final SABEasyAnalysisModel _analysisModel;
   String stringDetailName;
   List _listSymbols;
-
-  void set() {}
 
   List detailList() {
     if (null == _listSymbols) {
@@ -52,8 +50,9 @@ class SABEasyDetailModel {
     if (null == _listSymbols) {
       _listSymbols = [];
       for (int intRow = 0; intRow < 6; intRow++) {
+        ;
         SABSymbolDetailModel model =
-            SABSymbolDetailModel(_healthModel.symbolAtRow(intRow));
+            SABSymbolDetailModel(_analysisModel.symbolAtRow(intRow));
         _listSymbols.add(model);
       }
     }
