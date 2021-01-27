@@ -1,12 +1,12 @@
-﻿import '../../1L_Context/SACGlobal.dart';
-import '../../1L_Context/SACContext.dart';
-import '../Easy/SABEasyDigitModel.dart';
-import '../Easy/SABEasyBusiness.dart';
-import '../Easy/SABElementModel.dart';
+﻿import '../../1L_Context/SACContext.dart';
+import '../../1L_Context/SACGlobal.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
+import '../Easy/SABEasyBusiness.dart';
+import '../Easy/SABEasyDigitModel.dart';
+import '../Easy/SABEasyWordsModel.dart';
+import '../Easy/SABElementModel.dart';
 import 'SABEasyLogicDelegate.dart';
 import 'SABEasyLogicModel.dart';
-import '../Easy/SABEasyWordsModel.dart';
 
 class SABEasyLogicBusiness {
   SABEasyLogicBusiness(this._inputEasyModel, this._inputDelegate);
@@ -2438,11 +2438,11 @@ class SABEasyLogicBusiness {
   }
 
   int getLifeIndex() {
-    return inputEasyWordsModel().intLifeIndex;
+    return inputEasyWordsModel().getLifeIndex();
   }
 
   int getGoalIndex() {
-    return inputEasyWordsModel().intGoalIndex;
+    return inputEasyWordsModel().getGoalIndex();
   }
 
   String symbolAtRow(int intRow, EasyTypeEnum enumEasyType) {

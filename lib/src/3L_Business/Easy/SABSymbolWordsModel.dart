@@ -5,6 +5,7 @@ class SABSymbolWordsModel {
   int intRow;
   bool bMovement;
   String stringAnimal;
+  String desOfGoalOrLife = '';
 
   /// symbol包含的字段
   /// String symbolName;

@@ -1,8 +1,8 @@
 ﻿import 'package:flutter_six_app/src/1L_Context/SACContext.dart';
 
 import '../../1L_Context/SACGlobal.dart';
-import 'SABSymbolWordsModel.dart';
 import 'SABEasyDigitModel.dart';
+import 'SABSymbolWordsModel.dart';
 
 class SABEasyWordsModel {
   final SABEasyDigitModel inputDigitModel;
@@ -16,8 +16,8 @@ class SABEasyWordsModel {
   String stringMonthSky;
   String stringMonthEarth;
 
-  int intLifeIndex;
-  int intGoalIndex;
+  int _intLifeIndex;
+  int _intGoalIndex;
   String stringFromName;
   String stringFromPlace;
   String stringFromElement;
@@ -107,6 +107,23 @@ class SABEasyWordsModel {
   }
 
   /// `Get & Set函数`///////////////////////////////////////////////////////////
+  void setLifeIndex(int intRow) {
+    this._intLifeIndex = intRow;
+    symbolAtRow(intRow).desOfGoalOrLife = "世";
+  }
+
+  int getLifeIndex() {
+    return this._intLifeIndex;
+  }
+
+  void setGoalIndex(int intRow) {
+    this._intGoalIndex = intRow;
+    symbolAtRow(intRow).desOfGoalOrLife = "应";
+  }
+
+  int getGoalIndex() {
+    return this._intGoalIndex;
+  }
 
   void setDigit(int intRow, int intDigit) {
     symbolAtRow(intRow).intDigit = intDigit;

@@ -1,10 +1,11 @@
-﻿import '../../1L_Context/SACContext.dart';
+﻿import "package:flutter_perpttual_calendar/flutter_perpttual_calendar.dart";
+
+import '../../1L_Context/SACContext.dart';
 import '../../1L_Context/SACGlobal.dart';
-import 'SABEightDiagramsModel.dart';
 import 'SABEasyDigitModel.dart';
-import 'SABElementModel.dart';
-import "package:flutter_perpttual_calendar/flutter_perpttual_calendar.dart";
 import 'SABEasyWordsModel.dart';
+import 'SABEightDiagramsModel.dart';
+import 'SABElementModel.dart';
 
 ///此Business用于将EasyModel与数据进行关联；
 class SABEasyBusiness {
@@ -340,8 +341,8 @@ class SABEasyBusiness {
       _outEasyWordsModel.mapToEasy = toEasyDictionary();
       _outEasyWordsModel.mapHideEasy = placeFirstEasy();
 
-      _outEasyWordsModel.intLifeIndex = getLifeIndex();
-      _outEasyWordsModel.intGoalIndex = _goalIndex();
+      _outEasyWordsModel.setLifeIndex(getLifeIndex());
+      _outEasyWordsModel.setGoalIndex(_goalIndex());
       _outEasyWordsModel.stringFromName = fromEasyName();
       _outEasyWordsModel.stringToName = toEasyName();
       _outEasyWordsModel.stringFromElement =

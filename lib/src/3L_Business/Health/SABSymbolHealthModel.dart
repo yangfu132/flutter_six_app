@@ -5,6 +5,6 @@ class SABSymbolHealthModel {
   final SABSymbolLogicModel inputLogicSymbol;
 
   String stringHideHealth;
-  String stringFromEasySymbolHealth;
+  String stringFromHealth;
   String stringToEasySymbolHealth;
 }

@@ -1,16 +1,26 @@
-import 'package:flutter/material.dart';
 import '../../1L_Context/SACGlobal.dart';
-import '../Health/SABSymbolHealthModel.dart';
-import '../Easy/SABSymbolWordsModel.dart';
-import '../Logic/SABSymbolLogicModel.dart';
 import '../Analysis/SABSymbolAnalysisModel.dart';
+import '../Easy/SABSymbolWordsModel.dart';
+import '../Health/SABSymbolHealthModel.dart';
+import '../Logic/SABSymbolLogicModel.dart';
 
 class SABSymbolDetailModel {
   SABSymbolDetailModel(this.inputAnalysisSymbol) {
     this.stringDeity = logicModel().getDiety(EasyTypeEnum.from);
     this.stringAnimal = wordsModel().stringAnimal;
+
+    ///stringHideSymbolH,stringFromEasySymbolH,stringToEasySymbolH
     configSymbolAndHealth();
+
+    ///stringHideMonthR,stringFromMonthR,stringToEasySymbolH
+    ///stringHideDayR,stringFromDayR,stringToDayR
     configMonthOrDayRelation();
+    this.stringHideEasy = wordsModel().getSymbolName(EasyTypeEnum.hide);
+    this.stringHealth = '???';
+    this.stringConflictOrPair = '？？？';
+    this.stringGoal = wordsModel().desOfGoalOrLife;
+    this.stringChange = '???';
+    this.stringToEasySymbolH = wordsModel().getSymbolName(EasyTypeEnum.to);
   }
 
   SABSymbolAnalysisModel inputAnalysisSymbol;
@@ -42,7 +52,7 @@ class SABSymbolDetailModel {
 
     this.stringFromEasySymbolH = wordsModel().getSymbolName(EasyTypeEnum.from) +
         '[' +
-        healthSymbol().stringFromEasySymbolHealth +
+        healthSymbol().stringFromHealth +
         ']';
 
     if (wordsModel().bMovement) {
@@ -77,6 +87,11 @@ class SABSymbolDetailModel {
       this.stringToMonthR = '';
       this.stringToDayR = '';
     }
+  }
+
+  String desOfGoalAndLife() {
+    wordsModel();
+    return '';
   }
 
   /// `加载函数`/////////////////////////////////////////////////////////////////

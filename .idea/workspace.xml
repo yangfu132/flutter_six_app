@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3eb4cc5b-c4d9-43a6-a6ab-0bdfd8a73b0a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/flutter_six_app_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/flutter_six_app_android.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/2L_UI/Home/AnimationDiceWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/2L_UI/Home/AnimationDiceWidget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/2L_UI/Home/AnimationPositionedRoute.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/2L_UI/Home/AnimationPositionedRoute.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/2L_UI/Home/AnimationRotationRoute.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/2L_UI/Home/AnimationRotationRoute.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Analysis/SABEasyAnalysisBusiness.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Analysis/SABEasyAnalysisBusiness.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Detail/SABEasyDetailBusiness.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Detail/SABEasyDetailBusiness.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Detail/SABEasyDetailModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Detail/SABEasyDetailModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Detail/SABSymbolDetailModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Detail/SABSymbolDetailModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Easy/SABEasyBusiness.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Easy/SABEasyBusiness.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Easy/SABEasyWordsModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Easy/SABEasyWordsModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Easy/SABSymbolWordsModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Easy/SABSymbolWordsModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Health/SABSymbolHealthModel.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Health/SABSymbolHealthModel.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/3L_Business/Logic/SABEasyLogicBusiness.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/3L_Business/Logic/SABEasyLogicBusiness.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,5 +72,9 @@
       <screen x="0" y="25" width="2560" height="1330" />
     </state>
     <state x="618" y="325" key="SettingsEditor/0.25.2560.1330@0.25.2560.1330" timestamp="1611653993979" />
+    <state x="1147" y="452" width="853" height="550" key="find.popup" timestamp="1611709331965">
+      <screen x="0" y="25" width="2560" height="1330" />
+    </state>
+    <state x="1147" y="452" width="853" height="550" key="find.popup/0.25.2560.1330@0.25.2560.1330" timestamp="1611709331965" />
   </component>
 </project>
