@@ -28,6 +28,13 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
     return healthBusiness().rowArrayAtOutRightLevel(level);
   }
 
+  SABEasyAnalysisBusiness analysisBusiness() {
+    if (null == _analysisBusiness) {
+      _analysisBusiness = SABEasyAnalysisBusiness(healthBusiness());
+    }
+    return _analysisBusiness;
+  }
+
   ///`加载函数`
   SABEasyLogicBusiness logicBusiness() {
     if (null == _logicBusiness) {
@@ -47,7 +54,7 @@ class SABEasyDetailBusiness extends SABEasyLogicDelegate {
     if (null == _outputDetailModel) {
       //TODO:细化detailmodel
       _outputDetailModel =
-          SABEasyDetailModel(_analysisBusiness.outAnalysisModel());
+          SABEasyDetailModel(analysisBusiness().outAnalysisModel());
       _outputDetailModel.stringDetailName = easyName();
       _outputDetailModel.detailList();
     }

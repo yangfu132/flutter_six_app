@@ -2617,16 +2617,6 @@ class SABEasyLogicBusiness {
         _outLogicModel.setIsEffectable(intRow, EasyTypeEnum.hide,
             isEffectableRow(intRow, EasyTypeEnum.hide));
 
-        ///IsSymbolDayBroken
-        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.from,
-            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.from));
-
-        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.to,
-            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.to));
-
-        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.hide,
-            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.hide));
-
         ///IsSeasonStrong
         _outLogicModel.setIsSeasonStrong(intRow, EasyTypeEnum.from,
             isSymbolSeasonStrong(symbolAtFromRow(intRow)));
@@ -2656,7 +2646,10 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setDiety(
             intRow, EasyTypeEnum.hide, dietyAtRow(intRow, EasyTypeEnum.hide));
+      }
 
+      //此信息依赖爻的基础信息
+      for (int intRow = 0; intRow < 6; intRow++) {
         ///symbolEmptyState
         _outLogicModel.setSymbolEmptyState(intRow, EasyTypeEnum.from,
             symbolEmptyState(intRow, EasyTypeEnum.from));
@@ -2666,10 +2659,17 @@ class SABEasyLogicBusiness {
 
         _outLogicModel.setSymbolEmptyState(intRow, EasyTypeEnum.hide,
             symbolEmptyState(intRow, EasyTypeEnum.hide));
-      }
 
-      //此信息依赖爻的基础信息
-      for (int intRow = 0; intRow < 6; intRow++) {
+        ///IsSymbolDayBroken
+        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.from,
+            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.from));
+
+        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.to,
+            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.to));
+
+        _outLogicModel.setIsSymbolDayBroken(intRow, EasyTypeEnum.hide,
+            isSymbolDayBrokenAtRow(intRow, EasyTypeEnum.hide));
+
         ///ConflictOnMonth
         _outLogicModel.setConflictOnMonthState(intRow, EasyTypeEnum.from,
             _symbolConflictStateOnMonth(intRow, EasyTypeEnum.from));
@@ -2680,6 +2680,7 @@ class SABEasyLogicBusiness {
         _outLogicModel.setConflictOnMonthState(intRow, EasyTypeEnum.hide,
             _symbolConflictStateOnMonth(intRow, EasyTypeEnum.hide));
 
+        ///ConflictOnDay
         _outLogicModel.setConflictOnDayState(intRow, EasyTypeEnum.from,
             _symbolDayConflictState(intRow, EasyTypeEnum.from));
 
