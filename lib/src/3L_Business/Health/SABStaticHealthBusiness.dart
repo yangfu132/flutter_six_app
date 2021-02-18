@@ -4,22 +4,23 @@ import '../Logic/SABEasyLogicBusiness.dart';
 import '../Logic/SABEasyLogicModel.dart';
 import 'SABHealthOriginBusiness.dart';
 import 'SABMoveHealthBusiness.dart';
-import 'SABHealthModel.dart';
+import 'SABStaticHealthModel.dart';
 
 ///静爻的强弱
 class SABStaticHealthBusiness {
-  SABStaticHealthBusiness(this._inputLogicBusiness, this._inputHealthModel);
+  SABStaticHealthBusiness(this._inputLogicBusiness);
+
+  SABStaticHealthModel _outStaticHealthModel;
 
   SABMoveHealthBusiness _moveBusiness;
   final SABEasyLogicBusiness _inputLogicBusiness;
-  final SABHealthModel _inputHealthModel;
 
   void calculateHealthAtLevel4Row(int item, EasyTypeEnum easyType) {
     double basicHealth = symbolHealthAtRow(item, easyType);
     List arrayEffectsInLevel4 = effectingArrayAtLevel4Row(item, easyType);
 
     for (int itemEffects in arrayEffectsInLevel4) {
-      if (_inputHealthModel.isUnFinish(itemEffects)) {
+      if (outStaticHealthModel().isUnFinish(itemEffects)) {
         calculateHealthAtLevel4Row(itemEffects, easyType);
       }
       //else cont.
@@ -27,15 +28,15 @@ class SABStaticHealthBusiness {
       basicHealth += moveBusiness()
           .adjustHealthAtRow(item, easyType, itemEffects, easyType);
     } //endf
-    _inputHealthModel.setHealth(basicHealth, item);
-    _inputHealthModel.addToFinishArray(item);
+    outStaticHealthModel().setHealth(basicHealth, item);
+    outStaticHealthModel().addToFinishArray(item);
   }
 
   double symbolHealthAtRow(int nRow, EasyTypeEnum easyType) {
     double fHealth = 0.0;
 
     if (EasyTypeEnum.from == easyType) {
-      fHealth = _inputHealthModel.getHealth(nRow);
+      fHealth = outStaticHealthModel().getHealth(nRow);
     } else if (EasyTypeEnum.to == easyType) {
       fHealth = moveBusiness().toSymbolHealthAtRow(nRow);
     } else if (EasyTypeEnum.hide == easyType) {
@@ -60,7 +61,7 @@ class SABStaticHealthBusiness {
         } else {
           bool allFinish = true;
           for (int itemEffects in arrayEffects) {
-            if (_inputHealthModel.isUnFinish(itemEffects)) {
+            if (outStaticHealthModel().isUnFinish(itemEffects)) {
               allFinish = false;
               break;
             }
@@ -85,20 +86,20 @@ class SABStaticHealthBusiness {
     List arrayLevel4 =
         originBusiness().rowArrayAtOutRightLevel(OutRightEnum.RIGHT_STATIC);
     for (int item in arrayLevel4) {
-      if (_inputHealthModel.isUnFinish(item)) {
+      if (outStaticHealthModel().isUnFinish(item)) {
         double basicHealth = baseHealthAtLevel4Row(item, EasyTypeEnum.from);
-        _inputHealthModel.setHealth(basicHealth, item);
+        outStaticHealthModel().setHealth(basicHealth, item);
       }
       //else cont.
     } //endf
 
     bool bHasBegin4 = isLevel4HasBegin();
     for (int item in arrayLevel4) {
-      if (_inputHealthModel.isUnFinish(item)) {
+      if (outStaticHealthModel().isUnFinish(item)) {
         if (bHasBegin4)
           calculateHealthAtLevel4Row(item, EasyTypeEnum.from);
         else
-          _inputHealthModel.addToFinishArray(item);
+          outStaticHealthModel().addToFinishArray(item);
       }
       //else cont.
     } //endi
@@ -114,7 +115,7 @@ class SABStaticHealthBusiness {
         moveBusiness().effectingArrayAtLevel3Row(nRow, easyType);
 
     for (int itemEffects in arrayEffectsInLevel3) {
-      if (_inputHealthModel.isUnFinish(itemEffects)) {
+      if (outStaticHealthModel().isUnFinish(itemEffects)) {
         moveBusiness().calculateHealthOfMove(itemEffects, easyType);
       } else {
         basicHealth += moveBusiness()
@@ -174,7 +175,7 @@ class SABStaticHealthBusiness {
         moveBusiness().effectingArrayAtLevel6Row(nRow, easyType);
 
     for (int itemEffects in arrayEffects) {
-      if (_inputHealthModel.isUnFinish(itemEffects)) {
+      if (outStaticHealthModel().isUnFinish(itemEffects)) {
         if (OutRightEnum.RIGHT_MOVE ==
             originBusiness().symbolOutRightAtRow(nRow, easyType)) {
           moveBusiness().calculateHealthOfMove(itemEffects, easyType);
@@ -208,13 +209,19 @@ class SABStaticHealthBusiness {
 
   SABMoveHealthBusiness moveBusiness() {
     if (null == _moveBusiness) {
-      _moveBusiness =
-          SABMoveHealthBusiness(_inputLogicBusiness, _inputHealthModel);
+      _moveBusiness = SABMoveHealthBusiness(_inputLogicBusiness);
     }
     return _moveBusiness;
   }
 
   SABEasyLogicModel logicModel() {
     return _inputLogicBusiness.outLogicModel();
+  }
+
+  SABStaticHealthModel outStaticHealthModel() {
+    if (null == _outStaticHealthModel) {
+      _outStaticHealthModel = SABStaticHealthModel();
+    }
+    return _outStaticHealthModel;
   }
 }

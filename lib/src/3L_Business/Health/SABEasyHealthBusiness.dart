@@ -125,14 +125,16 @@ class SABEasyHealthBusiness {
       _outHealthModel = SABHealthModel(_inputLogicBusiness.outLogicModel());
       _outHealthModel.listMoveRight =
           rowArrayAtOutRightLevel(OutRightEnum.RIGHT_MOVE);
+      for (int intRow = 0; intRow < 6; intRow++) {
+        // _outHealthModel.symbolAtRow(;
+      }
     }
     return _outHealthModel;
   }
 
   SABStaticHealthBusiness staticBusiness() {
     if (null == _staticBusiness) {
-      _staticBusiness =
-          SABStaticHealthBusiness(_inputLogicBusiness, outHealthModel());
+      _staticBusiness = SABStaticHealthBusiness(_inputLogicBusiness);
     }
     return _staticBusiness;
   }

@@ -44,12 +44,13 @@ class SABSymbolDetailModel {
   void configSymbolAndHealth() {
     if ('用神' == this.stringDeity) {
       this.stringHideSymbolH = wordsModel().getSymbolName(EasyTypeEnum.hide) +
-          '[' +
-          healthSymbol().stringHideHealth +
-          ']';
+              '[' +
+              healthSymbol().stringHideHealth ??
+          '??' + ']';
     } else
       this.stringHideSymbolH = '';
 
+    healthSymbol().stringFromHealth ??= '??';
     this.stringFromEasySymbolH = wordsModel().getSymbolName(EasyTypeEnum.from) +
         '[' +
         healthSymbol().stringFromHealth +
@@ -57,9 +58,9 @@ class SABSymbolDetailModel {
 
     if (wordsModel().bMovement) {
       this.stringToEasySymbolH = wordsModel().getSymbolName(EasyTypeEnum.to) +
-          '[' +
-          healthSymbol().stringHideHealth +
-          ']';
+              '[' +
+              healthSymbol().stringHideHealth ??
+          '??' + ']';
     } else
       this.stringToEasySymbolH = '';
   }
