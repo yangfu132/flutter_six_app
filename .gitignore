@@ -22,3 +22,6 @@ doc/api/
 .idea/codeStyles/Project.xml
 .idea/libraries/Dart_Packages.xml
 .idea/libraries/Flutter_Plugins.xml
+.flutter-plugins
+flutter_six_app.iml
+.idea/workspace.xml~01447e0eb70c4b5d38e822eb374c5e7845322fba
