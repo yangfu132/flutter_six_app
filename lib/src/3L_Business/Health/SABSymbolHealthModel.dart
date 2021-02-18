@@ -6,5 +6,5 @@ class SABSymbolHealthModel {
 
   String stringHideHealth;
   String stringFromHealth;
-  String stringToEasySymbolHealth;
+  String stringToHealth;
 }
