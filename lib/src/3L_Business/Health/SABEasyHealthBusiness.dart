@@ -3,6 +3,7 @@ import '../Logic/SABEasyLogicBusiness.dart';
 import 'SABStaticHealthBusiness.dart';
 import 'SABHealthOriginBusiness.dart';
 import 'SABHealthModel.dart';
+import 'SABHealthOriginModel.dart';
 
 class SABEasyHealthBusiness {
   SABEasyHealthBusiness(this._inputLogicBusiness);
@@ -63,9 +64,9 @@ class SABEasyHealthBusiness {
     if (0 <= usefulIndex && usefulIndex < 6) {
       fResult = outHealthModel().getHealth(usefulIndex);
     } else if (ROW_MONTH == usefulIndex) {
-      fResult = originBusiness().monthHealthValue();
+      fResult = originModel().monthHealthValue();
     } else if (ROW_DAY == usefulIndex) {
-      fResult = originBusiness().dayHealthValue();
+      fResult = originModel().dayHealthValue();
     } else {
       int hideIndex = usefulIndex - ROW_FLY_BEGIN;
       fResult = staticBusiness().hideSymbolHealthAtRow(hideIndex);
@@ -141,5 +142,9 @@ class SABEasyHealthBusiness {
 
   SABHealthOriginBusiness originBusiness() {
     return staticBusiness().moveBusiness().originBusiness();
+  }
+
+  SABHealthOriginModel originModel() {
+    return originBusiness().outOriginModel();
   }
 }

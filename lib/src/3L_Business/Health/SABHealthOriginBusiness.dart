@@ -3,6 +3,7 @@ import '../../1L_Context/SACContext.dart';
 import '../Logic/SABEasyLogicBusiness.dart';
 import '../Logic/SABEasyLogicModel.dart';
 import '../EarthBranch/SABEarthBranchBusiness.dart';
+import 'SABHealthOriginModel.dart';
 
 /*
  
@@ -80,12 +81,15 @@ import '../EarthBranch/SABEarthBranchBusiness.dart';
  最后还是看生命值的大小，所以说基本面的东西才是最重要的
  
  */
+
 class SABHealthOriginBusiness {
   SABHealthOriginBusiness(this._inputLogicBusiness);
 
   final SABEasyLogicBusiness _inputLogicBusiness;
 
   final SABEarthBranchBusiness _branchBusiness = SABEarthBranchBusiness();
+
+  SABHealthOriginModel _originModel;
 
   ///`基础函数`//////////////////////////////////////////////////////
 
@@ -109,20 +113,14 @@ class SABHealthOriginBusiness {
 
   double healthMonthPair() {
     double fResult = 0.0;
-    int siIndex = arraySeason().indexOf("死");
-    int xiangIndex = arraySeason().indexOf("相");
+    int siIndex = outOriginModel().arraySeason().indexOf("死");
+    int xiangIndex = outOriginModel().arraySeason().indexOf("相");
     if (-1 != siIndex && -1 != xiangIndex) {
       fResult = intervalSeason() * (siIndex - xiangIndex);
     } else
       colog("error!");
 
     return fResult;
-  }
-
-  List arraySeason() {
-    List arrayStrong = ["旺", "相", "余气", "休", "囚", "死"];
-
-    return arrayStrong;
   }
 
   ///原函数名rowArrayAtLevel
@@ -139,14 +137,6 @@ class SABHealthOriginBusiness {
   }
 
   ///`基础health （只计算日月的影响）`///////////////////////////////////////////////
-
-  double dayHealthValue() {
-    return 100.0;
-  }
-
-  double monthHealthValue() {
-    return 100.0;
-  }
 
   double earthHealthAtTwelveDeity(String basicEarth, String atEarth) {
     double fResult = 1.0;
@@ -365,14 +355,6 @@ class SABHealthOriginBusiness {
 
   ///`输出值与输出权`//////////////////////////////////////////////////////
 
-  double dayOutRight() {
-    return 100;
-  }
-
-  double monthOutRight() {
-    return 100;
-  }
-
   OutRightEnum symbolOutRightAtRow(int nRow, EasyTypeEnum easyType) {
     OutRightEnum fResult = OutRightEnum.RIGHT_NULL;
 
@@ -532,5 +514,12 @@ class SABHealthOriginBusiness {
   ///`加载函数`//////////////////////////////////////////////////////
   SABEasyLogicModel logicModel() {
     return _inputLogicBusiness.outLogicModel();
+  }
+
+  SABHealthOriginModel outOriginModel() {
+    if (null == _originModel) {
+      _originModel = SABHealthOriginModel();
+    }
+    return _originModel;
   }
 }
