@@ -9,7 +9,7 @@ class RotationDemoRoute extends StatefulWidget {
 
 class RotationDemoRouteState extends State<RotationDemoRoute>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late final AnimationController _controller;
   @override
   void initState() {
     super.initState();

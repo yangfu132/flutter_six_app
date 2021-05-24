@@ -1,5 +1,6 @@
-import 'dart:math';
 import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class AnimationMutileImage extends StatefulWidget {
@@ -8,12 +9,11 @@ class AnimationMutileImage extends StatefulWidget {
   final double height;
   final Color backColor;
   final bool bRandom;
-  final bool bCancel;
+  final bool? bCancel;
   AnimationMutileImage(
       this.imageCaches, this.width, this.height, this.backColor, this.bRandom,
-      {Key key, this.bCancel})
-      : assert(imageCaches != null),
-        super(key: key);
+      {this.bCancel})
+      : assert(imageCaches != null);
 
   @override
   State<StatefulWidget> createState() {
@@ -22,17 +22,14 @@ class AnimationMutileImage extends StatefulWidget {
 }
 
 class _WOActionImageState extends State<AnimationMutileImage> {
-  bool _disposed;
-  Duration _duration;
-  int _imageIndex;
-  Container _container;
-  Timer _timer;
+  bool _disposed = false;
+  Duration _duration = Duration(milliseconds: 50);
+  int _imageIndex = 1;
+  late Container _container;
+  late Timer _timer;
   @override
   void initState() {
     super.initState();
-    _disposed = false;
-    _duration = Duration(milliseconds: 50);
-    _imageIndex = 1;
     _container = Container(height: widget.height, width: widget.width);
     _updateImage();
   }
@@ -46,7 +43,7 @@ class _WOActionImageState extends State<AnimationMutileImage> {
       if (_imageIndex > widget.imageCaches.length) {
         _imageIndex = 1;
       }
-      Image imageValue = widget.imageCaches[_imageIndex];
+      Image imageValue = widget.imageCaches[_imageIndex]!;
 
       _container = Container(
         color: widget.backColor,

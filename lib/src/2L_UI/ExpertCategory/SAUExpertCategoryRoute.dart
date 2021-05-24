@@ -1,8 +1,9 @@
 ﻿import 'package:flutter/material.dart';
-import '../EasyResult/SAUEasyResultRoute.dart';
+
 import '../../3L_Business/Easy/SABEasyDigitModel.dart';
 import '../../3L_Business/Result/SABEasyResultBusiness.dart';
 import '../../3L_Business/Result/SABEasyResultModel.dart';
+import '../EasyResult/SAUEasyResultRoute.dart';
 
 class SAUExpertCategoryRoute extends StatefulWidget {
   SAUExpertCategoryRoute(this.inputEasyModel);
@@ -15,7 +16,7 @@ class SAUExpertCategoryRoute extends StatefulWidget {
 }
 
 class _SAUExpertCategoryRoute extends State<SAUExpertCategoryRoute> {
-  SABEasyResultBusiness detailBusiness;
+  late final SABEasyResultBusiness detailBusiness;
   SABEasyResultModel outputResultModel = SABEasyResultModel();
 
   @override

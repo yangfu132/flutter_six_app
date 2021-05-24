@@ -15,7 +15,7 @@ class SABEasyAnalysisBusiness {
 
   SABEasyAnalysisBusiness(this._inputHealthBusiness);
 
-  SABEasyAnalysisModel _analysisModel;
+  late SABEasyAnalysisModel _analysisModel;
 
   ///`basic`//////////////////////////////////////////////////////
 

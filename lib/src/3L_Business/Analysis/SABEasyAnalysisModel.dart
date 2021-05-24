@@ -1,12 +1,12 @@
-import 'SABSymbolAnalysisModel.dart';
-import '../Health/SABHealthModel.dart';
 import '../../1L_Context/SACGlobal.dart';
+import '../Health/SABHealthModel.dart';
+import 'SABSymbolAnalysisModel.dart';
 
 class SABEasyAnalysisModel {
   SABEasyAnalysisModel(this.inputHealthModel);
   final SABHealthModel inputHealthModel;
 
-  List _listSymbols;
+  late List _listSymbols;
 
   /// `Public`//////////////////////////////////////////////////////////////
 

@@ -1,16 +1,18 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
-import '../../1L_Context/SACContext.dart';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
+
+import '../../1L_Context/SACContext.dart';
+import '../../3L_Business/Easy/SABEasyDigitModel.dart';
+import '../EasyExpertResult/SAUEasyExpertResultRoute.dart';
 // import 'package:flutter/src/foundation/constants.dart';
 import 'AnimationDiceWidget.dart';
-import '../EasyExpertResult/SAUEasyExpertResultRoute.dart';
-import '../../3L_Business/Easy/SABEasyDigitModel.dart';
 
 class SAUHomeBody extends StatefulWidget {
-  SAUHomeBody({Key key, this.title}) : super(key: key);
-  final String title;
+  SAUHomeBody({this.title});
+  final String? title;
   @override
   SAUHomeBodyState createState() {
     return SAUHomeBodyState();
@@ -20,7 +22,7 @@ class SAUHomeBody extends StatefulWidget {
 class SAUHomeBodyState extends State<SAUHomeBody> {
   AudioCache audioCache = AudioCache();
   AudioPlayer advancedPlayer = AudioPlayer();
-  AnimationDiceWidget animationWidget;
+  AnimationDiceWidget animationWidget = AnimationDiceWidget(() {});
   bool _bAnimation = false;
   @override
   void initState() {
@@ -37,8 +39,6 @@ class SAUHomeBodyState extends State<SAUHomeBody> {
       }
       advancedPlayer.startHeadlessService();
     }
-
-    animationWidget = AnimationDiceWidget(() {});
   }
 
   @override

@@ -1,8 +1,9 @@
 ﻿import 'package:flutter/material.dart';
-import '../EasyResult/SAUEasyResultRoute.dart';
-import '../../3L_Business/Easy/SABEasyDigitModel.dart';
+
 import '../../3L_Business/Detail/SABEasyDetailBusiness.dart';
 import '../../3L_Business/Detail/SABEasyDetailModel.dart';
+import '../../3L_Business/Easy/SABEasyDigitModel.dart';
+import '../EasyResult/SAUEasyResultRoute.dart';
 
 class SAUEasyDetailRoute extends StatefulWidget {
   SAUEasyDetailRoute(this.inputEasyModel);
@@ -15,7 +16,7 @@ class SAUEasyDetailRoute extends StatefulWidget {
 }
 
 class _SAUEasyDetailRouteState extends State<SAUEasyDetailRoute> {
-  SABEasyDetailBusiness detailBusiness;
+  late final SABEasyDetailBusiness detailBusiness;
 
   @override
   void initState() {

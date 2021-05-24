@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_six_app/src/1L_Context/SACContext.dart';
+
 import 'AnimationMutileImage.dart';
 
 ///note：三个色子转动的动画
@@ -16,14 +17,14 @@ class AnimationDiceWidget extends StatefulWidget {
 
 class AnimationDiceState extends State<AnimationDiceWidget>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Offset> _animationOffset1;
-  Animation<Offset> _animationOffset2;
-  Animation<Offset> _animationOffset3;
-  Widget dice1;
-  Widget dice2;
-  Widget dice3;
-  AnimationMutileImage images;
+  late final AnimationController _controller;
+  late final Animation<Offset> _animationOffset1;
+  late final Animation<Offset> _animationOffset2;
+  late final Animation<Offset> _animationOffset3;
+  late final Widget dice1;
+  late final Widget dice2;
+  late final Widget dice3;
+  late final AnimationMutileImage images;
   bool _bFinish = false;
 
   @override

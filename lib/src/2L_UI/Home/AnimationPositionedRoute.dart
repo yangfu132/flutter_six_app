@@ -9,9 +9,9 @@ class AnimationPositionedRoute extends StatefulWidget {
 
 class AnimationPositionedRouteState extends State<AnimationPositionedRoute>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<RelativeRect> _animation;
-  Animation _curve;
+  late final AnimationController _controller;
+  late final Animation<RelativeRect> _animation;
+  late final Animation<double> _curve;
   @override
   void initState() {
     super.initState();
